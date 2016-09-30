@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 
 #added in etau and mutau triggers
-from MonoHTauTau.Configuration.tools.analysisTools_monohiggs import *
+from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
 defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 

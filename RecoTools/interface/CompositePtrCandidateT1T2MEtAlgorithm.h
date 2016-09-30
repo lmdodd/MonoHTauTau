@@ -29,7 +29,6 @@
 #include "DataFormats/HepMCCandidate/interface/GenStatusFlags.h"
 
 #include "MonoHTauTau/RecoTools/interface/candidateAuxFunctions.h"
-#include "MonoHTauTau/RecoTools/interface/VBFMVA.h"
 
 #include "RecoVertex/VertexPrimitives/interface/TransientVertex.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrack.h"
