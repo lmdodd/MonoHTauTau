@@ -26,7 +26,7 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 
-#include "UWAnalysis/RecoTools/interface/PATTauClusterVariables.h"
+#include "MonoHTauTau/RecoTools/interface/PATTauClusterVariables.h"
 
 #include "Math/GenVector/VectorUtil.h"
 //

@@ -14,7 +14,7 @@
 #include "DataFormats/METReco/interface/PFMET.h"
 #include "DataFormats/METReco/interface/GenMET.h"
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
@@ -144,8 +144,8 @@ class VertexFiller : public NtupleFillerBase {
 		int visValid;
 };
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 typedef VertexFiller<PATMuMuMuMuQuad> MuMuMuMuVertexFiller;
 typedef VertexFiller<PATMuMuEleEleQuad> MuMuEleEleVertexFiller;
 typedef VertexFiller<PATEleEleMuMuQuad> EleEleMuMuVertexFiller;

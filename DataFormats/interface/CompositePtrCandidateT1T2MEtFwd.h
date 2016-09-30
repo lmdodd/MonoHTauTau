@@ -1,8 +1,8 @@
-#ifndef UWAnalysis_DataFormats_CompositePtrCandidateT1T2MEtFwd_h
-#define UWAnalysis_DataFormats_CompositePtrCandidateT1T2MEtFwd_h
+#ifndef MonoHTauTau_DataFormats_CompositePtrCandidateT1T2MEtFwd_h
+#define MonoHTauTau_DataFormats_CompositePtrCandidateT1T2MEtFwd_h
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
 
 #include "DataFormats/Common/interface/Ref.h"
 #include "DataFormats/Common/interface/RefProd.h"

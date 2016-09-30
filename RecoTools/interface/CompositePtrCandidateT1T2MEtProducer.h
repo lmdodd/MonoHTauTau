@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtProducer_h
-#define UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtProducer_h
+#ifndef MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtProducer_h
+#define MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtProducer_h
 
 /** \class CompositePtrCandidateT1T2MEtProducer
  *
@@ -31,13 +31,13 @@
 
 #include "DataFormats/Math/interface/deltaR.h"
 
-#include "UWAnalysis/RecoTools/interface/FetchCollection.h"
+#include "MonoHTauTau/RecoTools/interface/FetchCollection.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
 
-#include "UWAnalysis/RecoTools/interface/CompositePtrCandidateT1T2MEtAlgorithm.h"
-#include "UWAnalysis/RecoTools/interface/CompositePtrCandidateT1T2MEtVertexAlgorithm.h"
+#include "MonoHTauTau/RecoTools/interface/CompositePtrCandidateT1T2MEtAlgorithm.h"
+#include "MonoHTauTau/RecoTools/interface/CompositePtrCandidateT1T2MEtVertexAlgorithm.h"
 
 #include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"

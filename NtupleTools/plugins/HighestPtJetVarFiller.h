@@ -8,7 +8,7 @@
 
 #include <TTree.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 
 //
 // class decleration
@@ -73,8 +73,8 @@ class HighestPtJetVarFiller : public NtupleFillerBase {
 };
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 typedef HighestPtJetVarFiller<PATMuTauPair> PATMuTauPairHighestPtJetVarFiller;
 typedef HighestPtJetVarFiller<PATMuJetPair> PATMuJetPairHighestPtJetVarFiller;
 typedef HighestPtJetVarFiller<PATMuPair> PATMuPairHighestPtJetVarFiller;

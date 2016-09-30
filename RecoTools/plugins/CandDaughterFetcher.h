@@ -11,8 +11,8 @@
 #include "DataFormats/RecoCandidate/interface/RecoChargedCandidate.h"
 #include "Math/GenVector/VectorUtil.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
 
 // class decleration
 //

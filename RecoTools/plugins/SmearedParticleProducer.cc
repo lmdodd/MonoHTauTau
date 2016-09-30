@@ -1,4 +1,4 @@
-#include "UWAnalysis/RecoTools/plugins/SmearedParticleProducer.h"
+#include "MonoHTauTau/RecoTools/plugins/SmearedParticleProducer.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 typedef SmearedParticleProducer<pat::Muon,GenParticleRetriever<pat::Muon> > SmearedMuonProducer;
 typedef SmearedParticleProducer<pat::Electron,GenParticleRetriever<pat::Electron> > SmearedElectronProducer;

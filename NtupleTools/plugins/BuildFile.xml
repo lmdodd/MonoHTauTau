@@ -1,6 +1,6 @@
 <export>
 </export>
-<library   name="UWAnalysisNtupleTools_plugins" file="*.cc">
+<library   name="MonoHTauTauNtupleTools_plugins" file="*.cc">
   <use   name="FWCore/Framework"/>
   <use   name="FWCore/MessageLogger"/>
   <use   name="FWCore/PluginManager"/>
@@ -20,8 +20,8 @@
   <use   name="RecoTauTag/RecoTau"/>
   <use   name="RecoTauTag/TauTagTools"/>
   <use   name="DataFormats/HepMCCandidate"/>
-  <use   name="UWAnalysis/NtupleTools"/>
-  <use   name="UWAnalysis/DataFormats"/>
+  <use   name="MonoHTauTau/NtupleTools"/>
+  <use   name="MonoHTauTau/DataFormats"/>
   <use   name="HTT-utilities/LepEffInterface"/>
   <use   name="CondTools/BTau"/>
   <use   name="CommonTools/UtilAlgos"/>

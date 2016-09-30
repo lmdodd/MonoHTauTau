@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_NtupleTools_NtupleFillerBase_h 
-#define UWAnalysis_NtupleTools_NtupleFillerBase_h
+#ifndef MonoHTauTau_NtupleTools_NtupleFillerBase_h 
+#define MonoHTauTau_NtupleTools_NtupleFillerBase_h
 
 #include <iostream>
 #include "FWCore/Framework/interface/Frameworkfwd.h"

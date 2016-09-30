@@ -1,5 +1,5 @@
-#ifndef __UWAnalysis_DataFormats_Analysis_CompositeRefCandidateT1T2MEt_h__
-#define __UWAnalysis_DataFormats_Analysis_CompositeRefCandidateT1T2MEt_h__
+#ifndef __MonoHTauTau_DataFormats_Analysis_CompositeRefCandidateT1T2MEt_h__
+#define __MonoHTauTau_DataFormats_Analysis_CompositeRefCandidateT1T2MEt_h__
 
 #include "TMatrixD.h"
 
@@ -16,7 +16,7 @@
 #include "DataFormats/Common/interface/Ptr.h"
 
 
-#include "UWAnalysis/DataFormats/interface/tauAnalysisAuxFunctions.h"
+#include "MonoHTauTau/DataFormats/interface/tauAnalysisAuxFunctions.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 

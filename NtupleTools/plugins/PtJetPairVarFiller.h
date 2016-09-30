@@ -10,7 +10,7 @@
 
 #include <TTree.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "CommonTools/UtilAlgos/interface/StringCutObjectSelector.h"
 
 //
@@ -93,8 +93,8 @@ class PtJetPairVarFiller : public NtupleFillerBase {
 };
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 typedef PtJetPairVarFiller<PATMuTauPair> PATMuTauPairPtJetPairVarFiller;
 typedef PtJetPairVarFiller<PATElecTauPair> PATEleTauPairPtJetPairVarFiller;
 

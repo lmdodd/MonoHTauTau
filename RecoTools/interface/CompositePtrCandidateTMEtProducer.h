@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_RecoTools_CompositePtrCandidateTMEtProducer_h
-#define UWAnalysis_RecoTools_CompositePtrCandidateTMEtProducer_h
+#ifndef MonoHTauTau_RecoTools_CompositePtrCandidateTMEtProducer_h
+#define MonoHTauTau_RecoTools_CompositePtrCandidateTMEtProducer_h
 
 /** \class CompositePtrCandidateTMEtProducer
  *
@@ -29,11 +29,11 @@
 
 #include "DataFormats/Math/interface/deltaR.h"
 
-#include "UWAnalysis/RecoTools/interface/FetchCollection.h"
+#include "MonoHTauTau/RecoTools/interface/FetchCollection.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEtFwd.h"
-#include "UWAnalysis/RecoTools/interface/CompositePtrCandidateTMEtAlgorithm.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEtFwd.h"
+#include "MonoHTauTau/RecoTools/interface/CompositePtrCandidateTMEtAlgorithm.h"
 
 #include <string>
 

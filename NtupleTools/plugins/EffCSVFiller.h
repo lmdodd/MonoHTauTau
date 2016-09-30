@@ -9,7 +9,7 @@
 
 #include "TRandom3.h"
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 
 #include "CondFormats/BTauObjects/interface/BTagCalibration.h"
 #include "CondTools/BTau/interface/BTagCalibrationReader.h"
@@ -46,7 +46,7 @@ class EffCSVFiller : public NtupleFillerBase {
 		t->Branch("EffCSVWeight1Down",&value[11],"EffCSVWeight1Down/F");
 		t->Branch("EffCSVWeight1DownHF",&value[12],"EffCSVWeight1DownHF/F");
 		t->Branch("EffCSVWeight1DownLF",&value[13],"EffCSVWeight1DownLF/F");
-		calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/UWAnalysis/Configuration/data/CSVv2_ichep.csv");
+		calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/MonoHTauTau/Configuration/data/CSVv2_ichep.csv");
 		//reader=new BTagCalibrationReader(calib, BTagEntry::OP_MEDIUM, "comb", "central");
 		reader=BTagCalibrationReader(BTagEntry::OP_MEDIUM, "central",{"up","down"});
 		reader.load(calib, BTagEntry::FLAV_B, "comb");
@@ -163,8 +163,8 @@ class EffCSVFiller : public NtupleFillerBase {
 };
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 
 typedef EffCSVFiller<PATMuTauPair> PATMuTauPairEffCSVFiller;
 typedef EffCSVFiller<PATElecTauPair> PATEleTauPairEffCSVFiller;

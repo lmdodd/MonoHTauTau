@@ -7,13 +7,13 @@
 #include "TH2D.h"
 #include <TFile.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 
 #include "CommonTools/Utils/interface/StringObjectFunction.h"
 #include "boost/filesystem.hpp"
-#include "UWAnalysis/NtupleTools/plugins/HTTTnP.C"
+#include "MonoHTauTau/NtupleTools/plugins/HTTTnP.C"
 
 //
 // class decleration
@@ -36,9 +36,9 @@ class EventWeightFillerTmp : public NtupleFillerBase {
 		t->Branch("mytrigweight_1",&value[1],"mytrigweight_1/F");
 		t->Branch((tag_+"EffWeight").c_str(),&value[2],(tag_+"EffWeight/F").c_str());
 		std::string base = std::getenv("CMSSW_BASE");
-		std::string fMuonTrigger =   "/src/UWAnalysis/Configuration/data/IsoMuSoup.root";
-		std::string fEleTrigger =   "/src/UWAnalysis/Configuration/data/2016_EleSoup.root";
-		//std::string fEleTrigger =   "/src/UWAnalysis/Configuration/data/EleSoup.root";
+		std::string fMuonTrigger =   "/src/MonoHTauTau/Configuration/data/IsoMuSoup.root";
+		std::string fEleTrigger =   "/src/MonoHTauTau/Configuration/data/2016_EleSoup.root";
+		//std::string fEleTrigger =   "/src/MonoHTauTau/Configuration/data/EleSoup.root";
 		std::string fileTrig;
 		if (isMu_) {
 			fileTrig= base+fMuonTrigger;
@@ -117,8 +117,8 @@ class EventWeightFillerTmp : public NtupleFillerBase {
 
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 
 typedef EventWeightFillerTmp<PATMuTauPair> PATMuTauPairWeightFillerTmp;
 typedef EventWeightFillerTmp<PATElecTauPair> PATEleTauPairWeightFillerTmp;

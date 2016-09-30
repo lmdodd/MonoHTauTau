@@ -14,13 +14,13 @@
 #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 
 
-#include "UWAnalysis/RecoTools/interface/FetchCollection.h"
+#include "MonoHTauTau/RecoTools/interface/FetchCollection.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
 
-#include "UWAnalysis/RecoTools/interface/candidateAuxFunctions.h"
-#include "UWAnalysis/RecoTools/interface/generalAuxFunctions.h"
+#include "MonoHTauTau/RecoTools/interface/candidateAuxFunctions.h"
+#include "MonoHTauTau/RecoTools/interface/generalAuxFunctions.h"
 
 template<typename T1, typename T2>
 class MiniAODLeptonIso : public edm::EDProducer

@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtAlgorithm_h
-#define UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtAlgorithm_h
+#ifndef MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtAlgorithm_h
+#define MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtAlgorithm_h
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/EDProducer.h"
@@ -16,7 +16,7 @@
 #include "DataFormats/Math/interface/normalizedPhi.h"
 #include "FWCore/ParameterSet/interface/FileInPath.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
 
 #include "DataFormats/Candidate/interface/CandidateFwd.h" 
 #include "DataFormats/Candidate/interface/Candidate.h" 
@@ -28,8 +28,8 @@
 
 #include "DataFormats/HepMCCandidate/interface/GenStatusFlags.h"
 
-#include "UWAnalysis/RecoTools/interface/candidateAuxFunctions.h"
-#include "UWAnalysis/RecoTools/interface/VBFMVA.h"
+#include "MonoHTauTau/RecoTools/interface/candidateAuxFunctions.h"
+#include "MonoHTauTau/RecoTools/interface/VBFMVA.h"
 
 #include "RecoVertex/VertexPrimitives/interface/TransientVertex.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrack.h"

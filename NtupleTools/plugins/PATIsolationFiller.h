@@ -6,7 +6,7 @@
 #include "DataFormats/PatCandidates/interface/LookupTableRecord.h"
 #include <TTree.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 
 //
 // class decleration
@@ -106,8 +106,8 @@ class PATIsolationFiller : public NtupleFillerBase {
 };
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 typedef PATIsolationFiller<PATMuPair> PATMuPairIsolationFiller;
 typedef PATIsolationFiller<pat::Muon> PATMuonFiller;
 

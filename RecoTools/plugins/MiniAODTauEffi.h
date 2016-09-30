@@ -48,7 +48,7 @@ class MiniAODTauEffi : public edm::EDProducer {
 
                //Get the Json! 
                std::string base = std::getenv("CMSSW_BASE");
-               std::string fpath =   "/src/UWAnalysis/Configuration/data/";
+               std::string fpath =   "/src/MonoHTauTau/Configuration/data/";
                std::string file = base+fpath+jsonname;
 
                //load the json

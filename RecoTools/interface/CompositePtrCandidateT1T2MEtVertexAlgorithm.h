@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtVertexAlgorithm_h
-#define UWAnalysis_RecoTools_CompositePtrCandidateT1T2MEtVertexAlgorithm_h
+#ifndef MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtVertexAlgorithm_h
+#define MonoHTauTau_RecoTools_CompositePtrCandidateT1T2MEtVertexAlgorithm_h
 
 
 #include "TrackingTools/TrajectoryState/interface/TrajectoryStateOnSurface.h"

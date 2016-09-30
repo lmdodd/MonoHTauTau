@@ -1,5 +1,5 @@
-#include "UWAnalysis/RecoTools/interface/CompositePtrCandidateT1T2MEtProducer.h"
-#include "UWAnalysis/RecoTools/plugins/DiCandidatePairProducer.h" 
+#include "MonoHTauTau/RecoTools/interface/CompositePtrCandidateT1T2MEtProducer.h"
+#include "MonoHTauTau/RecoTools/plugins/DiCandidatePairProducer.h" 
 
 #include "FWCore/Framework/interface/MakerMacros.h"
 

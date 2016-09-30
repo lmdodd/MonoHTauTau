@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 
 #added in etau and mutau triggers
-from UWAnalysis.Configuration.tools.analysisToolsXTauTau import *
+from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
 defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 
@@ -76,7 +76,7 @@ defaultReconstructionMC(process,'HLT',
 
 
         #EventSelection
-process.load("UWAnalysis.Configuration.monohiggs_cff")
+process.load("MonoHTauTau.Configuration.monohiggs_cff")
 
 process.metCalibration.applyCalibration = cms.bool(False)
 
@@ -113,15 +113,15 @@ createGeneratedParticles(process,
         )
 
 
-from UWAnalysis.Configuration.tools.ntupleToolsXTauTau import addMuTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsXTauTau import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from UWAnalysis.Configuration.tools.ntupleToolsXTauTau import addEleTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsXTauTau import addEleTauEventTree
 addEleTauEventTree(process,'eleTauEventTree')
 addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
-from UWAnalysis.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
 addDiTauEventTree(process,'diTauEventTree')
 addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 

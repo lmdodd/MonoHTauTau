@@ -53,14 +53,14 @@ class PATJetOverloader : public edm::EDProducer {
 	{
 		produces<pat::JetCollection>();
 
-		calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/UWAnalysis/Configuration/data/CSVv2_ichep.csv");
+		calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/MonoHTauTau/Configuration/data/CSVv2_ichep.csv");
 		reader=BTagCalibrationReader(BTagEntry::OP_MEDIUM, "central",{"up","down"});
 		reader.load(calib, BTagEntry::FLAV_B, "comb");
 		reader.load(calib, BTagEntry::FLAV_C, "comb");
 		reader.load(calib, BTagEntry::FLAV_UDSG, "incl");
 
 		std::string base = std::getenv("CMSSW_BASE");
-		std::string fEff =   "/src/UWAnalysis/Configuration/data/tagging_efficiencies.root";
+		std::string fEff =   "/src/MonoHTauTau/Configuration/data/tagging_efficiencies.root";
 		std::string path= base+fEff;
 		bool isEffFile_   = boost::filesystem::exists( path  );
 		if (isEffFile_){

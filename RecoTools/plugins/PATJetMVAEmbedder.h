@@ -65,8 +65,8 @@ class PATJetMVAEmbedder : public edm::EDProducer {
     reader->AddSpectator( "jetEta",  &jetEta);
 
 
-    edm::FileInPath file1("UWAnalysis/Configuration/data/factoryJetRegNewGenJetsAll_BDT_LT100.weights.xml");
-    edm::FileInPath file2("UWAnalysis/Configuration/data/factoryJetRegNewGenJetsAll_BDT_GT100.weights.xml");
+    edm::FileInPath file1("MonoHTauTau/Configuration/data/factoryJetRegNewGenJetsAll_BDT_LT100.weights.xml");
+    edm::FileInPath file2("MonoHTauTau/Configuration/data/factoryJetRegNewGenJetsAll_BDT_GT100.weights.xml");
     reader->BookMVA("BDT",file1.fullPath());
     reader->BookMVA("BDTGT",file2.fullPath());
     //reader->BookMVA("BDT",file1.fullPath());

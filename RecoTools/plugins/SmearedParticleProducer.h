@@ -14,7 +14,7 @@ University of Wisconsin
 #include "FWCore/Framework/interface/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Utilities/interface/Exception.h"
-#include "UWAnalysis/RecoTools/interface/SmearedParticleMaker.h"
+#include "MonoHTauTau/RecoTools/interface/SmearedParticleMaker.h"
 
 template <typename T,typename G>
 class SmearedParticleProducer : public edm::EDProducer {

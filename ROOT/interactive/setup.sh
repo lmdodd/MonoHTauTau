@@ -1,2 +1,2 @@
 #!/bin/sh
-export PATH=./UWAnalysis/ROOT/scripts:${PATH}
+export PATH=./MonoHTauTau/ROOT/scripts:${PATH}

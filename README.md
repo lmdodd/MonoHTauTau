@@ -1,4 +1,4 @@
-UWAnalysis
+MonoHTauTau
 ==========
 
 H->tautau (+ many other) Final States! : )
@@ -11,8 +11,8 @@ cmsrel CMSSW_8_0_14 #for 2016 analysis
 cd CMSSW_8_0_14/src/
 cmsenv
 git cms-init 
-git clone --recursive -b tautauMET https://github.com/lmdodd/UWAnalysis.git   
-cd UWAnalysis
+git clone --recursive -b tautauMET https://github.com/lmdodd/MonoHTauTau.git   
+cd MonoHTauTau
 source recipe13TeV.sh
 export USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable -Wno-error=sign-compare -Wno-error=reorder"
 scram b -j 8

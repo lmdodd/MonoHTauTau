@@ -9,7 +9,7 @@
 
 #include "TRandom3.h"
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 
 #include "CondFormats/BTauObjects/interface/BTagCalibration.h"
@@ -37,15 +37,15 @@ class NBTagFiller : public NtupleFillerBase {
 		t->Branch("nbtag",&value[0],"nbtag/F");
 		t->Branch("nbtagUp",&value[1],"nbtagUp/F");
 		t->Branch("nbtagDown",&value[2],"nbtagDown/F");
-	        calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/UWAnalysis/Configuration/data/CSVv2_ichep.csv");
+	        calib=BTagCalibration("CSVv2", std::string(std::getenv("CMSSW_BASE"))+"/src/MonoHTauTau/Configuration/data/CSVv2_ichep.csv");
 		reader= BTagCalibrationReader(BTagEntry::OP_MEDIUM, "central",{"up","down"});
                 reader.load(calib,BTagEntry::FLAV_UDSG,"incl");
                 reader.load(calib,BTagEntry::FLAV_B,"comb");
                 reader.load(calib,BTagEntry::FLAV_C,"comb");
 
 		std::string base = std::getenv("CMSSW_BASE");
-		std::string fEff =   "/src/UWAnalysis/Configuration/data/tagging_efficiencies.root";
-		//std::string fEff =   "/src/UWAnalysis/Configuration/data/efficiency.root";
+		std::string fEff =   "/src/MonoHTauTau/Configuration/data/tagging_efficiencies.root";
+		//std::string fEff =   "/src/MonoHTauTau/Configuration/data/efficiency.root";
 		std::string path= base+fEff;
 		isEffFile_   = boost::filesystem::exists( path  );
 		if (isEffFile_ && doEff_){
@@ -259,8 +259,8 @@ class NBTagFiller : public NtupleFillerBase {
 
 };
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 
 typedef NBTagFiller<PATMuTauPair> PATMuTauPairNBTagFiller;
 typedef NBTagFiller<PATElecTauPair> PATEleTauPairNBTagFiller;

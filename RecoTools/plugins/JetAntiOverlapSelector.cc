@@ -2,7 +2,7 @@
  * Copied from TauAnalysis/RecoTools
  *
  */
-#include "UWAnalysis/RecoTools/interface/ParticleAntiOverlapSelector.h"
+#include "MonoHTauTau/RecoTools/interface/ParticleAntiOverlapSelector.h"
 
 #include "CommonTools/UtilAlgos/interface/ObjectSelector.h"
 

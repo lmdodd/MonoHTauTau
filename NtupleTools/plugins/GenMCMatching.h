@@ -5,7 +5,7 @@
 
 #include <TTree.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "HTT-utilities/LepEffInterface/interface/ScaleFactor.h" //HTT Weights
 
@@ -91,8 +91,8 @@ float* value;
 };
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 
 typedef GenMCMatching<PATMuTauPair> PATMuTauPairGenMCMatching;
 typedef GenMCMatching<PATElecTauPair> PATEleTauPairGenMCMatching;

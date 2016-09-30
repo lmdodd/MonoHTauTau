@@ -1,4 +1,4 @@
-#include "UWAnalysis/RecoTools/plugins/SmearedTauProducer.h"
+#include "MonoHTauTau/RecoTools/plugins/SmearedTauProducer.h"
 
 SmearedTauProducer::SmearedTauProducer(const edm::ParameterSet& iConfig):
     src_(consumes<std::vector<pat::Tau> >(iConfig.getParameter<edm::InputTag>("src"))),  

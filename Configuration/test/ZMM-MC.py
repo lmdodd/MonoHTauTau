@@ -15,7 +15,7 @@ process.source = cms.Source("PoolSource",
     )
 )
 
-process.load('UWAnalysis.MCTools.ZLLPhaseSpaceAnalyzer_cfi')
+process.load('MonoHTauTau.MCTools.ZLLPhaseSpaceAnalyzer_cfi')
 process.mcAnalysis.FileName=cms.string("$outputFileName")
 
 process.zMuMu = cms.Path(

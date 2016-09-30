@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from UWAnalysis.Configuration.tools.analysisToolsBoostedHiggsObject import TriggerPaths,TriggerRes,TriggerProcess
+from MonoHTauTau.Configuration.tools.analysisToolsBoostedHiggsObject import TriggerPaths,TriggerRes,TriggerProcess
 
 
 

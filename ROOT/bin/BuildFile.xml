@@ -10,19 +10,10 @@
 
 <!--<use   name="roottmva"/>0-->
 
-
-<bin   name="SVFitStandAlone" file="SVFitStandAlone.cc">
-</bin>
-<bin   name="SVFitStandAloneRecoil" file="SVFitStandAloneRecoil.cc">
-</bin>
-
 <bin   name="GetErrors" file="GetErrors.cc">
 </bin>
 <bin   name="MVATrainer" file="MVATrainer.cc">
 </bin>
-<bin   name="ZZEventYields" file="ZZEventYields.cc">
-</bin>
-
 <bin   name="MakeSelTableETau" file="MakeSelTableETau.cc">
 </bin>
 <bin   name="MakeSelTableMuTau" file="MakeSelTableMuTau.cc">
@@ -57,9 +48,6 @@
 <bin   name="EventWeightsKFactorsHRes" file="EventWeightsKFactorsHRes.cc">
 </bin>
 
-<bin   name="EventWeightsCombined" file="EventWeightsCombined.cc">
-</bin>
-
 <bin   name="EventWeightsFromHisto" file="EventWeightsFromHisto.cc">
 </bin>
 
@@ -78,51 +66,9 @@
 <bin   name="EventWeightsForEfficiencyFastWJets" file="EventWeightsForEfficiencyFastWJets.cc">
 </bin>
 
-<bin   name="EventWeightsForEfficiencyFastHZ" file="EventWeightsForEfficiencyFastHZ.cc">
-</bin>
-
-<bin   name="EventWeightsEmbeddedUnfolding" file="EventWeightsEmbeddedUnfolding.cc">
-</bin>
-
-<bin   name="OSLSMTMethodLikelihood" file="OSLSMTMethodLikelihood.cc">
-</bin>
-
-<bin   name="OSLSMTMethodLikelihoodShapes" file="OSLSMTMethodLikelihoodShapes.cc">
-</bin>
-
 <bin   name="OptimizeCuts" file="OptimizeCuts.cc">
-  <use   name="UWAnalysis/ROOT"/>
-</bin>
-
-<bin   name="CrossSectionCalculation" file="CrossSectionCalculation.cc">
-</bin>
-
-<bin   name="OSLSMTMethodAll" file="OSLSMTMethodAll.cc">
-</bin>
-
-<bin   name="OSLSMTMethodFull" file="OSLSMTMethodFull.cc">
-</bin>
-
-<bin   name="ABCDMethod" file="ABCDMethod.cc">
-</bin>
-
-<bin   name="OSLSMTMethodAllElectronsZ" file="OSLSMTMethodAllElectronsZ.cc">
-</bin>
-
-<bin   name="MatrixMethod" file="MatrixMethod.cc">
-</bin>
-
-<bin   name="TagAndProbePlotsUnbinned" file="TagAndProbePlotsUnbinned.cc">
-</bin>
-
-<bin   name="DiTauEnergyScale" file="DiTauEnergyScale.cc">
+  <use   name="MonoHTauTau/ROOT"/>
 </bin>
 
 <bin   name="GetExperimentalSystematics" file="GetExperimentalSystematics.cc">
-</bin>
-
-<bin   name="METRecoilCalibrator" file="METRecoilCalibrator.cc">
-</bin>
-
-<bin   name="GetCorrections" file="GetCorrections.cc">
 </bin>

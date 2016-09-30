@@ -5,11 +5,11 @@
 
 #include <TTree.h>
 
-#include "UWAnalysis/NtupleTools/interface/NtupleFillerBase.h"
+#include "MonoHTauTau/NtupleTools/interface/NtupleFillerBase.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 #include "HTT-utilities/LepEffInterface/interface/ScaleFactor.h" //HTT Weights
-//#include "UWAnalysis/Configuration/data/fitfunc
+//#include "MonoHTauTau/Configuration/data/fitfunc
 
 #include "CommonTools/Utils/interface/StringObjectFunction.h"
 #include "boost/filesystem.hpp"
@@ -105,8 +105,8 @@ class EventWeightFiller : public NtupleFillerBase {
 
 
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateTMEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateTMEt.h"
 
 typedef EventWeightFiller<PATMuTauPair> PATMuTauPairWeightFiller;
 typedef EventWeightFiller<PATElecTauPair> PATEleTauPairWeightFiller;

@@ -5,7 +5,7 @@
 #include "TChain.h"
 #include "TH1.h"
 #include "PhysicsTools/FWLite/interface/CommandLineParser.h" 
-#include "UWAnalysis/ROOT/interface/CutOptimizer.h"
+#include "MonoHTauTau/ROOT/interface/CutOptimizer.h"
 
 int main (int argc, char* argv[]) 
 {

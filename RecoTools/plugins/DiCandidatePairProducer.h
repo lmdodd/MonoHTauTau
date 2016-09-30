@@ -1,5 +1,5 @@
-#ifndef UWAnalysis_RecoTools_DiCandidatePairProducer_h
-#define UWAnalysis_RecoTools_DiCandidatePairProducer_h
+#ifndef MonoHTauTau_RecoTools_DiCandidatePairProducer_h
+#define MonoHTauTau_RecoTools_DiCandidatePairProducer_h
 
 #include "FWCore/PluginManager/interface/ModuleDef.h"
 #include "DataFormats/Common/interface/RefVector.h"
@@ -9,8 +9,8 @@
 #include "CommonTools/UtilAlgos/interface/ObjectSelector.h"
 #include "CommonTools/UtilAlgos/interface/SingleElementCollectionSelector.h"
 
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
-#include "UWAnalysis/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEt.h"
+#include "MonoHTauTau/DataFormats/interface/CompositePtrCandidateT1T2MEtFwd.h"
 #include "DataFormats/Candidate/interface/Candidate.h" 
 #include "DataFormats/PatCandidates/interface/Muon.h" 
 #include "DataFormats/PatCandidates/interface/Tau.h" 

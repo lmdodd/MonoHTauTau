@@ -1,5 +1,5 @@
 #include "FWCore/Framework/interface/MakerMacros.h"
-#include "UWAnalysis/NtupleTools/plugins/HighestPtJetVarFiller.h"
+#include "MonoHTauTau/NtupleTools/plugins/HighestPtJetVarFiller.h"
 
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATMuTauPairHighestPtJetVarFiller, "PATMuTauPairHighestPtJetVarFiller");
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATMuJetPairHighestPtJetVarFiller, "PATMuJetPairHighestPtJetVarFiller");

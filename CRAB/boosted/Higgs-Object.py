@@ -37,7 +37,7 @@ process.dump=cms.EDAnalyzer('EventContentAnalyzer')
 
 
 #added in etau and mutau triggers
-from UWAnalysis.Configuration.tools.analysisToolsBoostedHiggsObject import *
+from MonoHTauTau.Configuration.tools.analysisToolsBoostedHiggsObject import *
 defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 
@@ -76,7 +76,7 @@ defaultReconstructionMC(process,'HLT',
 
 
 #EventSelection
-process.load("UWAnalysis.Configuration.boostedHiggs_cff")
+process.load("MonoHTauTau.Configuration.boostedHiggs_cff")
 
 process.metCalibration.applyCalibration = cms.bool(False)
 
@@ -114,20 +114,20 @@ createGeneratedParticles(process,
 )
 
 #boosted taus 
-from UWAnalysis.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from UWAnalysis.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
 addEleTauEventTree(process,'eleTauEventTree')
 addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
 #track trees
-from UWAnalysis.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
 addMuTrackEventTree(process,'muTrackEventTree')
 addMuTrackEventTree(process,'muTrackEventTreeFinal','muTracksOS','diMuonsTrkOSSorted')
 
-from UWAnalysis.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
 addEleTrackEventTree(process,'eleTrackEventTree')
 addEleTrackEventTree(process,'eleTrackEventTreeFinal','eleTracksOS','diElectronsOSSorted')
 

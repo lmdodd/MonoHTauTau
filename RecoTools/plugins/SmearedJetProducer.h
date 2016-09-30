@@ -1,6 +1,6 @@
 // system include files
 #include <memory>
-#include "UWAnalysis/RecoTools/interface/SmearedParticleMaker.h"
+#include "MonoHTauTau/RecoTools/interface/SmearedParticleMaker.h"
 
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"

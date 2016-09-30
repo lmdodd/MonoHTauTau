@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 
 #Import tool that creates the cut sequence
-from UWAnalysis.Configuration.tools.CutSequenceProducer import *
+from MonoHTauTau.Configuration.tools.CutSequenceProducer import *
 
 ###############################         Ele-Track       ###################################
 ETKanalysisConfigurator = CutSequenceProducer(initialCounter  = 'initialEventsETK',
