@@ -24,15 +24,9 @@
   <use   name="DataFormats/HepMCCandidate"/>
   <use   name="MonoHTauTau/RecoTools"/>
   <use   name="MonoHTauTau/DataFormats"/>
-<!--  <use   name="TauAnalysis/SVfitStandalone"/> -->
   <use   name="CommonTools/UtilAlgos"/>
   <use   name="Geometry/CommonDetUnit"/>
   <use   name="Geometry/TrackerGeometryBuilder"/>
-  <use   name="RecoTracker/MeasurementDet"/>
-  <use   name="RecoTracker/TkDetLayers"/>
-  <use   name="RecoTracker/Record"/> 
-  <use   name="CondFormats/JetMETObjects"/> 
-  <use   name="JetMETCorrections/Objects"/> 
   <use   name="RecoEcal/EgammaCoreTools"/>
   <use   name="TrackingTools/IPTools"/>
   <use   name="root"/>

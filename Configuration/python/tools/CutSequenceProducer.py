@@ -167,35 +167,33 @@ class CutSequenceProducer(cms._ParameterTypeBase):
 
 
 ################################################################################
-#####		Stand Alone SVFit	               		################
+#####		Stand Alone SVFit	 NOT USED!!!!              		################
 ################################################################################
-#currently used
-
-    def addMuTauSVFitSA(self,moduleName):
-            dicand  = cms.EDProducer('PATMuTauSVFitSA')
-            dicand.src = cms.InputTag(self.input)
-
-            pyModule = sys.modules[self.pyModuleName[0]]
-            if pyModule is None:
-                raise ValueError("'pyModuleName' Parameter invalid")
-            setattr(pyModule,moduleName,dicand)
-            self.sequence*=dicand
-            self.input=moduleName
-
-
-    def addEleTauSVFitSA(self,moduleName):
-            dicand  = cms.EDProducer('PATElecTauSVFitSA')
-            dicand.src = cms.InputTag(self.input)
-
-            pyModule = sys.modules[self.pyModuleName[0]]
-            if pyModule is None:
-                raise ValueError("'pyModuleName' Parameter invalid")
-            setattr(pyModule,moduleName,dicand)
-            self.sequence*=dicand
-            self.input=moduleName
-
-
-
+#    def addMuTauSVFitSA(self,moduleName):
+#            dicand  = cms.EDProducer('PATMuTauSVFitSA')
+#            dicand.src = cms.InputTag(self.input)
+#
+#            pyModule = sys.modules[self.pyModuleName[0]]
+#            if pyModule is None:
+#                raise ValueError("'pyModuleName' Parameter invalid")
+#            setattr(pyModule,moduleName,dicand)
+#            self.sequence*=dicand
+#            self.input=moduleName
+#
+#
+#    def addEleTauSVFitSA(self,moduleName):
+#            dicand  = cms.EDProducer('PATElecTauSVFitSA')
+#            dicand.src = cms.InputTag(self.input)
+#
+#            pyModule = sys.modules[self.pyModuleName[0]]
+#            if pyModule is None:
+#                raise ValueError("'pyModuleName' Parameter invalid")
+#            setattr(pyModule,moduleName,dicand)
+#            self.sequence*=dicand
+#            self.input=moduleName
+#
+#
+#
 ################################################################################
 #####		Extra Lepton Veto	               		################
 ################################################################################

@@ -286,26 +286,7 @@ def triLeptons(process):
 
   process.analysisSequence = cms.Sequence(process.analysisSequence*process.TightMuons*process.TightElectrons)
   						
-   
-def kineWeightsEmbET(process):
-
-  process.load('TauAnalysis/MCEmbeddingTools/embeddingKineReweight_cff')
-
-  process.embeddingKineReweightRECembedding.inputFileName = cms.FileInPath('TauAnalysis/MCEmbeddingTools/data/embeddingKineReweight_ePtGt20tauPtGt18_recEmbedded.root')
-  
-  process.analysisSequence = cms.Sequence(process.analysisSequence*process.embeddingKineReweightSequenceRECembedding)
-  
-  
-def kineWeightsEmbMT(process):
-
-  process.load('TauAnalysis/MCEmbeddingTools/embeddingKineReweight_cff')
-
-  process.embeddingKineReweightRECembedding.inputFileName = cms.FileInPath('TauAnalysis/MCEmbeddingTools/data/embeddingKineReweight_muPtGt16tauPtGt18_recEmbedded.root')
-  
-  process.analysisSequence = cms.Sequence(process.analysisSequence*process.embeddingKineReweightSequenceRECembedding)
-  						
-
-  						
+    						
 def applyDefaultSelectionsPT(process):#FIXME THISWILL HVAE TO CHANGE-- not cureently used!!!
   #DONT CHANGE THOSE HERE:: THEY ARE NOT USED FOR YOUR SELECTIONS!!!
   #ONLY FOR SYSTEMATICS . PLEASE CHANGE THEM in YOUR CFG FILE IF REALLY NEEDED
@@ -607,23 +588,4 @@ def createRecoilSystematics(process,sequence,postfix,metScale,metResolution):
       
   return cms.Path(p) 
 
-
-
-
-def pfMetWithSignficance(process):
-
-    # Get PFMET w/ significance
-    process.load("TauAnalysis.CandidateTools.PFMETSignCovMatrixEmbedder_cfi")
-
-    process.metWithSig = process.patMETSignEmbedder.clone(
-        src = cms.InputTag("systematicsMET"),
-        srcCov = cms.InputTag("pfMEtSignCovMatrix")
-    )
-
-
-    process.analysisSequence = cms.Sequence(
-        process.analysisSequence *
-        process.metWithSig
-    )
- 
 
