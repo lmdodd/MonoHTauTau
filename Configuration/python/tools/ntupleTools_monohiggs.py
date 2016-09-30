@@ -381,7 +381,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               #muTauMETPhi = makeMuTauPair(src,"metphi","metPhi"),#NOLONGERUSED
                               muTauMET1 = makeMuTauMET(src,"slimmedMETs","pf"),#FILLED
                               muTauMET2 = makeMuTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
-                              muTauMET3 = makeMuTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
+                              #muTauMET3 = makeMuTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
  
                               #muTauGenMET = makeMuTauPair(src,"genMET","met.genMET().pt"),#FILLED
                               muTauMET = makeMuTauPair(src,"met","met.pt()"),#FILLED
@@ -733,7 +733,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
 
                               eleTauMET1 = makeEleTauMET(src,"slimmedMETs","pf"),#FILLED
                               eleTauMET2 = makeEleTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
-                              eleTauMET3 = makeEleTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
+                              #eleTauMET3 = makeEleTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
         
                               eleTauMET = makeEleTauPair(src,"met","met.pt()"),
                               eleTauMETPhi = makeEleTauPair(src,"metphi","met.phi()"),

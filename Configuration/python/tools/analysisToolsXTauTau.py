@@ -234,18 +234,18 @@ def EScaledTaus(process,smearing):  #second arg is bool
   process.analysisSequence*=process.EScaledTaus
 
 
-def mvaMet2(process, isData):
-
-   from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
-
-
-   runMVAMET( process, jetCollectionPF = "patJetsReapplyJEC"  )
-   process.MVAMET.srcLeptons  = cms.VInputTag("slimmedMuons", "slimmedElectrons", "slimmedTaus")
-   process.MVAMET.requireOS = cms.bool(False)
-   process.MVAMET.debug = cms.bool(False)
-
-   process.analysisSequence = cms.Sequence(process.analysisSequence*process.MVAMET)
-
+#def mvaMet2(process, isData):
+#
+#   from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
+#
+#
+#   runMVAMET( process, jetCollectionPF = "patJetsReapplyJEC"  )
+#   process.MVAMET.srcLeptons  = cms.VInputTag("slimmedMuons", "slimmedElectrons", "slimmedTaus")
+#   process.MVAMET.requireOS = cms.bool(False)
+#   process.MVAMET.debug = cms.bool(False)
+#
+#   process.analysisSequence = cms.Sequence(process.analysisSequence*process.MVAMET)
+#
 
 
 def metSignificance(process):

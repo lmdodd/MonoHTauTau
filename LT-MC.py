@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 
 #added in etau and mutau triggers
-from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
+from MonoHTauTau.Configuration.tools.analysisTools_monohiggs import *
 defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 
@@ -113,11 +113,11 @@ createGeneratedParticles(process,
         )
 
 
-from MonoHTauTau.Configuration.tools.ntupleToolsXTauTau import addMuTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsXTauTau import addEleTauEventTree
+from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
 addEleTauEventTree(process,'eleTauEventTree')
 addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
