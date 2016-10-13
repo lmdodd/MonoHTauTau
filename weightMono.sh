@@ -1,23 +1,42 @@
 #!/bin/sh
-#mkdir /nfs_scratch/$USER/80X_charged_weighted
-#cp /nfs_scratch/$USER/80X_charged_unweighted/* /nfs_scratch/$USER/80X_charged_weighted/.
-cd /nfs_scratch/$USER/80X_TT/
+
+mkdir /nfs_scratch/$USER/monohiggs_weighted
+cp /nfs_scratch/$USER/monohiggs_unweighted/* /nfs_scratch/$USER/monohiggs_weighted/.
+cd /nfs_scratch/$USER/monohiggs_weighted/
 
 
 weight=0;
-weightTT=1;
+weightTT=0;
 weightH=0;
 weightW=0;
 weightZ=0;
-
-
+weightZN=0;
+weightZinv=0;
+weightAh=0;
 
 if [ $weightH -eq 1 ]
     then
-    echo 'weight higgs'
+    echo 'weight ggH'
     EventWeightsIterativeGen outputFile='ggH125.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'weight vbf'
     EventWeightsIterativeGen outputFile='vbfH125.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'weight ZH'
+    EventWeightsIterativeGen outputFile='ZH125.root'     weight=0.02473    histoName='MT/results' sumHistoName='sumweights/genWeights'
 fi
+
+if [ $weightZN -eq 1 ]
+    then
+    EventWeightsIterativeZNuNu root200=ZJetsNuNu200.root root400=ZJetsNuNu400.root root600=ZJetsNuNu600.root root800=ZJetsNuNu800.root root1200=ZJetsNuNu1200.root root2500=ZJetsNuNu2500.root rootinf=ZJetsNuNuInf.root   weight=1    histoName='MT/results' 
+    hadd Znunu.root ZJetsNuNu*root 
+     
+fi
+
+if [ $weightW -eq 1 ]
+    then
+    EventWeightsIterativeWJetsHT  weight=1    histoName='MT/results' 
+    hadd WJETSHT.root WJets*root 
+fi
+
 
 if [ $weightZ -eq 1 ]
     then
@@ -25,22 +44,13 @@ if [ $weightZ -eq 1 ]
     EventWeightsIterativeZJets    weight=1    histoName='MT/results' 
     hadd ZJETS.root ZJets_ext1.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root ZJets_150.root
     #EventWeightsIterativeZPt    weight=1    histoName='MT/results' 
-     
-fi
-
-if [ $weightW -eq 1 ]
-    then
-    #EventWeightsIterativeGen outputFile='WJetsAMC.root'      weight=61526.7   histoName='MT/results' sumHistoName='sumweights/genWeights'
-    EventWeightsIterativeWJets    weight=1    histoName='MT/results' 
-    hadd WJETS.root WJetsMLM.root W1Jets.root W2Jets.root W3Jets.root W4Jets.root
- 
 fi
 
 
 if [ $weightTT -eq 1 ]
     then
     echo 'Weight TT'
-    EventWeightsIterativeTT outputFile='TTJets.root'  weight=831.76     histoName='MT/results' sumHistoName='sumweights/genWeights'
+    #EventWeightsIterativeTT outputFile='TTJets.root'  weight=831.76     histoName='MT/results' sumHistoName='sumweights/genWeights'
     EventWeightsIterativeTT outputFile='TT.root'  weight=831.76     histoName='MT/results' sumHistoName='sumweights/genWeights'
     #EventWeightsIterativeTT has top pt reweighting
     #EventWeightsIterativeTT outputFile='TT.root'  weight=831.76     histoName='MT/results' sumHistoName='sumweights/genWeights'
@@ -85,17 +95,6 @@ if [ $weight -eq 1 ]
 fi
 
 
-
-#!/bin/sh
-cd /nfs_scratch/$USER/80X_WJetsHT/
-
-
-weightZ=0;
-weightW=1;
-weightZinv=0;
-weightAh=0;
-
-
 if [ $weightZinv -eq 1 ]
     then
     EventWeightsIterativeGen outputFile='Zprime600Zh.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
@@ -110,52 +109,89 @@ fi
 
 if [ $weightAh -eq 1 ]
     then
+    echo 'Zprime600A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime600A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime600A400h.root'
     EventWeightsIterativeGen outputFile='Zprime600A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime800A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime800A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime800A400h.root'
     EventWeightsIterativeGen outputFile='Zprime800A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime800A500h.root'
     EventWeightsIterativeGen outputFile='Zprime800A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime800A600h.root'
     EventWeightsIterativeGen outputFile='Zprime800A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime1000A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A400h.root'
     EventWeightsIterativeGen outputFile='Zprime1000A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A500h.root'
     EventWeightsIterativeGen outputFile='Zprime1000A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A600h.root'
     EventWeightsIterativeGen outputFile='Zprime1000A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A700h.root'
     EventWeightsIterativeGen outputFile='Zprime1000A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1000A800h.root'
     EventWeightsIterativeGen outputFile='Zprime1000A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime1200A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A400h.root'
     EventWeightsIterativeGen outputFile='Zprime1200A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A500h.root'
     EventWeightsIterativeGen outputFile='Zprime1200A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A600h.root'
     EventWeightsIterativeGen outputFile='Zprime1200A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A700h.root'
     EventWeightsIterativeGen outputFile='Zprime1200A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1200A800h.root'
     EventWeightsIterativeGen outputFile='Zprime1200A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime1400A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A400h.root'
     EventWeightsIterativeGen outputFile='Zprime1400A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A500h.root'
     EventWeightsIterativeGen outputFile='Zprime1400A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A600h.root'
     EventWeightsIterativeGen outputFile='Zprime1400A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A700h.root'
     EventWeightsIterativeGen outputFile='Zprime1400A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1400A800h.root'
     EventWeightsIterativeGen outputFile='Zprime1400A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime1700A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A400h.root'
     EventWeightsIterativeGen outputFile='Zprime1700A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A500h.root'
     EventWeightsIterativeGen outputFile='Zprime1700A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A600h.root'
     EventWeightsIterativeGen outputFile='Zprime1700A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A700h.root'
     EventWeightsIterativeGen outputFile='Zprime1700A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime1700A800h.root'
     EventWeightsIterativeGen outputFile='Zprime1700A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime2000A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A400h.root'
     EventWeightsIterativeGen outputFile='Zprime2000A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A500h.root'
     EventWeightsIterativeGen outputFile='Zprime2000A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A600h.root'
     EventWeightsIterativeGen outputFile='Zprime2000A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A700h.root'
     EventWeightsIterativeGen outputFile='Zprime2000A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2000A800h.root'
     EventWeightsIterativeGen outputFile='Zprime2000A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A300h.root'
+    EventWeightsIterativeGen outputFile='Zprime2500A300h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A400h.root'
     EventWeightsIterativeGen outputFile='Zprime2500A400h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A500h.root'
     EventWeightsIterativeGen outputFile='Zprime2500A500h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A600h.root'
     EventWeightsIterativeGen outputFile='Zprime2500A600h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A700h.root'
     EventWeightsIterativeGen outputFile='Zprime2500A700h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    echo 'Zprime2500A800h.root'
     EventWeightsIterativeGen outputFile='Zprime2500A800h.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
-fi
-
-if [ $weightZ -eq 1 ]
-    then
-    EventWeightsIterativeZNuNu root200=ZnunuHT200.root root400=ZnunuHT400.root root600=ZnunuHT600.root root800=ZnunuHT800.root root1200=ZnunuHT1200.root root2500=ZnunuHT2500.root rootinf=ZnunuHTInf.root   weight=1    histoName='MT/results' 
-    hadd Znunu.root ZnunuHT*root 
-     
-fi
-
-if [ $weightW -eq 1 ]
-    then
-    EventWeightsIterativeWJetsHT  weight=1    histoName='MT/results' 
-    hadd WJETSHT.root WJets*root 
 fi
 
