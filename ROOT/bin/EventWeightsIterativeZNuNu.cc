@@ -80,7 +80,9 @@ int main (int argc, char* argv[])
    printf("Found  %f ZNuNu HT 1200-2500 Events\n",evW5);
    printf("Found  %f ZNuNu HT 2500-inf Events\n",evW6);
   
-   double LOtoNNLO=1.23;
+   //k-factor now dependent on genPt 
+   //double LOtoNNLO=1.164;
+   double LOtoNNLO=1.0;
 
    double ZNuNuLo=evW/(LOtoNNLO*280.92);
    double ZNuNuLo1=evW1/(LOtoNNLO*77.64);

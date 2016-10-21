@@ -70,7 +70,9 @@ int main (int argc, char* argv[])
    printf("Found  %f W+3Jet Events\n",evW3);
    printf("Found  %f W+4Jet Events\n",evW4);
   
-   double LOtoNNLO=61526.7/50380;
+   //k-factor moved to ntuple
+   //double LOtoNNLO=61526.7/50380;
+   double LOtoNNLO=1.0;
 
    double WLo=evW/(LOtoNNLO*50380.0);
    double WLo1=evW1/(LOtoNNLO*9644.5);

@@ -78,7 +78,9 @@ int main (int argc, char* argv[])
    printf("Found  %f WJet HT2500 Events\n",evW6);
    printf("Found  %f WJet HTInf Events\n",evW7);
   
-   double LOtoNNLO=61526.7/50270;
+   //moved to ntuple
+   //double LOtoNNLO=61526.7/50270;
+   double LOtoNNLO=1.0;
 
    double WLo=evW/(LOtoNNLO*50270.0);
    double WLo1=evW1/(LOtoNNLO*1345);

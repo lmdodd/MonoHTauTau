@@ -21,96 +21,71 @@
 
 template<typename T>
 class EventWeightFillerTmp : public NtupleFillerBase {
-	public:
-		EventWeightFillerTmp(){
-		}
+    public:
+        EventWeightFillerTmp(){
+        }
 
+        EventWeightFillerTmp(const edm::ParameterSet& iConfig, TTree* t, edm::ConsumesCollector && iC ):
+            src_(iC.consumes<std::vector<T> >(iConfig.getParameter<edm::InputTag>("src"))) 
+    {
+        value = new float[2];
+        t->Branch("ZPt_reweight",&value[0],"ZPt_reweight1/F");
+        t->Branch("WPt_reweight",&value[1],"WPt_reweight1/F");
+        std::string base = std::getenv("CMSSW_BASE");
+        std::string fKFactor ="/src/MonoHTauTau/Configuration/data/kfactor.root";
+        std::string file=base+fKFactor;
+        bool fis   = boost::filesystem::exists( file );
+        if (fis ){
+            std::cout<<"INFO::V-Pt reweighting using kfacotr map"<<std::endl;
+            f_Map = new TFile(file.c_str(),"READONLY");
+            h1_EWK_W    = (TH1F*)f_Map->Get("EWKcorr/W");
+            h1_EWK_Z    = (TH1F*)f_Map->Get("EWKcorr/Z");
+            h1_LO_W    = (TH1F*)f_Map->Get("WJets_LO/inv_pt");
+            h1_LO_Z    = (TH1F*)f_Map->Get("ZJets_LO/inv_pt");
+            h1_EWK_W->Divide(h1_LO_W);
+            h1_EWK_Z->Divide(h1_LO_Z);
+            h1_W = (TH1F*) h1_EWK_W->Clone();
+            h1_Z = (TH1F*) h1_EWK_Z->Clone();
+        }
+        else{
+            std::cout<<"INFO::V-pt reweighting histo not found"<<std::endl;
+        }
 
-		EventWeightFillerTmp(const edm::ParameterSet& iConfig, TTree* t, edm::ConsumesCollector && iC ):
-			src_(iC.consumes<std::vector<T> >(iConfig.getParameter<edm::InputTag>("src"))), 
-			tag_(iConfig.getParameter<std::string>("tag")),
-			isMu_(iConfig.getParameter<bool>("isMuon"))
-	{
-		value = new float[3];
-		t->Branch("myisoweight_1",&value[0],"myisoweight_1/F");
-		t->Branch("mytrigweight_1",&value[1],"mytrigweight_1/F");
-		t->Branch((tag_+"EffWeight").c_str(),&value[2],(tag_+"EffWeight/F").c_str());
-		std::string base = std::getenv("CMSSW_BASE");
-		std::string fMuonTrigger =   "/src/MonoHTauTau/Configuration/data/IsoMuSoup.root";
-		std::string fEleTrigger =   "/src/MonoHTauTau/Configuration/data/2016_EleSoup.root";
-		//std::string fEleTrigger =   "/src/MonoHTauTau/Configuration/data/EleSoup.root";
-		std::string fileTrig;
-		if (isMu_) {
-			fileTrig= base+fMuonTrigger;
-		}
-		else {
-			fileTrig= base+fEleTrigger;
-		}
+    }
 
-		bool fis   = boost::filesystem::exists( fileTrig   );
-		if (fis ){
-			std::cout<<"INFO::EffiTmpFiller using efficiency map"<<std::endl;
-			f_EffMap = new TFile(fileTrig.c_str(),"READONLY");
-			//h2_Eff    = (TH2D*)f_EffMap->Get("probe_abseta_probe_pt_PLOT");
-			h2_Eff    = (TH2D*)f_EffMap->Get("abseta_pt_PLOT");
-			if (!isMu_) h2_Eff    = (TH2D*)f_EffMap->Get("probe_sc_abseta_probe_sc_pt_PLOT");
-		}
-		else{
-			std::cout<<"INFO::EffiTmpFiller NOT using efficiency map"<<std::endl;
-		}
+        ~EventWeightFillerTmp()
+        { 
+        }
 
+        void fill(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+        {
+            float pt = 0;
+            float wvalue = 0;
+            float zvalue = 0;
+            edm::Handle<std::vector<T>> handle;
+            if( iEvent.getByToken(src_,handle)){
+                pt = handle->at(0).p4GenBoson().pt();
+                if (pt < 150) pt=151;
+                wvalue = h1_W->GetBinContent(h1_W->GetXaxis()->FindBin(pt));   
+                zvalue=h1_Z->GetBinContent(h1_Z->GetXaxis()->FindBin(pt));
+            }
 
+            value[0]=wvalue;
+            value[1]=zvalue;
 
-	}
+            //printf("Gen Boson pt: %0.2f W-Kfactor: %0.2f  Z-factor: %0.2f\n ", pt, value[0],value[1]);
+        }
 
-
-		~EventWeightFillerTmp()
-		{ 
-		}
-
-		void fill(const edm::Event& iEvent, const edm::EventSetup& iSetup)
-		{
-			float pt = 0;
-			float eta = 0;
-
-			edm::Handle<std::vector<T>> handle;
-			if( iEvent.getByToken(src_,handle)){
-				pt = handle->at(0).leg1()->pt();
-				eta = std::abs(handle->at(0).leg1()->eta());
-			}
-
-			if (pt>200.) pt=201.;
-			//printf("pt: %0.2f eta: %0.2f \n", p, abseta);
-
-			double scaleFactorIso = weightMuTau(pt,eta); 
-			if (!isMu_)  scaleFactorIso = weightETau(pt,eta); 
-			double scaleFactorTrig = h2_Eff->GetBinContent(h2_Eff->GetXaxis()->FindBin(eta),h2_Eff->GetYaxis()->FindBin(pt));
-
-			value[0]=scaleFactorIso;
-			value[1]=scaleFactorTrig;
-			value[2]=(scaleFactorTrig*scaleFactorIso);
-		}
-
-
-	protected:
-		edm::EDGetTokenT<std::vector<T> > src_;
-		std::string tag_;
-		bool isMu_;
-		TFile *f_EffMap;
-		TH2D *h2_Eff;
-		float* value;
-
-		float weightMuTau(float pt1,float eta1) {
-			return mHTTID(pt1,eta1)*mHTTISO(pt1,eta1);
-
-		}
-
-
-
-		float weightETau(float pt1,float eta1) {
-			return eHTTID(pt1,eta1)*eHTTISO(pt1,eta1);
-		}
-
+    protected:
+        edm::EDGetTokenT<std::vector<T> > src_;
+        TFile *f_Map;
+        TH1F *h1_EWK_W;
+        TH1F *h1_EWK_Z;
+        TH1F *h1_LO_W;
+        TH1F *h1_LO_Z;
+        TH1F *h1_W;
+        TH1F *h1_Z;
+        float* value;
 
 };
 
@@ -122,6 +97,7 @@ class EventWeightFillerTmp : public NtupleFillerBase {
 
 typedef EventWeightFillerTmp<PATMuTauPair> PATMuTauPairWeightFillerTmp;
 typedef EventWeightFillerTmp<PATElecTauPair> PATEleTauPairWeightFillerTmp;
+typedef EventWeightFillerTmp<PATDiTauPair> PATDiTauPairWeightFillerTmp;
 
 
 

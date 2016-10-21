@@ -3,3 +3,4 @@
 
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATMuTauPairWeightFillerTmp, "PATMuTauPairWeightFillerTmp");
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATEleTauPairWeightFillerTmp, "PATEleTauPairWeightFillerTmp");
+DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATDiTauPairWeightFillerTmp, "PATDiTauPairWeightFillerTmp");

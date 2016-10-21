@@ -8,7 +8,7 @@ process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2_v1'
 
 
 #process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
+process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 process.options.allowUnscheduled = cms.untracked.bool(True)
 
 
@@ -19,14 +19,14 @@ process.maxEvents = cms.untracked.PSet(
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 100
+process.MessageLogger.cerr.FwkReport.reportEvery = 1
 
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
             #'file:tester.root'
-            #'/store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-400_13TeV-madgraph/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/20000/20EC6D85-8D3A-E611-BB26-0025905B85DE.root'
-'/store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/70000/6E36FCDE-187A-E611-A02B-848F69FD47A5.root'
+#'/store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/70000/6E36FCDE-187A-E611-A02B-848F69FD47A5.root'
+'/store/mc/RunIISpring16MiniAODv2/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14_ext1-v1/40000/0002BEE4-D55B-E611-B35D-0017A4770C08.root'
 ),
         inputCommands=cms.untracked.vstring(
             'keep *',
@@ -39,7 +39,7 @@ process.source = cms.Source("PoolSource",
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
-defaultReconstructionMC(process,'HLT',
+defaultReconstructionMC(process,'HLT2',
         [
             'HLT_IsoMu18_v', 
             'HLT_IsoMu20_v', 

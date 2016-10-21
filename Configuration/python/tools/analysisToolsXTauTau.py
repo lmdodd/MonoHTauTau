@@ -41,8 +41,7 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  #mvaMet2(process, True) #isData
-  #metSignificance(process)
+  #reRunMET(process,True)
 
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
@@ -100,8 +99,7 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
 
   #reapplyPUJetID(process) 
   recorrectJets(process, False) #adds patJetsReapplyJEC
-  #mvaMet2(process, False) #isData
-  #metSignificance(process)
+  #reRunMET(process,False)
 
 
   #no trigger here!!!  
@@ -234,44 +232,13 @@ def EScaledTaus(process,smearing):  #second arg is bool
   process.analysisSequence*=process.EScaledTaus
 
 
-#def mvaMet2(process, isData):
-#
-#   from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
-#
-#
-#   runMVAMET( process, jetCollectionPF = "patJetsReapplyJEC"  )
-#   process.MVAMET.srcLeptons  = cms.VInputTag("slimmedMuons", "slimmedElectrons", "slimmedTaus")
-#   process.MVAMET.requireOS = cms.bool(False)
-#   process.MVAMET.debug = cms.bool(False)
-#
-#   process.analysisSequence = cms.Sequence(process.analysisSequence*process.MVAMET)
-#
+def reRunMET(process, runOnData):
+    from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 
-
-def metSignificance(process):
-   process.load("RecoMET.METProducers.METSignificance_cfi")
-   process.load("RecoMET.METProducers.METSignificanceParams_cfi")
-
-   from RecoMET.METProducers.METSignificanceParams_cfi import METSignificanceParams
- 
-   process.METSignificance = cms.EDProducer(
-       "METSignificanceProducer",
-       srcLeptons = cms.VInputTag(
-          'slimmedElectrons',
-          'slimmedMuons',
-          'slimmedPhotons'
-       ),
-       srcPfJets            = cms.InputTag('slimmedJets'),
-       srcMet               = cms.InputTag('slimmedMETs'),
-       srcPFCandidates      = cms.InputTag('packedPFCandidates'),
-       srcJetSF             = cms.string('AK4PFchs'),
-       srcJetResPt          = cms.string('AK4PFchs_pt'),
-       srcJetResPhi         = cms.string('AK4PFchs_phi'),
-       srcRho               = cms.InputTag('fixedGridRhoAll'),
- 
-       parameters = METSignificanceParams
-   )
-   process.analysisSequence *= process.METSignificance
+    runMetCorAndUncFromMiniAOD(process,
+            isData=runOnData
+            )
+    #process.analysisSequence *= process.runMET
 
 
 def reapplyPUJetID(process, srcJets = cms.InputTag("slimmedJets")):
