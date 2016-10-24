@@ -64,7 +64,8 @@ class EventWeightFillerTmp : public NtupleFillerBase {
             float zvalue = 0;
             edm::Handle<std::vector<T>> handle;
             if( iEvent.getByToken(src_,handle)){
-                pt = handle->at(0).p4GenBoson().pt();
+                pt = handle->at(0).genBosonPt();
+                //printf("Gen Boson pt: %0.2f", pt);
                 if (pt < 150) pt=151;
                 wvalue = h1_W->GetBinContent(h1_W->GetXaxis()->FindBin(pt));   
                 zvalue=h1_Z->GetBinContent(h1_Z->GetXaxis()->FindBin(pt));

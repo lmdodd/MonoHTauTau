@@ -3,26 +3,26 @@
 #mkdir /nfs_scratch/$USER/monohiggs_weighted
 #cp /nfs_scratch/$USER/monohiggs_unweighted/* /nfs_scratch/$USER/monohiggs_weighted/.
 #cd /nfs_scratch/$USER/monohiggs_weighted1/
-cd /nfs_scratch/$USER/monohiggs_higgs/
+cd /nfs_scratch/$USER/monohiggs_wjets/
 
 
 weight=2;
 weightTT=2;
-weightH=1;
-weightW=2;
+weightH=2;
+weightW=1;
 weightZ=2;
-weightZN=0;
+weightZN=2;
 weightZinv=2;
 weightAh=2;
 
 if [ $weightH -eq 1 ]
     then
     echo 'weight ggH'
-    #EventWeightsIterativeGen outputFile='ggH125.root'     weight=2.767578    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+    EventWeightsIterativeGen outputFile='ggH125.root'     weight=2.767578    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     echo 'weight vbf'
-    #EventWeightsIterativeGen outputFile='vbfH125.root'     weight=0.2371314    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+    EventWeightsIterativeGen outputFile='vbfH125.root'     weight=0.2371314    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     echo 'weight ZH'
-    #EventWeightsIterativeGen outputFile='ZH125.root'     weight=0.05542053    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+    EventWeightsIterativeGen outputFile='ZH125.root'     weight=0.05542053    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     hadd smH125.root ggH125.root vbfH125.root ZH125.root  
 fi
 
@@ -30,7 +30,6 @@ if [ $weightZN -eq 1 ]
     then
     EventWeightsIterativeZNuNu root200=ZJetsNuNu200.root root400=ZJetsNuNu400.root root600=ZJetsNuNu600.root root800=ZJetsNuNu800.root root1200=ZJetsNuNu1200.root root2500=ZJetsNuNu2500.root rootinf=ZJetsNuNuInf.root   weight=1    histoName='MT/results' 
     hadd Znunu.root ZJetsNuNu*root 
-     
 fi
 
 if [ $weightW -eq 1 ]

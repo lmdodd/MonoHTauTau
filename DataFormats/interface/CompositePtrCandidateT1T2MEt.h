@@ -53,6 +53,7 @@ class CompositePtrCandidateT1T2MEt : public reco::LeafCandidate
   const int genPdg1() const {return pdg1_; }
   const int genPdg2() const {return pdg2_; }
   const float genBosonMass() const {return genBosonMass_;}
+  const float genBosonPt() const {return genBosonPt_;}
 
   /// access to gen. momenta
   reco::Candidate::LorentzVector p4gen() const { return p4Leg1gen() + p4Leg2gen(); }
@@ -366,6 +367,7 @@ class CompositePtrCandidateT1T2MEt : public reco::LeafCandidate
 
   void setPdg1(int pdg) {pdg1_ = pdg;}
   void setPdg2(int pdg) {pdg2_ = pdg;}
+  void setGenBosonPt(float genBosonPt) { genBosonPt_ = genBosonPt; }
   void setGenBosonMass(float genBosonMass) { genBosonMass_ = genBosonMass; }
   void setGenBosonP4(const reco::Candidate::LorentzVector& p4) { p4Boson_ = p4; }
   void setGenBosonP4Vis(const reco::Candidate::LorentzVector& p4) { p4BosonVis_ = p4; }
@@ -513,6 +515,7 @@ class CompositePtrCandidateT1T2MEt : public reco::LeafCandidate
   int pdg1_;
   int pdg2_;
   float genBosonMass_;
+  float genBosonPt_;
 
   //genStatus Flag
   int isPrompt1_;

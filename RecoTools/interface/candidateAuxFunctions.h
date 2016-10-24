@@ -30,6 +30,7 @@ const reco::GenParticle* findGenParticle(const reco::Candidate::LorentzVector& t
 					 const std::vector<int>* pdgIds = 0, bool pdgIdStrict = true);
 					 
 float getGenBosonMass(const reco::GenParticleCollection& genParticles);
+float getGenBosonPt(const reco::GenParticleCollection& genParticles);
 
 void findDaughters(const reco::GenParticle*, std::vector<const reco::GenParticle*>&, int = -1);
 

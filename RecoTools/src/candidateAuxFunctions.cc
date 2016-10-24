@@ -120,6 +120,29 @@ reco::Candidate::LorentzVector getGenBosonP4Vis(const reco::GenParticleCollectio
 }
 
 
+float getGenBosonPt(const reco::GenParticleCollection& genParticles) {
+
+	float pt = 0.0;
+	std::vector<int> ids;
+
+	//ids.push_back(22);
+	ids.push_back(23);
+	ids.push_back(24);
+	ids.push_back(25);
+	//get the boson with the highest mass
+	if(genParticles.size()>0){
+		for(reco::GenParticleCollection::const_iterator i = genParticles.begin();i!=genParticles.end();++i){ 
+			for(unsigned int j=0;j<ids.size();++j){
+				if(abs(i->pdgId())==ids.at(j) && i->pt()>pt){
+							pt = i->pt();
+				}
+			}
+		}
+	}
+	return pt;
+}
+
+
 
 float getGenBosonMass(const reco::GenParticleCollection& genParticles) {
 

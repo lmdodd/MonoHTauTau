@@ -19,7 +19,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 1
+process.MessageLogger.cerr.FwkReport.reportEvery = 500
 
 
 process.source = cms.Source("PoolSource",
