@@ -87,9 +87,9 @@ int main (int argc, char* argv[])
    double WLo2=evW2/(LOtoNNLO*359.7);
    double WLo3=evW3/(LOtoNNLO*48.91);
    double WLo4=evW4/(LOtoNNLO*12.04);
-   double WLo5=evW4/(LOtoNNLO*5.52);
-   double WLo6=evW4/(LOtoNNLO*1.33);
-   double WLo7=evW4/(LOtoNNLO*0.0322);
+   double WLo5=evW5/(LOtoNNLO*5.52);
+   double WLo6=evW6/(LOtoNNLO*1.33);
+   double WLo7=evW7/(LOtoNNLO*0.0322);
 
  
    std::vector<float> ev;
