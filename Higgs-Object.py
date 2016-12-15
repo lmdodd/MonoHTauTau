@@ -38,7 +38,7 @@ process.dump=cms.EDAnalyzer('EventContentAnalyzer')
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsBoostedHiggsObject import *
-defaultReconstructionMC(process,'HLT2',
+defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 
             'HLT_IsoMu20_v', 

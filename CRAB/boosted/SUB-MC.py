@@ -56,9 +56,9 @@ process.load("MonoHTauTau.Configuration.boostedHiggs_cff")
 process.metCalibration.applyCalibration = cms.bool(False)
 
 process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
-process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
-process.eventSelectionET = cms.Path(process.selectionSequenceET)
-process.eventSelectionETK = cms.Path(process.selectionSequenceETK)
+#process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
+#process.eventSelectionET = cms.Path(process.selectionSequenceET)
+#process.eventSelectionETK = cms.Path(process.selectionSequenceETK)
 process.eventSelectionMTK = cms.Path(process.selectionSequenceMTK)
 
 
@@ -106,28 +106,28 @@ from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addDiTauEven
 addDiTauEventTree(process,'diTauEventTree')
 addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
-addMuTauEventTree(process,'muTauEventTree')
-addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
+#addMuTauEventTree(process,'muTauEventTree')
+#addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
-addEleTauEventTree(process,'eleTauEventTree')
-addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
+#addEleTauEventTree(process,'eleTauEventTree')
+#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
 #track trees
 from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
 addMuTrackEventTree(process,'muTrackEventTree')
 addMuTrackEventTree(process,'muTrackEventTreeFinal','muTracksOS','diMuonsTrkOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
-addEleTrackEventTree(process,'eleTrackEventTree')
-addEleTrackEventTree(process,'eleTrackEventTreeFinal','eleTracksOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
+#addEleTrackEventTree(process,'eleTrackEventTree')
+#addEleTrackEventTree(process,'eleTrackEventTreeFinal','eleTracksOS','diElectronsOSSorted')
 
 addEventSummary(process,True,'TT','eventSelectionTT')
-addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
+#addEventSummary(process,True,'MT','eventSelectionMT')
+#addEventSummary(process,True,'ET','eventSelectionET')
 addEventSummary(process,True,'MTK','eventSelectionMTK')
-addEventSummary(process,True,'ETK','eventSelectionETK')
+#addEventSummary(process,True,'ETK','eventSelectionETK')
 
 
 #Final trees afor shapes after shifts

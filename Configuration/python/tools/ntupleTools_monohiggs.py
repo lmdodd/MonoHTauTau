@@ -629,11 +629,6 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                                   leadingOnly=cms.untracked.bool(True)
                               ),#FILLED in higgs sample
 
-                              #muTauLHEProduct = cms.PSet(
-                              #    pluginType = cms.string("LHEProductFiller"),
-                              #    src        = cms.InputTag("source"),
-                              #    tag        = cms.string("LHEProduct"),
-                              #),
                               muTauLHEProduct2 = cms.PSet(
                                   pluginType = cms.string("LHEProductFiller"),
                                   src        = cms.InputTag("externalLHEProducer"),
@@ -1012,11 +1007,6 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
 
 
 
-                              #eleTauLHEProduct = cms.PSet(
-                              #    pluginType = cms.string("LHEProductFiller"),
-                              #    src        = cms.InputTag("source"),
-                              #    tag        = cms.string("LHEProduct"),
-                              #),
                               eleTauLHEProduct2 = cms.PSet(
                                   pluginType = cms.string("LHEProductFiller"),
                                   src        = cms.InputTag("externalLHEProducer"),

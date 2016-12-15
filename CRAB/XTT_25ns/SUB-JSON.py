@@ -4,7 +4,7 @@ process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 
-process.GlobalTag.globaltag = '80X_dataRun2_Prompt_ICHEP16JEC_v0'
+process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v14'
 #process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v9'
 
 
@@ -23,7 +23,7 @@ process.source = cms.Source("PoolSource",
 )
 
 import FWCore.PythonUtilities.LumiList as LumiList
-process.source.lumisToProcess = LumiList.LumiList(filename = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt').getVLuminosityBlockRange()
+process.source.lumisToProcess = LumiList.LumiList(filename = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt').getVLuminosityBlockRange()
 
 
 process.maxEvents = cms.untracked.PSet(
@@ -42,7 +42,9 @@ defaultReconstruction(process,'HLT',
             'HLT_IsoTkMu22_v',
             'HLT_IsoTkMu22_eta2p1_v',
             'HLT_IsoMu24_v', 
+            'HLT_IsoTkMu24_v', 
             'HLT_Mu50_v', 
+            'HLT_TkMu50_v', 
             'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v',
             'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1_v',
             'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v',

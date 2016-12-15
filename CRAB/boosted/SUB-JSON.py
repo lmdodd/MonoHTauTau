@@ -4,7 +4,8 @@ process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 
-process.GlobalTag.globaltag = '80X_dataRun2_Prompt_ICHEP16JEC_v0'
+#process.GlobalTag.globaltag = '80X_dataRun2_Prompt_ICHEP16JEC_v0'
+process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v14'
 
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 process.options.allowUnscheduled = cms.untracked.bool(True)
@@ -19,7 +20,7 @@ process.source = cms.Source("PoolSource",
 )
 
 import FWCore.PythonUtilities.LumiList as LumiList
-process.source.lumisToProcess = LumiList.LumiList(filename = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt').getVLuminosityBlockRange()
+process.source.lumisToProcess = LumiList.LumiList(filename = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt').getVLuminosityBlockRange()
 
 
 process.maxEvents = cms.untracked.PSet(
@@ -59,6 +60,17 @@ defaultReconstruction(process,'HLT',
             'HLT_Ele27_eta2p1_WPTight_Gsf_v',
             'HLT_Ele45_WPLoose_Gsf_v',
             'HLT_VLooseIsoPFTau140_Trk50_eta2p1_v',
+            'HLT_LooseIsoPFTau50_Trk30_eta2p1_MET90_v',
+            'HLT_MET200_v5',
+            'HLT_PFHT125_v5',
+            'HLT_PFMET120_PFMHT120_IDTight_v',
+            'HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v',
+            'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v',
+            'HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v',
+            'HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v',
+            'HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg_v',
+            'HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_v',
+            'HLT_PFMET170_NoiseCleaned',
             'HLT_VLooseIsoPFTau120_Trk50_eta2p1_v',
             'HLT_PFMET170_NoiseCleaned',
             'HLT_PFMET90_PFMHT90_IDTight',
@@ -75,9 +87,9 @@ process.metCalibration.applyCalibration = cms.bool(False)
 
 
 process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
-process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
-process.eventSelectionET = cms.Path(process.selectionSequenceET)
-process.eventSelectionETK = cms.Path(process.selectionSequenceETK)
+#process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
+#process.eventSelectionET = cms.Path(process.selectionSequenceET)
+#process.eventSelectionETK = cms.Path(process.selectionSequenceETK)
 process.eventSelectionMTK = cms.Path(process.selectionSequenceMTK)
 
 #boosted taus 
@@ -86,28 +98,28 @@ from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addDiTauEven
 addDiTauEventTree(process,'diTauEventTree')
 addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
-addMuTauEventTree(process,'muTauEventTree')
-addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
+#addMuTauEventTree(process,'muTauEventTree')
+#addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
-addEleTauEventTree(process,'eleTauEventTree')
-addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTauEventTree
+#addEleTauEventTree(process,'eleTauEventTree')
+#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
 #track trees
 from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
 addMuTrackEventTree(process,'muTrackEventTree')
 addMuTrackEventTree(process,'muTrackEventTreeFinal','muTracksOS','diMuonsTrkOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
-addEleTrackEventTree(process,'eleTrackEventTree')
-addEleTrackEventTree(process,'eleTrackEventTreeFinal','eleTracksOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addEleTrackEventTree
+#addEleTrackEventTree(process,'eleTrackEventTree')
+#addEleTrackEventTree(process,'eleTrackEventTreeFinal','eleTracksOS','diElectronsOSSorted')
 
 addEventSummary(process,True,'TT','eventSelectionTT')
-addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
+#addEventSummary(process,True,'MT','eventSelectionMT')
+#addEventSummary(process,True,'ET','eventSelectionET')
 addEventSummary(process,True,'MTK','eventSelectionMTK')
-addEventSummary(process,True,'ETK','eventSelectionETK')
+#addEventSummary(process,True,'ETK','eventSelectionETK')
 
 
 process.TFileService.fileName=cms.string("$outputFileName")

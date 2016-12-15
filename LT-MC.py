@@ -26,7 +26,7 @@ process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
             #'file:tester.root'
 #'/store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/70000/6E36FCDE-187A-E611-A02B-848F69FD47A5.root'
-'/store/mc/RunIISpring16MiniAODv2/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14_ext1-v1/40000/0002BEE4-D55B-E611-B35D-0017A4770C08.root'
+'/store/mc/RunIISpring16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-1000_MChi-150_13TeV-madgraph/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/80000/269EFEE1-B071-E611-A80A-20CF3027A62B.root'
 ),
         inputCommands=cms.untracked.vstring(
             'keep *',
@@ -39,7 +39,7 @@ process.source = cms.Source("PoolSource",
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
-defaultReconstructionMC(process,'HLT2',
+defaultReconstructionMC(process,'HLT',
         [
             'HLT_IsoMu18_v', 
             'HLT_IsoMu20_v', 

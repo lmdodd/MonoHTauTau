@@ -95,7 +95,7 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser,float ev)
 			  topweight = 1.0;
 			  if (tPt>400) tPt=400;
 			  if (atPt>400) atPt=400;
-			  topweight =TMath::Sqrt(TMath::Exp(0.156-0.00137*tPt)*TMath::Exp(0.156-0.00137*atPt)); 
+			  topweight =TMath::Sqrt(TMath::Exp(0.0615-0.0005*tPt)*TMath::Exp(0.0615-0.0005*atPt)); 
 
 			  //printf("Found topWeight -> %f \n",topweight);
 			  //printf("Found topGenPt -> %f, antiTopGenPt -> %f \n",tPt,atPt);

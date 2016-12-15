@@ -59,6 +59,15 @@ def makeMuTrackMET(sourceDiTaus, sourceMET, prefix):
          tag         = cms.string(prefix)
    )
    return PSet
+def makeMuTrackMETUncert(sourceDiTaus, sourceMET, prefix, shift):
+   PSet = cms.PSet(
+         pluginType  = cms.string("PATMuTrackPairMETFillerUncert"),
+         src         = cms.InputTag(sourceDiTaus),
+         met         = cms.InputTag(sourceMET),
+         tag         = cms.string(prefix),
+         uncert      = cms.string(shift) #EnUp or EnDown Available
+   )
+   return PSet
 
 def makeMuTrackPOGSF(sourceDiTaus):
    PSet = cms.PSet(
@@ -147,6 +156,15 @@ def makeDiTauCSVShape(sourceDiTaus):
          src         = cms.InputTag(sourceDiTaus)
    )
    return PSet
+def makeDiTauMETUncert(sourceDiTaus, sourceMET, prefix, shift):
+   PSet = cms.PSet(
+         pluginType  = cms.string("PATDiTauPairMETFillerUncert"),
+         src         = cms.InputTag(sourceDiTaus),
+         met         = cms.InputTag(sourceMET),
+         tag         = cms.string(prefix),
+         uncert      = cms.string(shift) #EnUp or EnDown Available
+   )
+   return PSet
 
 
 
@@ -230,7 +248,9 @@ def addMuTrackEventTree(process,name,src = 'muTracksSorted', srcLL = 'diMuonsOSS
 
            muTrackMET1 = makeMuTrackMET(src,"slimmedMETs","pf"),
            muTrackMET2 = makeMuTrackMET(src,"slimmedMETsPuppi","puppi"),
-
+           muTrackMETUncertUp = makeMuTrackMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
+           muTrackMETUncertDown = makeMuTrackMETUncert(src,"slimmedMETs","pf","EnDown"),#FILLED
+ 
            muTrackMET = makeMuTrackPair(src,"met","met.pt()"),
            muTrackMETPhi = makeMuTrackPair(src,"metphi","met.phi()"),
 
@@ -264,7 +284,7 @@ def addMuTrackEventTree(process,name,src = 'muTracksSorted', srcLL = 'diMuonsOSS
            muTrackLooseID = makeMuTrackPair(src,"id_m_loose_1",'leg1.isLooseMuon()'),
            muTrackMediumID = makeMuTrackPair(src,"id_m_medium_1_INVALID",'leg1.isMediumMuon()'),
            muTrackUserMediumID = makeMuTrackPair(src,"id_m_medium_1",'leg1.userInt("mediumID")'),
-           muTrackMuTriggerMatch = makeMuTrackPair(src,"lTrigger",'leg1.userFloat("hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09")'),
+           #muTrackMuTriggerMatch = makeMuTrackPair(src,"lTrigger",'leg1.userFloat("hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09")'),
            muTrackPzeta = makeMuTrackPair(src,"pZeta",'pZeta-1.5*pZetaVis'),
            muTrackPZ = makeMuTrackPair(src,"pZ",'pZeta'),
            muTrackPZV = makeMuTrackPair(src,"pzetavis",'pZetaVis'),
@@ -835,7 +855,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               trigger = cms.PSet(
                                   pluginType = cms.string("TriggerFiller"),
                                   src = cms.InputTag(TriggerRes,"",TriggerProcess),
-                 				  prescales = cms.InputTag("patTrigger"),
+                                   prescales = cms.InputTag("patTrigger"),
                                   paths      = cms.vstring(TriggerPaths)
                               ),
 
@@ -905,7 +925,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muTauMass = makeMuTauPair(src,"m_vis","mass"),#FILLED
                               #muTauSVPt = makeMuTauPair(src,"pt_sv","svPt"),#FILLEDATLATERSTAGE
                               #muTauSVMass = makeMuTauPair(src,"m_sv","svMass"),#FILLEDATLATERSTAGE
-			      muTaulVeto = makeMuTauPair(src,"lVeto","lVeto"),
+                  muTaulVeto = makeMuTauPair(src,"lVeto","lVeto"),
 
                               muTauFullPt = makeMuTauPair(src,"fullPt","fullPt"),#FILLED
                               muTauEta = makeMuTauPair(src,"fullEta","fullEta"),#FILLED
@@ -919,7 +939,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muTauPhi1 = makeMuTauPair(src,"phi_1","leg1.phi"),#FILLED
                               muTauPhi2 = makeMuTauPair(src,"phi_2","leg2.phi"),#FILLED
 
-			      muTauMassLL = makeLTauGeneric("PATMuPairFiller",srcLL,"LLmass","mass"),
+                  muTauMassLL = makeLTauGeneric("PATMuPairFiller",srcLL,"LLmass","mass"),
                               muTauPt1LL =  makeLTauGeneric("PATMuPairFiller",srcLL,"LLpt_1","leg1.pt"), #FILLED
                               muTauPt2LL =  makeLTauGeneric("PATMuPairFiller",srcLL,"LLpt_2","leg2.pt"), #FILLED
                               muTauEta1LL = makeLTauGeneric("PATMuPairFiller",srcLL,"LLeta_1","leg1.eta"),#FILLED
@@ -949,8 +969,8 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muTauMT1 = makeMuTauPair(src,"mt_1","mt1MET"),#FILLED
                               muTauMT2 = makeMuTauPair(src,"mt_2","mt2MET"),#FILLED
                               
-		              muTauTopGenPt = makeMuTauPair(src,"topGenPt","topGenPt"),#FIXME
-		              muTauAntiTopGenPt = makeMuTauPair(src,"antiTopGenPt","antiTopGenPt"),#FIXME
+                      muTauTopGenPt = makeMuTauPair(src,"topGenPt","topGenPt"),#FIXME
+                      muTauAntiTopGenPt = makeMuTauPair(src,"antiTopGenPt","antiTopGenPt"),#FIXME
 
                               #BTAGS AND JETS
                               muTauMJJReg = makeMuTauPair(src,"mJJReg","mJJReg"),#FIXME
@@ -1017,19 +1037,24 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muTautau_pt_weighted_dphi_strip = makeMuTauPair(src,"tau_pt_weighted_dphi_strip",'leg2.userFloat("tau_pt_weighted_dphi_strip")'),
                               muTautau_pt_weighted_dr_iso = makeMuTauPair(src,"tau_pt_weighted_dr_iso",'leg2.userFloat("tau_pt_weighted_dr_iso")'),
                               muTaun_photons_total = makeMuTauPair(src,"n_photons_total",'leg2.userFloat("n_photons_total")'),
-			      #tauIDs
+                              #tauIDs
                               muTauByCombIsoDBRaw3 = makeMuTauPair(src,"byCombinedIsolationDeltaBetaCorrRaw3Hits_2",'leg2.tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits")'),
                               muTauByCombIsoLoose = makeMuTauPair(src,"tauIsoLoose",'leg2.tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits")'),
                               muTauByCombIsoMedium = makeMuTauPair(src,"tauIsoMedium",'leg2.tauID("byMediumCombinedIsolationDeltaBetaCorr3Hits")'),
                               muTauByCombIsoTight = makeMuTauPair(src,"tauIsoTight",'leg2.tauID("byTightCombinedIsolationDeltaBetaCorr3Hits")'),
-			                  muTauByNewDMMVAIso = makeMuTauPair(src,"byIsolationMVArun2v1DBnewDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBnewDMwLTraw")'),
-			                  muTauByOldDMMVAIso = makeMuTauPair(src,"byIsolationMVArun2v1DBoldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
+                              muTauByNewDMMVAIso = makeMuTauPair(src,"byIsolationMVArun2v1DBnewDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBnewDMwLTraw")'),
+                              muTauByOldDMMVAIso = makeMuTauPair(src,"byIsolationMVArun2v1DBoldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
                               muTauByOldDMMVAIsoTight = makeMuTauPair(src,"byTightIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBoldDMwLT")'),
                               muTaubyTightIsolationMVArun2v1DBdR03oldDMwLT = makeMuTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               muTaubyTightIsolationMVArun2v1PWdR03oldDMwLT = makeMuTauPair(src,"byTightIsolationMVArun2v1PWdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1PWdR03oldDMwLT")'),
                               muTaubyTightIsolationMVArun2v1PWoldDMwLT = makeMuTauPair(src,"byTightIsolationMVArun2v1PWoldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1PWoldDMwLT")'),
                               muTauByOldDMMVAIsoMedium = makeMuTauPair(src,"byMediumIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byMediumIsolationMVArun2v1DBoldDMwLT")'),
                               muTauByOldDMMVAIsoLoose = makeMuTauPair(src,"byLooseIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byLooseIsolationMVArun2v1DBoldDMwLT")'),
+
+                              muTaubyLooseIsolationMVArun2v1DBdR03oldDMwLT = makeMuTauPair(src,"byLooseIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              muTaubyMediumIsolationMVArun2v1DBdR03oldDMwLT = makeMuTauPair(src,"byMediumIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              muTaubyVTightIsolationMVArun2v1DBdR03oldDMwLT = makeMuTauPair(src,"byVTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byVTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+
                               muTauByCharged = makeMuTauPair(src,"chargedIsoPtSum_2",'leg2.tauID("chargedIsoPtSum")'),
                               muTauByNeutral = makeMuTauPair(src,"neutralIsoPtSum_2",'leg2.tauID("neutralIsoPtSum")'),
                               muTauByPU = makeMuTauPair(src,"puCorrPtSum_2",'leg2.tauID("puCorrPtSum")'), 
@@ -1190,8 +1215,8 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                                   pluginType = cms.string("TriggerFiller"),
                                   #src        = cms.InputTag("TriggerResults","","HLT"),
                                   src = cms.InputTag(TriggerRes,"",TriggerProcess),
-				  prescales = cms.InputTag("patTrigger"),
-				  paths      = cms.vstring(TriggerPaths)
+                  prescales = cms.InputTag("patTrigger"),
+                  paths      = cms.vstring(TriggerPaths)
                               ),
                               pu = cms.PSet(
                                   pluginType = cms.string("PUFiller"),
@@ -1266,7 +1291,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               eleTauMass = makeEleTauPair(src,"m_vis","mass"),
                               #eleTauSVPt = makeEleTauPair(src,"pt_sv","svPt"),
                               #eleTauSVMass = makeEleTauPair(src,"m_sv","svMass"),
-			      eleTaulVeto = makeEleTauPair(src,"lVeto","lVeto"),
+                  eleTaulVeto = makeEleTauPair(src,"lVeto","lVeto"),
 
                               eleTauFullPt = makeEleTauPair(src,"fullPt","fullPt"),
                               eleTauEta = makeEleTauPair(src,"fullEta","fullEta"),
@@ -1287,9 +1312,9 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               #eleTauMETPhi = makeEleTauPair(src,"metphi","metPhi"),
                               #eleTauGenMET = makeEleTauPair(src,"genMET","met.genMET()"),
 
-			      eleTauMET1 = makeEleTauMET(src,"slimmedMETs","pf"),#FILLED
-			      eleTauMET2 = makeEleTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
-			      eleTauMET3 = makeEleTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
+                  eleTauMET1 = makeEleTauMET(src,"slimmedMETs","pf"),#FILLED
+                  eleTauMET2 = makeEleTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
+                  eleTauMET3 = makeEleTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
         
                               eleTauMET = makeEleTauPair(src,"met","met.pt()"),
                               eleTauMETPhi = makeEleTauPair(src,"metphi","met.phi()"),
@@ -1330,7 +1355,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               eleTauPZ = makeEleTauPair(src,"pzeta",'pZeta'),#EO
                               eleTauPZV = makeEleTauPair(src,"pzetavis",'pZetaVis'),#EO
 
-			      #Trigger
+                  #Trigger
                               eleTauEleTriggerMatch2016_25 = makeEleTauPair(src,"lTrigger25",'leg1.userFloat("hltEle25erWPTightGsfTrackIsoFilter")'),
                               eleTauEleTriggerMatch2016_27 = makeEleTauPair(src,"lTrigger27",'leg1.userFloat("hltEle27erWPLooseGsfTrackIsoFilter")'),
                               eleTauEleTriggerMatch2016_1 = makeEleTauPair(src,"lt1Trigger",'leg1.userFloat("hltOverlapFilterIsoEle24WPLooseGsfLooseIsoPFTau20")'),
@@ -1339,7 +1364,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
 
                               #Ele IDs and Isolation
                               eleTauRelPFIsoDB03 = makeEleTauPair(src,"iso_1",'leg1.userFloat("dBRelIso03")'),
-			      eleTauRel2PFIsoDB03 = makeEleTauPair(src,"iso_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
+                  eleTauRel2PFIsoDB03 = makeEleTauPair(src,"iso_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
                               eleTauRelPFIsoDB04 = makeEleTauPair(src,"iso04_1",'leg1.userFloat("dBRelIso")'),
                               eleTauEleIsoChHadIso = makeEleTauPair(src,"eleIsoChHadIso",'leg1.userFloat("eleIsoChHadIso")'),
                               eleTauEleIsoPUChHadIso = makeEleTauPair(src,"eleIsoPUChHadIso",'leg1.userFloat("eleIsoPUChHadIso")'),
@@ -1372,7 +1397,8 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               eleTautau_pt_weighted_dphi_strip = makeEleTauPair(src,"tau_pt_weighted_dphi_strip",'leg2.userFloat("tau_pt_weighted_dphi_strip")'),
                               eleTautau_pt_weighted_dr_iso = makeEleTauPair(src,"tau_pt_weighted_dr_iso",'leg2.userFloat("tau_pt_weighted_dr_iso")'),
                               eleTaun_photons_total = makeEleTauPair(src,"n_photons_total",'leg2.userFloat("n_photons_total")'),
-			      #tauIDs
+                              #tauIDs
+
 
 
 
@@ -1401,9 +1427,8 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               eleTauagainstElectronMediumMVA6 = makeEleTauPair(src,"againstElectronMediumMVA6_2",'leg2.tauID("againstElectronMediumMVA6")'),
                               eleTauagainstElectronTightMVA6 = makeEleTauPair(src,"againstElectronTightMVA6_2",'leg2.tauID("againstElectronTightMVA6")'),
                               eleTauagainstElectronVTightMVA6 = makeEleTauPair(src,"againstElectronVTightMVA6_2",'leg2.tauID("againstElectronVTightMVA6")'),
-
-			      eleTauByNewDMMVAIso = makeEleTauPair(src,"byIsolationMVArun2v1DBnewDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBnewDMwLTraw")'),
-			      eleTauByOldDMMVAIso = makeEleTauPair(src,"byIsolationMVArun2v1DBoldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
+                              eleTauByNewDMMVAIso = makeEleTauPair(src,"byIsolationMVArun2v1DBnewDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBnewDMwLTraw")'),
+                              eleTauByOldDMMVAIso = makeEleTauPair(src,"byIsolationMVArun2v1DBoldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBoldDMwLTraw")'),
                               eleTaubyIsolationMVArun2v1DBdR03oldDMwLTraw = makeEleTauPair(src,"byIsolationMVArun2v1DBdR03oldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1DBdR03oldDMwLTraw")'),
                               eleTaubyIsolationMVArun2v1PWdR03oldDMwLTraw = makeEleTauPair(src,"byIsolationMVArun2v1PWdR03oldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1PWdR03oldDMwLTraw")'),
                               eleTaubyIsolationMVArun2v1PWoldDMwLTraw = makeEleTauPair(src,"byIsolationMVArun2v1PWoldDMwLTraw_2",'leg2.tauID("byIsolationMVArun2v1PWoldDMwLTraw")'),
@@ -1460,7 +1485,8 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
 
 
 
-			      #Jets
+
+                              #Jets
                               eleTauJetsPt20nbtag = makeEleTauJetCountPair(src,"nbtag",'userFloat("isbtagged")&&pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8'),
                               eleTauJetsPt20nbtagNoSF = makeEleTauJetCountPair(src,"nbtagNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8'),
                               eleTauJetsPt20nbtagLoose = makeEleTauJetCountPair(src,"nbtagLooseNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.46'),
@@ -1576,7 +1602,7 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               trigger = cms.PSet(
                                   pluginType = cms.string("TriggerFiller"),
                                   src = cms.InputTag(TriggerRes,"",TriggerProcess),
-                 				  prescales = cms.InputTag("patTrigger"),
+                                  prescales = cms.InputTag("patTrigger"),
                                   paths      = cms.vstring(TriggerPaths)
                               ),
 
@@ -1633,7 +1659,7 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTauPt = makeDiTauPair(src,"pth","pt"),#FILLED
                               diTauHT = makeDiTauPair(src,"ht","ht"),#FILLED
                               diTauMass = makeDiTauPair(src,"m_vis","mass"),#FILLED
-               			      diTaulVeto = makeDiTauPair(src,"lVeto","lVeto"),
+                              diTaulVeto = makeDiTauPair(src,"lVeto","lVeto"),
 
                               diTauPt1 =  makeDiTauPair(src,"pt_1","leg1.pt"), #FILLED
                               diTauPt2 =  makeDiTauPair(src,"pt_2","leg2.pt"), #FILLED
@@ -1644,6 +1670,8 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
 
                               diTauMET1 = makeDiTauMET(src,"slimmedMETs","pf"),#FILLED
                               diTauMET2 = makeDiTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
+                              diTauMETUncertUp = makeDiTauMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
+                              diTauMETUncertDown = makeDiTauMETUncert(src,"slimmedMETs","pf","EnDown"),#FILLED
  
                               diTauMET = makeDiTauPair(src,"met","met.pt()"),#FILLED
                               diTauMETPhi = makeDiTauPair(src,"metphi","met.phi()"),#FILLED
@@ -1652,8 +1680,8 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTauMT1 = makeDiTauPair(src,"mt_1","mt1MET"),#FILLED
                               diTauMT2 = makeDiTauPair(src,"mt_2","mt2MET"),#FILLED
                               
-		                      diTauTopGenPt = makeDiTauPair(src,"topGenPt","topGenPt"),#FIXME
-		                      diTauAntiTopGenPt = makeDiTauPair(src,"antiTopGenPt","antiTopGenPt"),#FIXME
+                              diTauTopGenPt = makeDiTauPair(src,"topGenPt","topGenPt"),#FIXME
+                              diTauAntiTopGenPt = makeDiTauPair(src,"antiTopGenPt","antiTopGenPt"),#FIXME
 
                               #BTAGS AND JETS
                               diTauMJJ = makeDiTauPair(src,"mJJ","mJJ"),#FILLED
@@ -1668,6 +1696,15 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTauVBFJets30 = makeDiTauPair(src,"njetingap","vbfNJetsGap30"),
                               diTauDM1 = makeDiTauPair(src, "decayMode_1",'leg1.decayMode()'),
                               diTauDM2 = makeDiTauPair(src, "decayMode_2",'leg2.decayMode()'),
+                              diTauIsoLooseMVA31 = makeDiTauPair(src, "byLooseIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoLooseMVA32 = makeDiTauPair(src, "byLooseIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoMediumMVA31 = makeDiTauPair(src, "byMediumIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoMediumMVA32 = makeDiTauPair(src, "byMediumIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoTightMVA31 = makeDiTauPair(src, "byTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoTightMVA32 = makeDiTauPair(src, "byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoVTightMVA31 = makeDiTauPair(src, "byVTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byVTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTauIsoVTightMVA32 = makeDiTauPair(src, "byVTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byVTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+
                               diTauchargedIsoPtSumdR031 = makeDiTauPair(src, "chargedIsoPtSumdR03_1",'leg1.tauID("chargedIsoPtSumdR03")'),
                               diTauchargedIsoPtSumdR032 = makeDiTauPair(src, "chargedIsoPtSumdR03_2",'leg2.tauID("chargedIsoPtSumdR03")'),
                               diTauagainstMuonLoose31 = makeDiTauPair(src, "againstMuonLoose3_1",'leg1.tauID("againstMuonLoose3")'),
