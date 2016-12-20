@@ -110,7 +110,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
 
         int muId = 0; 
         std::cout<<"     muID initialized: "<<muId<<std::endl;
-        std::cout<<"     mu is  nonnull: "<<muon.isNonnull()<<std::endl;
+        std::cout<<"     mu is  nonnull: "<<muon.globalTrack().isNonnull()<<std::endl;
         muId =MiniAODMuonIDEmbedder::isICHEPmedium(muon); 
         /*        if(muon.innerTrack().isNonnull()&&!muon.globalTrack().isNull()&&muon.isLooseMuon()&&muon.isGlobalMuon()){
                   std::cout<<"   inside loop"<<std::endl; 
