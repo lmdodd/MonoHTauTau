@@ -17,8 +17,6 @@
 
 #include "DataFormats/EgammaCandidates/interface/GsfElectron.h"
 
-#include "DataFormats/Common/interface/ValueMap.h"
-
 #include "DataFormats/EgammaCandidates/interface/ConversionFwd.h"
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
