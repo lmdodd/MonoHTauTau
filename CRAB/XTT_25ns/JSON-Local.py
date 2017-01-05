@@ -2,10 +2,9 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
-#process.load('CondCore.CondDB.CondDB_cfi')
 
 
-process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v6'
+process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v4'
 #process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v9'
 
 
@@ -17,12 +16,10 @@ process.options.allowUnscheduled = cms.untracked.bool(True)
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         #'/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/AC8D5F25-0798-E611-B606-0242AC130002.root'
-        #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
-        'file:localFile.root'
+        '/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
 		),
-    #eventsToProcess = cms.untracked.VEventRange('278822:475:820360892'),
-    #eventsToProcess = cms.untracked.VEventRange('278820:302083120-278822:820360892'),
-    inputCommands=cms.untracked.vstring(
+        #firstEvent = cms.untracked.uint32(820360892),
+		inputCommands=cms.untracked.vstring(
 						'keep *',
 		)
 )
@@ -95,6 +92,7 @@ from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventT
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
+
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
 addEleTauEventTree(process,'eleTauEventTree')
 addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
@@ -103,10 +101,9 @@ from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventT
 addDiTauEventTree(process,'diTauEventTree')
 addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
-
-addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
-addEventSummary(process,True,'TT','eventSelectionTT')
+addEventSummary(process,False,'MT','eventSelectionMT')
+addEventSummary(process,False,'ET','eventSelectionET')
+addEventSummary(process,False,'TT','eventSelectionTT')
 
 
 process.TFileService.fileName=cms.string("output.root")

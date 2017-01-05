@@ -37,6 +37,7 @@ class MiniAODMuonIDEmbedder : public edm::EDProducer {
         edm::EDGetTokenT<pat::MuonCollection> muonsCollection_;
         edm::EDGetTokenT<reco::VertexCollection> vtxToken_;
         reco::Vertex pv_;
+        bool HIP;
 };
 
 bool MiniAODMuonIDEmbedder::isICHEPmedium(const reco::Muon & recoMu)
@@ -83,6 +84,7 @@ bool MiniAODMuonIDEmbedder::is2016GHmedium(const reco::Muon & recoMu)
 MiniAODMuonIDEmbedder::MiniAODMuonIDEmbedder(const edm::ParameterSet& pset) {
     muonsCollection_ = consumes<pat::MuonCollection>(pset.getParameter<edm::InputTag>("src"));
     vtxToken_            = consumes<reco::VertexCollection>(pset.getParameter<edm::InputTag>("vertices"));
+    HIP   = pset .getParameter<bool>("isHip");
 
     produces<pat::MuonCollection>();
 }
@@ -103,7 +105,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
     std::auto_ptr<pat::MuonCollection> output(new pat::MuonCollection);
     output->reserve(nbMuon);
 
-    std::cout<<"NMuons: "<<nbMuon<<std::endl;
+    //std::cout<<"NMuons: "<<nbMuon<<std::endl;
     for(unsigned i = 0 ; i < nbMuon; i++){
         pat::Muon muon(muons->at(i));
         //pat::Muon muon = muons->at(i);
@@ -121,27 +123,29 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
             muon.addUserFloat("dZ",-999.);
         }
 
-        std::cout<<"muon "<<i<<" pt: "<<muon.pt()<<std::endl;
-        std::cout<<"     isMediumMuon(): "<<muon::isMediumMuon(muon)<<std::endl;
+        //std::cout<<"muon "<<i<<" pt: "<<muon.pt()<<std::endl;
+        //std::cout<<"     isMediumMuon(): "<<muon::isMediumMuon(muon)<<std::endl;
         float muIso = (muon.pfIsolationR04().sumChargedHadronPt + std::max(
                     muon.pfIsolationR04().sumNeutralHadronEt +
                     muon.pfIsolationR04().sumPhotonEt - 
                     0.5 * muon.pfIsolationR04().sumPUPt, 0.0)) / muon.pt(); 
-        std::cout<<"     Muon Isolation04: "<<muIso<<std::endl;
+        //std::cout<<"     Muon Isolation04: "<<muIso<<std::endl;
 
         float muIso03 = (muon.pfIsolationR03().sumChargedHadronPt + std::max(
                     muon.pfIsolationR03().sumNeutralHadronEt +
                     muon.pfIsolationR03().sumPhotonEt - 
                     0.5 * muon.pfIsolationR03().sumPUPt, 0.0)) / muon.pt();
 
-        std::cout<<"     Muon Isolation03: "<<muIso03<<std::endl;
+        //std::cout<<"     Muon Isolation03: "<<muIso03<<std::endl;
 
         int muId = 0; 
-        std::cout<<"     muID initialized to: "<<muId<<std::endl;
-        std::cout<<"     muon.globalTrack() isNonnull: "<<muon.globalTrack().isNonnull()<<std::endl;
+        //std::cout<<"     muID initialized to: "<<muId<<std::endl;
+        //std::cout<<"     muon.globalTrack() isNonnull: "<<muon.globalTrack().isNonnull()<<std::endl;
         muId =MiniAODMuonIDEmbedder::is2016GHmedium(muon); 
+        if (HIP)
+            muId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
 
-        std::cout<<"     muIDsetto: "<<muId<<std::endl;
+        //std::cout<<"     muIDsetto: "<<muId<<std::endl;
 
         muon.addUserFloat("dBRelIso",muIso);
         muon.addUserFloat("iso",muIso);

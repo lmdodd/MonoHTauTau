@@ -101,7 +101,7 @@ addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 addEventSummary(process,False,'MT','eventSelectionMT')
 addEventSummary(process,False,'ET','eventSelectionET')
-addEventSummary(process,False,'TT','eventSelectionTT')
+addEventSummary(process,True,'TT','eventSelectionTT')
 
 
 process.TFileService.fileName=cms.string("$outputFileName")
