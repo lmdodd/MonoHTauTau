@@ -33,7 +33,7 @@ process.maxEvents = cms.untracked.PSet(
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
-defaultReconstruction(process,'HLT',
+defaultReconstructionBCDEF(process,'HLT',
         [
             'HLT_IsoMu18_v', 
             'HLT_IsoMu20_v', 

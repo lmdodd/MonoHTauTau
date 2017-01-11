@@ -13,7 +13,7 @@
 
 #include "CommonTools/Utils/interface/StringObjectFunction.h"
 #include "boost/filesystem.hpp"
-#include "MonoHTauTau/NtupleTools/plugins/HTTTnP.C"
+//#include "MonoHTauTau/NtupleTools/plugins/HTTTnP.C"
 
 //
 // class decleration

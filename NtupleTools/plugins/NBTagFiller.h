@@ -91,7 +91,7 @@ class NBTagFiller : public NtupleFillerBase {
 					if (pt<20 || std::abs(eta)>2.4) {continue;}
 					int jetflavor = handle->at(0).jets().at(i)->partonFlavour();
 					double SF =0,SFup=0,SFdown=0,eff=0;
-					if (handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.80&&handle->at(0).jets().at(i)->userFloat("idLoose")) pass =true;
+					if (handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484&&handle->at(0).jets().at(i)->userFloat("idLoose")) pass =true;
 					if (fabs(jetflavor) == 5) {                // real b-jet
 
 

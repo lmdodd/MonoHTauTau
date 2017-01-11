@@ -81,7 +81,6 @@ defaultReconstruction(process,'HLT',
 #EventSelection
 process.load("MonoHTauTau.Configuration.monohiggs_cff")
 
-process.metCalibration.applyCalibration = cms.bool(False)
 
 process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
 process.eventSelectionET = cms.Path(process.selectionSequenceET)

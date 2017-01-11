@@ -582,9 +582,6 @@ def createRecoilSystematics(process,sequence,postfix,metScale,metResolution):
         if(hasattr(mod,'name')):
           newValue = mod.name.value()+postfix
           mod.name=cms.string(newValue)
-    if(hasattr(mod,'metCalibration')):
-          mod.metCalibration.shiftScale = cms.untracked.double(metScale)
-          mod.metCalibration.shiftRes   = cms.untracked.double(metResolution)
       
   return cms.Path(p) 
 

@@ -78,7 +78,7 @@ class EffCSVFiller : public NtupleFillerBase {
 					double eta = handle->at(0).jets().at(i)->eta();
 					if (pt <20 || abs(eta)>2.4) continue;
 					int jetflavor = abs(handle->at(0).jets().at(i)->partonFlavour());
-					if (handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.80){
+					if (handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484){
 						//std::cout<< "Flavor: "<<jetflavor<<std::endl;
 						BTagEntry::JetFlavor jf= BTagEntry::FLAV_B;
 						if (jetflavor==4) jf = BTagEntry::FLAV_C;

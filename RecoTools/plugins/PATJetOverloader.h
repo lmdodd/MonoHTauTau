@@ -208,7 +208,7 @@ class PATJetOverloader : public edm::EDProducer {
 					//std::cout<<" jet.eta() "<< beta<<std::endl;
 					//std::cout<<" std::abs(jet.eta()) "<< std::abs(beta)<<std::endl;
 					if (!(bpt<20 || beta>2.4 || !loose )) {
-						if (bcsv>0.80) pass =true;
+						if (bcsv>0.8484) pass =true;
 						int jetflavor = jet.partonFlavour();
 						double SF =0,SFup=0,SFdown=0,eff=0;
 						//std::cout<< "Gets To Return" <<std::endl;

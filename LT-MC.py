@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
-process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2_v1'
+process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_TrancheIV_v7'
 
 
 
@@ -25,8 +25,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 500
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
             #'file:tester.root'
-#'/store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/70000/6E36FCDE-187A-E611-A02B-848F69FD47A5.root'
-'/store/mc/RunIISpring16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-1000_MChi-150_13TeV-madgraph/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/80000/269EFEE1-B071-E611-A80A-20CF3027A62B.root'
+'/store/mc/RunIISpring16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-10000_MChi-1000_13TeV-madgraph/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/90000/1AC32565-506E-E611-AB95-0CC47A78A3EC.root'
 ),
         inputCommands=cms.untracked.vstring(
             'keep *',
@@ -78,7 +77,6 @@ defaultReconstructionMC(process,'HLT',
         #EventSelection
 process.load("MonoHTauTau.Configuration.monohiggs_cff")
 
-process.metCalibration.applyCalibration = cms.bool(False)
 
 process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
 process.eventSelectionET = cms.Path(process.selectionSequenceET)

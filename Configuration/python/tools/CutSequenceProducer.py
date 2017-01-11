@@ -2,19 +2,6 @@ import FWCore.ParameterSet.Config as cms
 import sys
 
 
-metCalibration = cms.PSet(
-        applyCalibration = cms.bool(False),
-        calibrationScheme = cms.string("BothLegs"),
-        responseU1   = cms.string("1.33223-0.917782*x"),
-        responseU2   = cms.string("-0.013"),
-        resolutionU1 = cms.string("11.1566+0.0654529*x+0.000124436*x*x"),
-        resolutionU2 = cms.string("11.1235+0.0449872*x-6.39822e-5*x*x"),
-        responseMCU1   = cms.string("1.26247-0.950094*x"),
-        responseMCU2   = cms.string("-0.00544907"),
-        resolutionMCU1 = cms.string("10.6449+0.0436475*x+3.07554e-5*x*x"),
-        resolutionMCU2 = cms.string("10.5649+0.0225853*x-5.81371e-5*x*x")
-        )
-
 
 def getInstanceName(obj, pyNameSpace = None, process = None):
     if process is not None:
@@ -69,7 +56,6 @@ class CutSequenceProducer(cms._ParameterTypeBase):
                dicand.recoMode = cms.string("")
                dicand.verbosity = cms.untracked.int32(0)
                dicand.doSVreco = cms.bool(False)
-               dicand.metCalibration = metCalibration
                pyModule = sys.modules[self.pyModuleName[0]]
                if pyModule is None:
                    raise ValueError("'pyModuleName' Parameter invalid")

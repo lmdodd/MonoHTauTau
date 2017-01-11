@@ -84,7 +84,7 @@ class CSVReweightFiller : public NtupleFillerBase {
 					int flavor = abs(handle->at(0).jets().at(i)->partonFlavour());
 					BTagEntry::JetFlavor jf = BTagEntry::FLAV_UDSG;
 
-					if (csv>0.80){
+					if (csv>0.8484){
 						if( flavor ==5 ) { 
 							jf = BTagEntry::FLAV_B;
 							SFupJes.push_back(reader.eval_auto_bounds("up_jes",jf, eta, pt,csv ));
