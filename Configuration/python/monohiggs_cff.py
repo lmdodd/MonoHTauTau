@@ -53,7 +53,7 @@ MTanalysisConfigurator.addSelector('diMuonsOS','PATMuPairSelector','leg1.isPFMuo
 MTanalysisConfigurator.addSorter('diMuonsOSSorted','PATMuPairSorter')
 
 #Make DiTaus   
-MTanalysisConfigurator.addDiCandidateModule('muTaus','PATMuTauPairProducer','smearedMuonsMT','smearedTausMT','smearedMETMT','smearedTausMT','smearedJetsMT',1,9999,text='AtLeastOneDiTau',leadingObjectsOnly = False,dR = 0.3,recoMode ="",genParticles='prunedGenParticles')
+MTanalysisConfigurator.addDiCandidateModule('muTaus','PATMuTauPairProducer','smearedMuonsMT','smearedTausMT','smearedMETMT','smearedTausMT','smearedJetsMT',1,9999,text='AtLeastOneMuTau',leadingObjectsOnly = False,dR = 0.3,recoMode ="",genParticles='prunedGenParticles')
 MTanalysisConfigurator.addSelector('muTausMuonPtEta','PATMuTauPairSelector','leg1.pt()>25&&abs(leg1.eta())<2.1','MTMuonPtEta',1)
 MTanalysisConfigurator.addSelector('muTausTauPtEta','PATMuTauPairSelector','leg2.pt()>20&&abs(leg2.eta())<2.3','MTTauPtEta',1)
 MTanalysisConfigurator.addSelector('muTausMuonMediumID','PATMuTauPairSelector','leg1.userInt("mediumID")>0','MTMuonMediumID',1)

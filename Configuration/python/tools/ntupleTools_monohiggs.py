@@ -305,6 +305,23 @@ def makeDiTauEventWeightTmp(sourceDiTaus):
    return PSet
 
 
+#
+#def filterTriggerMatchMiniAOD(process,triggerProcess,HLT):
+#
+#    process.filtertriggers = cms.EDProducer("FilterTriggerMatcherMiniAOD",
+#            filters = cms.vstring(
+#                "Flag_HBHENoiseFilter",
+#                "Flag_HBHENoiseIsoFilter", 
+#                "Flag_globalTightHalo2016Filter",
+#                "Flag_goodVertices",
+#                "Flag_eeBadScFilter",
+#                "Flag_EcalDeadCellTriggerPrimitiveFilter"
+#                ),
+#            bits = cms.InputTag(HLT,"","PAT"),
+#   )
+                                            
+   process.analysisSequence=cms.Sequence(process.analysisSequence*process.filtertriggers)
+
 
 
 
@@ -318,6 +335,20 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                                   src = cms.InputTag(TriggerRes,"",TriggerProcess),
                                   prescales = cms.InputTag("patTrigger"),
                                   paths      = cms.vstring(TriggerPaths)
+                              ),
+                              metfilter = cms.PSet(
+                                  pluginType = cms.string("TriggerFilterFiller"),
+                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
+                                  BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
+                                  paths      = cms.vstring(
+                                                      "Flag_HBHENoiseFilter",
+                                                      "Flag_HBHENoiseIsoFilter", 
+                                                      "Flag_globalTightHalo2016Filter",
+                                                      "Flag_goodVertices",
+                                                      "Flag_eeBadScFilter",
+                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      )
                               ),
 
                               pu = cms.PSet(
@@ -676,6 +707,21 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                                   prescales = cms.InputTag("patTrigger"),
                                   paths      = cms.vstring(TriggerPaths)
                               ),
+                              metfilter = cms.PSet(
+                                  pluginType = cms.string("TriggerFilterFiller"),
+                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
+                                  BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
+                                  paths      = cms.vstring(
+                                                      "Flag_HBHENoiseFilter",
+                                                      "Flag_HBHENoiseIsoFilter", 
+                                                      "Flag_globalTightHalo2016Filter",
+                                                      "Flag_goodVertices",
+                                                      "Flag_eeBadScFilter",
+                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      )
+                              ),
+
                               pu = cms.PSet(
                                   pluginType = cms.string("PUFiller"),
                                   src        = cms.InputTag("slimmedAddPileupInfo"),
@@ -1055,6 +1101,20 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                                   src = cms.InputTag(TriggerRes,"",TriggerProcess),
                                   prescales = cms.InputTag("patTrigger"),
                                   paths      = cms.vstring(TriggerPaths)
+                              ),
+                              metfilter = cms.PSet(
+                                  pluginType = cms.string("TriggerFilterFiller"),
+                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
+                                  BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
+                                  paths      = cms.vstring(
+                                                      "Flag_HBHENoiseFilter",
+                                                      "Flag_HBHENoiseIsoFilter", 
+                                                      "Flag_globalTightHalo2016Filter",
+                                                      "Flag_goodVertices",
+                                                      "Flag_eeBadScFilter",
+                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      )
                               ),
 
                               pu = cms.PSet(

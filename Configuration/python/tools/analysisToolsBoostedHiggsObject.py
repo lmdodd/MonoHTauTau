@@ -12,6 +12,58 @@ from PhysicsTools.PatAlgos.tools.pfTools import *
 from PhysicsTools.PatAlgos.tools.trigTools import *
 import sys
 
+def defaultReconstructioniBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults'):
+  process.load("MonoHTauTau.Configuration.startUpSequence_cff")
+  process.load("Configuration.StandardSequences.Services_cff")
+  process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
+  process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
+  process.load("DQMServices.Core.DQM_cfg")
+  process.load("DQMServices.Components.DQMEnvironment_cfi")
+  process.load('Configuration.StandardSequences.Services_cff')
+  process.load('Configuration.EventContent.EventContent_cff')
+  process.load('SimGeneral.MixingModule.mixNoPU_cfi')
+  process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+  process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+  process.load('Configuration.StandardSequences.EndOfProcess_cff')
+ 
+  #Make the TriggerPaths Global variable to be accesed by the ntuples
+  global TriggerPaths
+  TriggerPaths= triggerPaths
+  global TriggerProcess
+  TriggerProcess= triggerProcess
+  global TriggerRes
+  TriggerRes=HLT 
+  
+  process.analysisSequence = cms.Sequence()
+
+  MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
+  MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
+
+  recorrectJets(process, True) #adds patJetsReapplyJEC
+  
+  muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
+  electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
+  #tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus") #ESTaus
+  
+  #Build good vertex collection
+  #goodVertexFilter(process)  
+  tauEffi(process,'slimmedTausBoosted', True)
+  tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
+  trackOverloading(process,'packedPFCandidates','patOverloadedTaus','triggeredPatMuons','offlineSlimmedPrimaryVertices',20.)
+  
+  triLeptons(process)
+  #jetOverloading(process,"slimmedJets",True)
+  jetOverloading(process,"patJetsReapplyJEC",True)
+  #jetOverloading(process,"patJetsReapplyJEC") #"slimmedJets")
+  jetFilter(process,"patOverloadedJets")
+
+
+  #Default selections for systematics
+  applyDefaultSelectionsPT(process)
+
+  process.runAnalysisSequence = cms.Path(process.analysisSequence)
+
+
 def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults'):
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
   process.load("Configuration.StandardSequences.Services_cff")
@@ -157,11 +209,12 @@ def PATJetMVAEmbedder(process,jets):
   process.analysisSequence*=process.jetMVAEmbedding
 
 
-def MiniAODMuonIDEmbedder(process,muons):
+def MiniAODMuonIDEmbedder(process,muons, isHIP=False):
   process.miniAODMuonID = cms.EDProducer(
       "MiniAODMuonIDEmbedder",
       src=cms.InputTag(muons),
-      vertices=cms.InputTag("offlineSlimmedPrimaryVertices")
+      vertices=cms.InputTag("offlineSlimmedPrimaryVertices"),
+      isHip = cms.bool(isHIP) 
       )
 
   process.embedMuonIDs = cms.Sequence(process.miniAODMuonID)
@@ -180,20 +233,23 @@ def MiniAODEleVIDEmbedder(process, eles):
   #process.egmGsfElectronIDSequence = cms.Sequence(process.egmGsfElectronIDs)
   process.egmGsfElectronIDSequence = cms.Sequence(process.electronMVAValueMapProducer+process.egmGsfElectronIDs)
   id_modules = [
-      'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
       'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff',
+      'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
+      'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
+      'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
       'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_25ns_nonTrig_V1_cff']
   for idmod in id_modules:
       setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection,None,False)
   
-  IDLabels = ["eleMVAIDnonTrig80", "eleMVAIDnonTrig90","CBIDVeto", "CBIDLoose", "CBIDMedium", "CBIDTight","eleHEEPid"] # keys of based id user floats
+  IDLabels = ["eleMVAIDnonTrig80", "eleMVAIDnonTrig90","CBID","CBIDVeto", "CBIDLoose", "CBIDMedium", "CBIDTight","eleHEEPid"] # keys of based id user floats
   IDTags = [
-          cms.InputTag('egmGsfElectronIDs:mvaEleID-Spring15-25ns-nonTrig-V1-wp80'),
-          cms.InputTag('egmGsfElectronIDs:mvaEleID-Spring15-25ns-nonTrig-V1-wp90'),
-	  cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto'),
-          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose'),
-          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium'),
-          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight'),
+          cms.InputTag('egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80'),
+          cms.InputTag('egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90'),
+          cms.InputTag('egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1'),
+          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto'),
+          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose'),
+          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium'),
+          cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight'),
           cms.InputTag('egmGsfElectronIDs:heepElectronID-HEEPV60')
   ]
   # Embed cut-based VIDs
@@ -208,6 +264,7 @@ def MiniAODEleVIDEmbedder(process, eles):
   process.embedEleIDs = cms.Sequence(process.egmGsfElectronIDSequence+process.miniAODElectronVID)
   process.analysisSequence*=process.embedEleIDs
 
+ 
    
 def EScaledTaus(process,smearing):  #second arg is bool
 

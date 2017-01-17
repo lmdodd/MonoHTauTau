@@ -25,8 +25,6 @@ int main (int argc, char* argv[])
    parser.parseArguments (argc, argv);
    
 
-   
-
  
    TFile *w = new TFile("WJetsMLM.root","UPDATE");
    TH1F* evC  = (TH1F*)w->Get(parser.stringValue("histoName").c_str());
@@ -101,7 +99,7 @@ int main (int argc, char* argv[])
    ev.push_back(WLo5);
    ev.push_back(WLo6);
    ev.push_back(WLo7);
-   printf("Found  %f  Inclu Weight \n",1/ev[0]);
+   //printf("Found  %f  Inclu Weight \n",1/ev[0]);
    printf("Found  %f WJet HT200 Weight\n",1/(ev[1]));
    printf("Found  %f WJet HT400 Weight\n",1/(ev[2]));
    printf("Found  %f WJet HT600 Weight\n",1/(ev[3]));

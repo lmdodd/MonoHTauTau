@@ -44,32 +44,32 @@ EventSummary::endJob() {
   //Preclean filters
   std::vector<std::string> cleanFilters;
 
-      for(unsigned int i=0;i<filters.size();++i)
-	if(filters[i].size()>0)
-	{
-	  MonitorElement *tmp = store->get(filters[i]);
-	  if(tmp)
-	    cleanFilters.push_back(filters[i]);
-	  else
-	    printf("Not Found Filter %s\n",filters[i].c_str());
-	}
-
-      if(cleanFilters.size()>0)
+  for(unsigned int i=0;i<filters.size();++i)
+      if(filters[i].size()>0)
       {
-          TH1F * results = fs->make<TH1F>( "results"  , "Filter Results", filters.size(),  0.,filters.size());
-          results->Sumw2();
-          for(unsigned int i=0;i<cleanFilters.size();++i)
-              if(cleanFilters[i].size()>0)
-              {
-                  MonitorElement *tmp = store->get(cleanFilters[i]);
-                  if(tmp->kind()==MonitorElement::DQM_KIND_REAL)
-                  {
-                      results->SetBinContent(i+1,tmp->getFloatValue());
-                      results->GetXaxis()->SetBinLabel(i+1,cleanFilters[i].c_str());
-                  }
-              }
-
+          MonitorElement *tmp = store->get(filters[i]);
+          if(tmp)
+              cleanFilters.push_back(filters[i]);
+          else
+              printf("Not Found Filter %s\n",filters[i].c_str());
       }
+
+  if(cleanFilters.size()>0)
+  {
+      TH1F * results = fs->make<TH1F>( "results"  , "Filter Results", filters.size(),  0.,filters.size());
+      results->Sumw2();
+      for(unsigned int i=0;i<cleanFilters.size();++i)
+          if(cleanFilters[i].size()>0)
+          {
+              MonitorElement *tmp = store->get(cleanFilters[i]);
+              if(tmp->kind()==MonitorElement::DQM_KIND_REAL)
+              {
+                  results->SetBinContent(i+1,tmp->getFloatValue());
+                  results->GetXaxis()->SetBinLabel(i+1,cleanFilters[i].c_str());
+              }
+          }
+
+  }
 }
 
 

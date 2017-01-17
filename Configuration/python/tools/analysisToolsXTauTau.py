@@ -36,12 +36,14 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   
   process.analysisSequence = cms.Sequence()
 
+  MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
   recorrectJets(process, True) #adds patJetsReapplyJEC
   
   #reRunMET(process,True)
+
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
@@ -90,6 +92,7 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
   
   process.analysisSequence = cms.Sequence()
 
+  MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
@@ -148,7 +151,7 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
 
   #Apply Tau Energy Scale Changes
   #EScaledTaus(process,False)
-
+  MiniAODMETfilter(process)
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
 
@@ -225,6 +228,20 @@ def MiniAODMuonIDEmbedder(process,muons, isHIP=False):
 
   process.embedMuonIDs = cms.Sequence(process.miniAODMuonID)
   process.analysisSequence*=process.embedMuonIDs
+
+
+
+def MiniAODMETfilter(process):
+    process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
+    process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
+    process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+
+    process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
+    process.BadChargedCandidateFilter.muons = cms.InputTag("slimmedMuons")
+    process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+
+    process.BadMuon = cms.Sequence(process.BadPFMuonFilter*process.BadChargedCandidateFilter)
+    process.analysisSequence*=process.BadMuon
 
 
 def MiniAODEleVIDEmbedder(process, eles):

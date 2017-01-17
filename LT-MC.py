@@ -19,13 +19,14 @@ process.maxEvents = cms.untracked.PSet(
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 500
+process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
             #'file:tester.root'
-'/store/mc/RunIISpring16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-10000_MChi-1000_13TeV-madgraph/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/90000/1AC32565-506E-E611-AB95-0CC47A78A3EC.root'
+            '/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/60000/8EE3D66F-E1C3-E611-B3D5-6CC2173BBD70.root'
+#'/store/mc/RunIISpring16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-10000_MChi-1000_13TeV-madgraph/MINIAODSIM/premix_withHLT_80X_mcRun2_asymptotic_v14-v1/90000/1AC32565-506E-E611-AB95-0CC47A78A3EC.root'
 ),
         inputCommands=cms.untracked.vstring(
             'keep *',
@@ -115,15 +116,15 @@ from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventT
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
-addEleTauEventTree(process,'eleTauEventTree')
-addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
+#addEleTauEventTree(process,'eleTauEventTree')
+#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-addDiTauEventTree(process,'diTauEventTree')
-addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
+#addDiTauEventTree(process,'diTauEventTree')
+#addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
-addEventSummary(process,True,'TT','eventSelectionTT')
+#addEventSummary(process,True,'ET','eventSelectionET')
+#addEventSummary(process,True,'TT','eventSelectionTT')
 

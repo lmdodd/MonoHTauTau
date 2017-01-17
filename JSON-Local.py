@@ -9,14 +9,21 @@ process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v6'
 
 
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
+#process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.options.allowUnscheduled = cms.untracked.bool(True)
+
+
+# Make the framework shut up.
+process.load("FWCore.MessageLogger.MessageLogger_cfi")
+process.MessageLogger.cerr.FwkReport.reportEvery = 500
 
 
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         #'/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/AC8D5F25-0798-E611-B606-0242AC130002.root'
-        '/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
+        #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
+        '/store/data/Run2016D/Tau/MINIAOD/23Sep2016-v1/50000/3CDE2FC0-3B95-E611-817D-0025905B8612.root'
         #'file:localFile.root'
 		),
     #eventsToProcess = cms.untracked.VEventRange('278822:475:820360892'),
@@ -34,6 +41,7 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
 )
 
+#process.dump=cms.EDAnalyzer('EventContentAnalyzer')
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
@@ -85,21 +93,21 @@ process.load("MonoHTauTau.Configuration.monohiggs_cff")
 
 
 process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
-process.eventSelectionET = cms.Path(process.selectionSequenceET)
-process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
+#process.eventSelectionET = cms.Path(process.selectionSequenceET)
+#process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
 
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
-addEleTauEventTree(process,'eleTauEventTree')
-addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
+#addEleTauEventTree(process,'eleTauEventTree')
+#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-addDiTauEventTree(process,'diTauEventTree')
-addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
+#addDiTauEventTree(process,'diTauEventTree')
+#addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 
 #addEventSummary(process,True,'MT','eventSelectionMT')

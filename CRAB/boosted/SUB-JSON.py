@@ -80,10 +80,8 @@ defaultReconstruction(process,'HLT',
 
 
 
-        #EventSelection
+#EventSelection
 process.load("MonoHTauTau.Configuration.boostedHiggs_cff")
-
-process.metCalibration.applyCalibration = cms.bool(False)
 
 
 process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
