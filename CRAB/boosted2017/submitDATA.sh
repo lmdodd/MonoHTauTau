@@ -1,0 +1,31 @@
+#!/bin/sh
+#voms-proxy-init --voms cms --valid 100:00
+
+#Submit the reprocessed Data
+farmoutAnalysisJobs  $1 --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016B-23Sep2016-v3/MINIAOD SINGLEMUON2016B_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016C-23Sep2016-v1/MINIAOD SINGLEMUON2016C_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016D-23Sep2016-v1/MINIAOD SINGLEMUON2016D_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD SINGLEMUON2016E_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD SINGLEMUON2016F_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD SINGLEMUON2016G_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU-ReReco.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016H-PromptReco-v2/MINIAOD SINGLEMUON2016Hv2_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000    --input-files-per-job=1 --input-dbs-path=/SingleMuon/Run2016H-PromptReco-v3/MINIAOD SINGLEMUON2016Hv3_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MU.py  
+
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016B-23Sep2016-v3/MINIAOD TAU2016B_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016C-23Sep2016-v1/MINIAOD TAU2016C_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016D-23Sep2016-v1/MINIAOD TAU2016D_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016E-23Sep2016-v1/MINIAOD TAU2016E_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016F-23Sep2016-v1/MINIAOD TAU2016F_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016G-23Sep2016-v1/MINIAOD TAU2016G_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU-ReReco.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016H-PromptReco-v2/MINIAOD TAU2016Hv2_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/Tau/Run2016H-PromptReco-v3/MINIAOD TAU2016Hv3_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-TAU.py  
+
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016B-23Sep2016-v3/MINIAOD MET2016B_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016C-23Sep2016-v1/MINIAOD MET2016C_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016D-23Sep2016-v1/MINIAOD MET2016D_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016E-23Sep2016-v1/MINIAOD MET2016E_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016F-23Sep2016-v1/MINIAOD MET2016F_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-BCDEF.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016G-23Sep2016-v1/MINIAOD MET2016G_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET-ReReco.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016H-PromptReco-v2/MINIAOD MET2016Hv2_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET.py  
+farmoutAnalysisJobs  $1  --assume-input-files-exist  --vsize-limit=8000   --input-files-per-job=1 --input-dbs-path=/MET/Run2016H-PromptReco-v3/MINIAOD MET2016Hv3_MonoH_Jan13 $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/boosted2017/SUB-JSON-MET.py  
+

@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import TriggerPaths,TriggerRes,TriggerProcess
+from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import TriggerPaths,TriggerRes,TriggerProcess,TriggerFilter
 
 
 
@@ -305,24 +305,6 @@ def makeDiTauEventWeightTmp(sourceDiTaus):
    return PSet
 
 
-#
-#def filterTriggerMatchMiniAOD(process,triggerProcess,HLT):
-#
-#    process.filtertriggers = cms.EDProducer("FilterTriggerMatcherMiniAOD",
-#            filters = cms.vstring(
-#                "Flag_HBHENoiseFilter",
-#                "Flag_HBHENoiseIsoFilter", 
-#                "Flag_globalTightHalo2016Filter",
-#                "Flag_goodVertices",
-#                "Flag_eeBadScFilter",
-#                "Flag_EcalDeadCellTriggerPrimitiveFilter"
-#                ),
-#            bits = cms.InputTag(HLT,"","PAT"),
-#   )
-                                            
-   process.analysisSequence=cms.Sequence(process.analysisSequence*process.filtertriggers)
-
-
 
 
 def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorted', srcU='TightMuons', srcE='TightElectrons'):
@@ -338,7 +320,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               ),
                               metfilter = cms.PSet(
                                   pluginType = cms.string("TriggerFilterFiller"),
-                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  src = cms.InputTag(TriggerRes,"",TriggerFilter),
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(
@@ -709,7 +691,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               ),
                               metfilter = cms.PSet(
                                   pluginType = cms.string("TriggerFilterFiller"),
-                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  src = cms.InputTag(TriggerRes,"",TriggerFilter),
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(
@@ -1104,7 +1086,7 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               ),
                               metfilter = cms.PSet(
                                   pluginType = cms.string("TriggerFilterFiller"),
-                                  src = cms.InputTag("TriggerResults","","RECO"),
+                                  src = cms.InputTag(TriggerRes,"",TriggerFilter),
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(

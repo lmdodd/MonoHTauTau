@@ -1,4 +1,3 @@
-
 import FWCore.ParameterSet.Config as cms
 from CommonTools.ParticleFlow.Isolation.tools_cfi import *
 
@@ -12,7 +11,7 @@ from PhysicsTools.PatAlgos.tools.pfTools import *
 from PhysicsTools.PatAlgos.tools.trigTools import *
 import sys
 
-def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults'):
+def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults',triggerFilter='RECO'):
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
  
   process.load("Configuration.StandardSequences.Services_cff")
@@ -33,16 +32,20 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   TriggerProcess= triggerProcess
   global TriggerRes
   TriggerRes=HLT 
-  
+  global TriggerFilter
+  TriggerFilter=triggerFilter
+
   process.analysisSequence = cms.Sequence()
 
+  BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
-  recorrectJets(process, True) #adds patJetsReapplyJEC
+  recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
+  #recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  #reRunMET(process,True)
+  reRunMET(process,True)
 
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
@@ -68,7 +71,7 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   process.runAnalysisSequence = cms.Path(process.analysisSequence)
 
-def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults'):
+def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_v'],HLT = 'TriggerResults',triggerFilter='RECO'):
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
  
   process.load("Configuration.StandardSequences.Services_cff")
@@ -89,16 +92,21 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
   TriggerProcess= triggerProcess
   global TriggerRes
   TriggerRes=HLT 
-  
+  global TriggerFilter
+  TriggerFilter=triggerFilter
+
+
   process.analysisSequence = cms.Sequence()
 
+  BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
-  recorrectJets(process, True) #adds patJetsReapplyJEC
+  recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
+  #recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  #reRunMET(process,True)
+  reRunMET(process,True)
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
@@ -125,7 +133,7 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
 
 
 
-def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v2','HLT_Mu15_v1','HLT_Mu15_v2'],HLT = 'TriggerResults'):
+def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v2','HLT_Mu15_v1','HLT_Mu15_v2'],HLT = 'TriggerResults', triggerFilter= 'PAT'):
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
   process.load("Configuration.StandardSequences.Services_cff")
   process.load("DQMServices.Core.DQM_cfg")
@@ -146,7 +154,10 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
   TriggerProcess= triggerProcess
   global TriggerRes
   TriggerRes=HLT 
- 
+  global TriggerFilter
+  TriggerFilter=triggerFilter
+
+
   process.analysisSequence = cms.Sequence()
 
   #Apply Tau Energy Scale Changes
@@ -156,8 +167,9 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
 
   #reapplyPUJetID(process) 
-  recorrectJets(process, False) #adds patJetsReapplyJEC
-  #reRunMET(process,False)
+  recorrectJetsSQL(process, False) #adds patJetsReapplyJEC
+  #recorrectJets(process, False) #adds patJetsReapplyJEC
+  reRunMET(process,False)
 
 
   #no trigger here!!!  
@@ -229,7 +241,21 @@ def MiniAODMuonIDEmbedder(process,muons, isHIP=False):
   process.embedMuonIDs = cms.Sequence(process.miniAODMuonID)
   process.analysisSequence*=process.embedMuonIDs
 
+def BadMuonFilter(process):
 
+    process.badGlobalMuonTagger = cms.EDFilter("BadGlobalMuonTagger",
+            muons = cms.InputTag("slimmedMuons"),
+            vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
+            muonPtCut = cms.double(20),
+            selectClones = cms.bool(False),
+            )
+    process.cloneGlobalMuonTagger = process.badGlobalMuonTagger.clone(
+                selectClones = True
+                )
+
+    process.noBadGlobalMuons = cms.Sequence(process.cloneGlobalMuonTagger + process.badGlobalMuonTagger)
+    process.analysisSequence*=process.noBadGlobalMuons
+  
 
 def MiniAODMETfilter(process):
     process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
@@ -314,7 +340,7 @@ def reRunMET(process, runOnData):
     runMetCorAndUncFromMiniAOD(process,
             isData=runOnData
             )
-    #process.analysisSequence *= process.runMET
+    process.analysisSequence *= process.fullPatMetSequence
 
 
 def reapplyPUJetID(process, srcJets = cms.InputTag("slimmedJets")):
@@ -326,6 +352,45 @@ def reapplyPUJetID(process, srcJets = cms.InputTag("slimmedJets")):
         vertexes = cms.InputTag("offlineSlimmedPrimaryVertices") ) 
     process.analysisSequence *= process.pileupJetIdUpdated
    
+
+def recorrectJetsSQL(process, isData = False):
+    JECTag = 'Spring16_23Sep2016V2_MC'
+    if(isData):
+      JECTag = 'Spring16_23Sep2016AllV2_DATA'
+    #cmssw_base = os.environ['CMSSW_BASE']
+    ## getting the JEC from the DB
+    #process.load("CondCore.CondDB.CondDB_cfi")
+    process.load("CondCore.DBCommon.CondDBCommon_cfi")
+    process.jec = cms.ESSource("PoolDBESSource",
+                               DBParameters = cms.PSet( messageLevel = cms.untracked.int32(0)),
+                               timetype = cms.string('runnumber'),
+                               toGet = cms.VPSet(cms.PSet(record = cms.string('JetCorrectionsRecord'),
+                                                          tag    = cms.string('JetCorrectorParametersCollection_'+JECTag+'_AK4PFchs'),
+                                                          label  = cms.untracked.string('AK4PFchs')
+                                                          )
+                                                 ), 
+                               connect = cms.string('sqlite_fip:MonoHTauTau/Configuration/data/'+JECTag+'.db')
+                               #connect = cms.string('sqlite:////'+cmssw_base+'/src/UWAnalysis/Configuration/data/'+JECTag+'.db')
+                               # uncomment above tag lines and this comment to use MC JEC
+                               )
+   
+     ## add an es_prefer statement to resolve a possible conflict from simultaneous connection to a global tag
+    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
+    ## https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyCorrections#CorrPatJets
+    from PhysicsTools.PatAlgos.producersLayer1.jetUpdater_cff import updatedPatJetCorrFactors
+    process.patJetCorrFactorsReapplyJEC = updatedPatJetCorrFactors.clone(
+      src = cms.InputTag("slimmedJets"),
+      levels = ['L1FastJet', 'L2Relative', 'L3Absolute'],
+      payload = 'AK4PFchs' ) # Make sure to choose the appropriate levels and payload here!
+    from PhysicsTools.PatAlgos.producersLayer1.jetUpdater_cff import updatedPatJets
+    process.patJetsReapplyJEC = updatedPatJets.clone(
+      jetSource = cms.InputTag("slimmedJets"),
+      jetCorrFactorsSource = cms.VInputTag(cms.InputTag("patJetCorrFactorsReapplyJEC"))
+      )
+    if(isData):
+        process.patJetCorrFactorsReapplyJEC.levels = ['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']
+    process.analysisSequence *= process.patJetCorrFactorsReapplyJEC 
+
 
 def recorrectJets(process, isData = False):
     ## https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyCorrections#CorrPatJets

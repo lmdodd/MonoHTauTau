@@ -101,7 +101,7 @@ class TriggerFilterFiller : public NtupleFillerBase {
                 }
                 if(!found) {
                     fired[i]=0;
-                    std::cout<<"Did not find a Trigger Filter!"<<std::endl;
+                    //std::cout<<"Did not find a Trigger Filter!"<<std::endl;
                 }
             }//end path 
 

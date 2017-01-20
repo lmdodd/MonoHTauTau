@@ -2,33 +2,25 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
-#process.load('CondCore.CondDB.CondDB_cfi')
 
 
 process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v6'
+#process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v9'
 
 
-process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
-#process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
+process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.options.allowUnscheduled = cms.untracked.bool(True)
-
-
-# Make the framework shut up.
-process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 500
 
 
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         #'/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/AC8D5F25-0798-E611-B606-0242AC130002.root'
-        '/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
-        #'/store/data/Run2016D/Tau/MINIAOD/23Sep2016-v1/50000/3CDE2FC0-3B95-E611-817D-0025905B8612.root'
-        #'file:localFile.root'
+        #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
+        '/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/1899C137-8E98-E611-B830-008CFA56D770.root'
 		),
-    #eventsToProcess = cms.untracked.VEventRange('278822:475:820360892'),
-    #eventsToProcess = cms.untracked.VEventRange('278820:302083120-278822:820360892'),
-    inputCommands=cms.untracked.vstring(
+        #firstEvent = cms.untracked.uint32(820360892),
+		inputCommands=cms.untracked.vstring(
 						'keep *',
 		)
 )
@@ -41,10 +33,9 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
 )
 
-#process.dump=cms.EDAnalyzer('EventContentAnalyzer')
 
 #added in etau and mutau triggers
-from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
+from MonoHTauTau.Configuration.tools.analysisToolsBoostedHiggsObject import *
 defaultReconstruction(process,'HLT',
         [
             'HLT_IsoMu18_v', 
@@ -89,30 +80,31 @@ defaultReconstruction(process,'HLT',
 
 
 #EventSelection
-process.load("MonoHTauTau.Configuration.monohiggs_cff")
+process.load("MonoHTauTau.Configuration.boostedHiggs_cff")
 
-
+process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
 process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
-#process.eventSelectionET = cms.Path(process.selectionSequenceET)
-#process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
+process.eventSelectionMTK = cms.Path(process.selectionSequenceMTK)
 
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
+#boosted taus 
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addDiTauEventTree
+addDiTauEventTree(process,'diTauEventTree')
+addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS','diNonBoostTausOSSorted')
+
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
 addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
-#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
-#addEleTauEventTree(process,'eleTauEventTree')
-#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
-
-#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-#addDiTauEventTree(process,'diTauEventTree')
-#addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
+#track trees
+from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
+addMuTrackEventTree(process,'muTrackEventTree')
+addMuTrackEventTree(process,'muTrackEventTreeFinal','muTracksOS','diMuonsTrkOSSorted')
 
 
-#addEventSummary(process,True,'MT','eventSelectionMT')
-#addEventSummary(process,True,'ET','eventSelectionET')
-#addEventSummary(process,True,'TT','eventSelectionTT')
+addEventSummary(process,True,'TT','eventSelectionTT')
+addEventSummary(process,True,'MT','eventSelectionMT')
+addEventSummary(process,True,'MTK','eventSelectionMTK')
 
 
 process.TFileService.fileName=cms.string("output.root")
