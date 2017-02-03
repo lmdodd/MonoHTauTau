@@ -30,15 +30,16 @@ class EventWeightFiller : public NtupleFillerBase {
 			tag_(iConfig.getParameter<std::string>("tag")),
 			isMu_(iConfig.getParameter<bool>("isMuon"))
 	{
-		value = new float[3];
+		value = new float[4];
 		t->Branch("idisoweight_1",&value[0],"idisoweight_1/F");
 		t->Branch("trigweight_1",&value[1],"trigweight_1/F");
 		t->Branch((tag_+"EffWeight").c_str(),&value[2],(tag_+"EffWeight/F").c_str());
+		t->Branch("trigeff_1",&value[3],"trigeff_1/F");
 		std::string base = std::getenv("CMSSW_BASE");
-		std::string fMuonIsolation =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BCD/Muon_IdIso0p15_eff.root";
-		std::string fMuonTrigger =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BCD/Muon_IsoMu22_OR_TkIsoMu22_eff.root";
-		std::string fEleIsolation =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BCD/Electron_IdIso0p10_eff.root";
-		std::string fEleTrigger =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BCD/Electron_Ele25eta2p1WPTight_eff.root";
+		std::string fMuonIsolation =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_IdIso_IsoLt0p15_2016BtoH_eff.root";
+		std::string fMuonTrigger =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_IsoMu24_OR_TkIsoMu24_2016BtoH_eff.root";
+		std::string fEleIsolation =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_IdIso_IsoLt0p1_2016BtoH_eff.root";
+		std::string fEleTrigger =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_Ele25_eta2p1_WPTight_2016BtoH_eff.root";
 		std::string fileIso;
 		std::string fileTrig;
 		if (isMu_) {
@@ -83,11 +84,13 @@ class EventWeightFiller : public NtupleFillerBase {
 			//double efficiency_data = myScaleFactorIso->get_EfficiencyData(pt, eta);
 			//double efficiency_MC = myScaleFactorIso->get_EfficiencyMC(pt,eta);
 			double scaleFactorIso = myScaleFactorIso->get_ScaleFactor(pt,eta);
-			double scaleFactorTrig = myScaleFactorTrig->get_EfficiencyData(pt,eta);
+			double scaleFactorTrig = myScaleFactorTrig->get_ScaleFactor(pt,eta);
+			double efficiencyTrig = myScaleFactorTrig->get_EfficiencyData(pt,eta);
 
 			value[0]=scaleFactorIso;
 			value[1]=scaleFactorTrig;
 			value[2]=(scaleFactorTrig*scaleFactorIso);
+			value[3]=efficiencyTrig;
 		}
 
 

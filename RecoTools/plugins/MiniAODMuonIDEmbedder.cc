@@ -145,12 +145,15 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
         if (HIP)
             muId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
 
-        //std::cout<<"     muIDsetto: "<<muId<<std::endl;
+        int muTightId = 0; 
+        muTightId = muon.isTightMuon(pv_);
+        //std::cout<<"     muIDsetto: "<<muTightId<<std::endl;
 
         muon.addUserFloat("dBRelIso",muIso);
         muon.addUserFloat("iso",muIso);
         muon.addUserFloat("dBRelIso03",muIso03);
         muon.addUserInt("mediumID",muId);
+        muon.addUserInt("tightID",muTightId);
 
         output->push_back(muon);
     }

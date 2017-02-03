@@ -45,7 +45,7 @@ class POGSFsFiller : public NtupleFillerBase {
         //std::vector<std::string> fFile =  {"EfficienciesAndSF_Period3.root","EfficienciesAndSF_Period4.root","Muon_Id_BCDEF_SF.root","Muon_Iso_BCDEF_SF.root","Muon_Id_GH_SF.root","Muon_Iso_GH_SF.root"};
         //std::vector<std::string> fFile =  {"SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root","MuonID_Z_RunBCD_prompt80X_7p65.root","MuonIso_Z_RunBCD_prompt80X_7p65.root","tracking_eta.root"};
         if (!Mu_)
-            fFile =  {"EleSoup.root","MVA80.root","MVA90.root","GSFTracking.root"};
+            fFile =  {"EleSoup.root","passingMVA80wp80X.root","passingMVA90wp80X.root","RecoEGEffi.root"};
 
         std::string path1= base+fPath+fFile[0];
         std::string path2= base+fPath+fFile[1];
@@ -64,10 +64,10 @@ class POGSFsFiller : public NtupleFillerBase {
         if(Mu_){
             h2_trigger = (TH2D*)f_file1->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/abseta_pt_ratio");
             h2_trigger2    = (TH2D*)f_file2->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/abseta_pt_ratio");
-            h2_id1    = (TH2D*)f_file3->Get("MC_NUM_MediumID2016_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
-            h2_iso1    = (TH2D*)f_file3->Get("TightISO_MediumID_pt_eta/abseta_pt_ratio");
-            h2_id2    = (TH2D*)f_file4->Get("MC_NUM_MediumID_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
-            h2_iso2    = (TH2D*)f_file4->Get("TightISO_MediumID_pt_eta/abseta_pt_ratio");
+            h2_id1    = (TH2D*)f_file3->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
+            h2_iso1    = (TH2D*)f_file3->Get("TightISO_TightID_pt_eta/abseta_pt_ratio");
+            h2_id2    = (TH2D*)f_file4->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
+            h2_iso2    = (TH2D*)f_file4->Get("TightISO_TightID_pt_eta/abseta_pt_ratio");
         }
         else
         {

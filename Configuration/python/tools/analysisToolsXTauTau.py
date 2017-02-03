@@ -37,7 +37,7 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   process.analysisSequence = cms.Sequence()
 
-  BadMuonFilter(process)
+  #BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
@@ -98,7 +98,7 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
 
   process.analysisSequence = cms.Sequence()
 
-  BadMuonFilter(process)
+  #BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
@@ -133,7 +133,7 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
 
 
 
-def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v1','HLT_Mu11_PFTau15_v2','HLT_Mu15_v1','HLT_Mu15_v2'],HLT = 'TriggerResults', triggerFilter= 'PAT'):
+def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults', triggerFilter='PAT'):
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
   process.load("Configuration.StandardSequences.Services_cff")
   process.load("DQMServices.Core.DQM_cfg")
@@ -248,12 +248,13 @@ def BadMuonFilter(process):
             vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
             muonPtCut = cms.double(20),
             selectClones = cms.bool(False),
+            taggingMode = cms.bool(False),
             )
     process.cloneGlobalMuonTagger = process.badGlobalMuonTagger.clone(
                 selectClones = True
                 )
 
-    process.noBadGlobalMuons = cms.Sequence(process.cloneGlobalMuonTagger + process.badGlobalMuonTagger)
+    process.noBadGlobalMuons = cms.Sequence(~process.cloneGlobalMuonTagger + ~process.badGlobalMuonTagger)
     process.analysisSequence*=process.noBadGlobalMuons
   
 
@@ -354,9 +355,9 @@ def reapplyPUJetID(process, srcJets = cms.InputTag("slimmedJets")):
    
 
 def recorrectJetsSQL(process, isData = False):
-    JECTag = 'Spring16_23Sep2016V2_MC'
+    JECTag = 'Summer16_23Sep2016V3_MC'
     if(isData):
-      JECTag = 'Spring16_23Sep2016AllV2_DATA'
+      JECTag = 'Summer16_23Sep2016AllV3_DATA'
     #cmssw_base = os.environ['CMSSW_BASE']
     ## getting the JEC from the DB
     #process.load("CondCore.CondDB.CondDB_cfi")
@@ -481,7 +482,7 @@ def tauTriggerMatchMiniAOD(process,triggerProcess,HLT,srcTau):
                                             src = cms.InputTag(srcTau),
                                             trigEvent = cms.InputTag(HLT),
                                             filtersAND = cms.vstring(
-                                                'hltOverlapFilterIsoMu17LooseIsoPFTau20',
+                                                'hltOverlapFilterIsoMu19LooseIsoPFTau20',
                                                 'hltOverlapFilterIsoEle22WP75GsfLooseIsoPFTau20',
                                                 'hltOverlapFilterIsoEle22WPLooseGsfLooseIsoPFTau20'
                                             ),
@@ -506,13 +507,13 @@ def muonTriggerMatchMiniAOD(process,triggerProcess,HLT,srcMuon):
                                             src = cms.InputTag(srcMuon),#"miniAODMuonID"
                                             trigEvent = cms.InputTag(HLT),
                                             filters = cms.vstring(
-						'hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09', #2016B
-						'hltL3fL1sMu20erL1f0Tkf22QL3trkIsoFiltered0p09', #2016B
+						'hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09', #2016 Iso TkMu24
+						'hltL3fL1sMu22L1f0Tkf24QL3trkIsoFiltered0p09', #2016 IsoMu 24
 						'hltOverlapFilterSingleIsoMu19LooseIsoPFTau20' #2016B HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v2
                                             ),
 					    filtersAND = cms.vstring(
-						'hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09', #2016D IsoMu18
-						'hltL3fL1sMu20erL1f0Tkf22QL3trkIsoFiltered0p09', #2016B
+						'hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09', #2016 Iso TkMu24
+						'hltL3fL1sMu22L1f0Tkf24QL3trkIsoFiltered0p09', #2016 IsoMu24 
 						'hltL3crIsoL1sSingleMu18erIorSingleMu20erL1f0L2f10QL3f19QL3trkIsoFiltered0p09' #2016B HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v2
 					    ),
                                             bits = cms.InputTag(HLT,"",triggerProcess),
@@ -531,13 +532,11 @@ def electronTriggerMatchMiniAOD(process,triggerProcess,HLT,srcEle):
                                             trigEvent = cms.InputTag(HLT),#unused
                                             filters = cms.vstring(
 						'hltOverlapFilterIsoEle24WPLooseGsfLooseIsoPFTau20', #2016 ETau HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2
-						'hltEle25erWPTightGsfTrackIsoFilter', #spring15 ETau
-						'hltEle27erWPLooseGsfTrackIsoFilter' #2015D ETau
+						'hltEle25erWPTightGsfTrackIsoFilter' #spring15 ETau
                                             ),
 					    filtersAND = cms.vstring(
 						'hltEle24WPLooseL1SingleIsoEG22erGsfTrackIsoFilter', #2016 ETau HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2
- 						'hltEle25erWPTightGsfTrackIsoFilter', #2015D single E 
-						'hltEle27erWPLooseGsfTrackIsoFilter' #15D single E
+ 						'hltEle25erWPTightGsfTrackIsoFilter' #2015D single E 
 					    ),
                                             #bits = cms.InputTag("TriggerResults","","HLT"),
                                             bits = cms.InputTag(HLT,"",triggerProcess),

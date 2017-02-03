@@ -298,6 +298,7 @@ def addMuTrackEventTree(process,name,src = 'muTracksSorted', srcLL = 'diMuonsOSS
            muTrackLooseID = makeMuTrackPair(src,"id_m_loose_1",'leg1.isLooseMuon()'),
            muTrackMediumID = makeMuTrackPair(src,"id_m_medium_1_INVALID",'leg1.isMediumMuon()'),
            muTrackUserMediumID = makeMuTrackPair(src,"id_m_medium_1",'leg1.userInt("mediumID")'),
+           muTrackTightID = makeMuTrackPair(src,"id_m_tight_1",'leg1.userInt("tightID")'),
            #muTrackMuTriggerMatch = makeMuTrackPair(src,"lTrigger",'leg1.userFloat("hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09")'),
            muTrackPzeta = makeMuTrackPair(src,"pZeta",'pZeta-1.5*pZetaVis'),
            muTrackPZ = makeMuTrackPair(src,"pZ",'pZeta'),
@@ -766,9 +767,9 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muTauMT = makeMuTauPair(src,"mt12","mt12MET"),#FILLED
                               muTauMT1 = makeMuTauPair(src,"mt_1","mt1MET"),#FILLED
                               muTauMT2 = makeMuTauPair(src,"mt_2","mt2MET"),#FILLED
-                              
-                      muTauTopGenPt = makeMuTauPair(src,"topGenPt","topGenPt"),#FIXME
-                      muTauAntiTopGenPt = makeMuTauPair(src,"antiTopGenPt","antiTopGenPt"),#FIXME
+
+                              muTauTopGenPt = makeMuTauPair(src,"topGenPt","topGenPt"), #FIXME
+                              muTauAntiTopGenPt = makeMuTauPair(src,"antiTopGenPt","antiTopGenPt"), #FIXME
 
                               #BTAGS AND JETS
                               muTauMJJReg = makeMuTauPair(src,"mJJReg","mJJReg"),#FIXME
@@ -798,7 +799,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
 
                               muTauLooseID = makeMuTauPair(src,"id_m_loose_1",'leg1.isLooseMuon()'),
                               #muTauMediumID = makeMuTauPair(src,"id_m_medium_1",'leg1.isMediumMuon()'),
-                              muTauMediumID = makeMuTauPair(src,"id_m_medium_1_INVALID",'leg1.isMediumMuon()'),
+                              muTauTightID = makeMuTauPair(src,"id_m_tight_1",'leg1.userInt("tightID")'),
                               muTauUserMediumID = makeMuTauPair(src,"id_m_medium_1",'leg1.userInt("mediumID")'),
                               muTauDecayMode = makeMuTauPair(src,"tauDecayMode",'leg2.decayMode()'),
                               muTauDecayFound = makeMuTauPair(src,"decayModeFinding_2",'leg2.tauID("decayModeFinding")'),

@@ -43,7 +43,7 @@ def defaultReconstructioniBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['
   recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
   #recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  #reRunMET(process,True)
+  reRunMET(process,True)
 
 
   MiniAODMETfilter(process)
@@ -106,7 +106,7 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
   #recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  #reRunMET(process,True)
+  reRunMET(process,True)
 
 
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
@@ -172,7 +172,7 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
   recorrectJetsSQL(process, False) #adds patJetsReapplyJEC
   #recorrectJets(process, False) #adds patJetsReapplyJEC
 
-  #reRunMET(process,False)
+  reRunMET(process,False)
 
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  

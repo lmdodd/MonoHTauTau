@@ -124,6 +124,19 @@ class METFillerUncert : public NtupleFillerBase {
 					metPx = pfMET->shiftedPx(pat::MET::UnclusteredEnDown);
 					metPy = pfMET->shiftedPy(pat::MET::UnclusteredEnDown);
 				}
+                else if(foundMET&&uncert_=="JetUp"){
+					metPt = pfMET->shiftedPt(pat::MET::JetEnUp);
+					metPhi = pfMET->shiftedPhi(pat::MET::JetEnUp);
+					metPx = pfMET->shiftedPx(pat::MET::JetEnUp);
+					metPy = pfMET->shiftedPy(pat::MET::JetEnUp);
+				}
+                else if(foundMET&&uncert_=="JetDown"){
+					metPt = pfMET->shiftedPt(pat::MET::JetEnDown);
+					metPhi = pfMET->shiftedPhi(pat::MET::JetEnDown);
+					metPx = pfMET->shiftedPx(pat::MET::JetEnDown);
+					metPy = pfMET->shiftedPy(pat::MET::JetEnDown);
+				}
+ 
                 else {
 					metPt = pfMET->pt();
 					metPhi = pfMET->phi();

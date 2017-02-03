@@ -26,7 +26,7 @@ int main (int argc, char* argv[])
    
 
  
-   TFile *w = new TFile("WJetsMLM.root","UPDATE");
+   TFile *w = new TFile("WJetsHT100.root","UPDATE");
    TH1F* evC  = (TH1F*)w->Get(parser.stringValue("histoName").c_str());
    float evW = evC->GetBinContent(1);
    w->Close();
@@ -80,7 +80,7 @@ int main (int argc, char* argv[])
    //double LOtoNNLO=61526.7/50270;
    double LOtoNNLO=1.0;
 
-   double WLo=evW/(LOtoNNLO*50270.0);
+   double WLo=evW/(LOtoNNLO*1354);
    double WLo1=evW1/(LOtoNNLO*1345);
    double WLo2=evW2/(LOtoNNLO*359.7);
    double WLo3=evW3/(LOtoNNLO*48.91);
@@ -99,7 +99,7 @@ int main (int argc, char* argv[])
    ev.push_back(WLo5);
    ev.push_back(WLo6);
    ev.push_back(WLo7);
-   //printf("Found  %f  Inclu Weight \n",1/ev[0]);
+   printf("Found  %f  Inclu Weight \n",1/ev[0]);
    printf("Found  %f WJet HT200 Weight\n",1/(ev[1]));
    printf("Found  %f WJet HT400 Weight\n",1/(ev[2]));
    printf("Found  %f WJet HT600 Weight\n",1/(ev[3]));
@@ -109,7 +109,7 @@ int main (int argc, char* argv[])
    printf("Found  %f WJet HTInf Weight\n",1/(ev[7]));
    
 
-   TFile *f0 = new TFile("WJetsMLM.root","UPDATE");   
+   TFile *f0 = new TFile("WJetsHT100.root","UPDATE");   
    readdir(f0,parser,ev,0);
    f0->Close();
    
@@ -176,8 +176,8 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser,std::vector<float>
           t->GetEntry(i);
 
           if(type==0){ //only look inclsuive<100
-              if (LHEProduct>100) weight = 0;
-              else weight = parser.doubleValue("weight")/(ev[0]);
+              //if (LHEProduct>100) weight = 0;
+              weight = parser.doubleValue("weight")/(ev[0]);
           }
           else if(type==1)
               weight = parser.doubleValue("weight")/(ev[1]);
