@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
-process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_TrancheIV_v7'
+process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_TrancheIV_v8'
 
 
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
@@ -104,7 +104,7 @@ addEventSummary(process,True,'MTK','eventSelectionMTK')
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
-            '/store/mc/RunIISummer16MiniAODv2/MonoHtautau_ZpBaryonic_MZp-10000_MChi-1000_13TeV-madgraph/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/1A466397-5CC9-E611-AB62-C81F66B73FCF.root'
+            '/store/mc/RunIISummer16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-2500_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/44631E00-A1C9-E611-BF55-0CC47A78A4BA.root'
             ),
         inputCommands=cms.untracked.vstring(
             'keep *',
@@ -116,7 +116,7 @@ process.maxEvents = cms.untracked.PSet(
         )
 
 #process.TFileService.fileName=cms.string("$outputFileName")
-process.TFileService = cms.Service(
-        "TFileService",
-        fileName = cms.string("higgs.root")
-        )
+#process.TFileService = cms.Service(
+#        "TFileService",
+#        fileName = cms.string("higgs.oot")
+#        )

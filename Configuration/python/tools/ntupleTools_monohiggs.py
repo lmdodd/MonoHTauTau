@@ -285,6 +285,17 @@ def makeDiTauMETUncert(sourceDiTaus, sourceMET, prefix, shift):
    )
    return PSet
 
+def makeDiTauJetCountPair(sourceDiTaus,tagName,methodName,leadingOnly=True):
+   PSet = cms.PSet(
+         pluginType  = cms.string("PATDiTauPairJetCountFiller"),
+         src         = cms.InputTag(sourceDiTaus),
+         tag         = cms.string(tagName),
+         method      = cms.string(methodName),
+         leadingOnly = cms.untracked.bool(leadingOnly)
+   )
+   return PSet
+
+
 def makeDiTauEffCSV(sourceDiTaus):
    PSet = cms.PSet(
          pluginType  = cms.string("PATDiTauPairEffCSVFiller"),
@@ -307,7 +318,7 @@ def makeDiTauEventWeightTmp(sourceDiTaus):
 
 
 
-def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorted', srcU='TightMuons', srcE='TightElectrons'):
+def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorted', srcU='TightMuons', srcE='TightElectrons',srcT='TightTaus'):
    process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
    eventTree = cms.EDAnalyzer('EventTreeMaker',
                               genEvent = cms.InputTag('generator'),
@@ -367,6 +378,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               muMuSizeVeto = makeCollSizeVeto(srcLL,0,"dilepton_veto"),#CHECKME
 
                               muonsSizeMT = makeCollSize(srcU,"tightMuons"),#FILLED
+                              tausSizeMT = makeCollSize(srcT,"tightTaus"),#FILLED
                               muonsSizeMTVeto = makeCollSizeVeto(srcU,1,"extramuon_veto"),#FILLED
                               electronsSizeMT = makeCollSize(srcE,"tightElectrons"),#FILLED
                               electronsSizeMTVeto = makeCollSizeVeto(srcE,0,"extraelec_veto"),#FILLED
@@ -426,6 +438,8 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
                               #muTauMETCal = makeMuTauPair(src,"metCal","calibratedMET.pt()"),#NOLONGLERUSED
                               #muTauMETPhi = makeMuTauPair(src,"metphi","metPhi"),#NOLONGERUSED
                               muTauMET1 = makeMuTauMET(src,"slimmedMETs","pf"),#FILLED
+                              muTauMETJetUncertUp = makeMuTauMETUncert(src,"slimmedMETs","pf","JetUp"),#FILLED
+                              muTauMETJetUncertDown = makeMuTauMETUncert(src,"slimmedMETs","pf","JetDown"),#FILLED
                               muTauMETUncertUp = makeMuTauMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
                               muTauMETUncertDown = makeMuTauMETUncert(src,"slimmedMETs","pf","EnDown"),#FILLED
                               muTauMET2 = makeMuTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
@@ -680,7 +694,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
 
 
 #Tree for e+tau + MET final state
-def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSorted', srcU='TightMuons', srcE='TightElectrons'):
+def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSorted', srcU='TightMuons', srcE='TightElectrons',srcT='TightTaus'):
    process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
    eventTree = cms.EDAnalyzer('EventTreeMaker',
                               genEvent = cms.InputTag('generator'),
@@ -739,6 +753,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               eTauGenMCMatch = makeEleTauGenMatch(src),#FILLED
 
                               muonsSizeET = makeCollSize(srcU,"tightMuons"),
+                              tausSizeET = makeCollSize(srcT,"tightTaus"),
                               muonsSizeETVeto = makeCollSizeVeto(srcU,0,"extramuon_veto"),
                               electronsSizeET = makeCollSize(srcE,"tightElectrons"),
                               electronsSizeETVeto = makeCollSizeVeto(srcE, 1,"extraelec_veto"),
@@ -802,6 +817,8 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                               #eleTauGenMET = makeEleTauPair(src,"genMET","met.genMET()"),
 
                               eleTauMET1 = makeEleTauMET(src,"slimmedMETs","pf"),#FILLED
+                              eleTauMETJetUncertUp = makeEleTauMETUncert(src,"slimmedMETs","pf","JetUp"),#FILLED
+                              eleTauMETJetUncertDown = makeEleTauMETUncert(src,"slimmedMETs","pf","JetDown"),#FILLED
                               eleTauMETUncertUp = makeEleTauMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
                               eleTauMETUncertDown = makeEleTauMETUncert(src,"slimmedMETs","pf","EnDown"),#FILLED
                               eleTauMET2 = makeEleTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED
@@ -1132,6 +1149,12 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               electronsSizeMT = makeCollSize(srcE,"tightElectrons"),#FILLED
                               electronsSizeMTVeto = makeCollSizeVeto(srcE,0,"extraelec_veto"),#FILLED
 
+
+                              diTauEffCSV = makeDiTauEffCSV(src),#FILLED
+                              diTauCSVShape = makeDiTauCSVShape(src),#FILLED
+                              #diTauGenMCMatch = makeDiTauGenMatch(src),#FILLED
+
+
                               diTauEventWeightTmp = makeDiTauEventWeightTmp(src),#FILLED
 
                               diTauDR = makeDiTauPair(src,"dR","dR12"), 
@@ -1144,6 +1167,7 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTaunIsoGamma = makeDiTauPair(src,"nIsoGamma",'leg2.userFloat("nIsoGamma")'),
                               diTaunIsoNeutral = makeDiTauPair(src,"nIsoNeutral",'leg2.userFloat("nIsoNeutral")'),
 
+                              diTauJetsPt20nbtagNoSF = makeDiTauJetCountPair(src,"nbtagNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
 
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
@@ -1187,6 +1211,8 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTauPhi2 = makeDiTauPair(src,"phi_2","leg2.phi"),#FILLED
 
                               diTauMET1 = makeDiTauMET(src,"slimmedMETs","pf"),#FILLED
+                              diTauMETJetUncertUp = makeDiTauMETUncert(src,"slimmedMETs","pf","JetUp"),#FILLED
+                              diTauMETJetUncertDown = makeDiTauMETUncert(src,"slimmedMETs","pf","JetDown"),#FILLED
                               diTauMETUncertUp = makeDiTauMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
                               diTauMETUncertDown = makeDiTauMETUncert(src,"slimmedMETs","pf","EnDown"),#FILLED
                               diTauMET2 = makeDiTauMET(src,"slimmedMETsPuppi","puppi"),#FILLED

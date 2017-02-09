@@ -58,8 +58,8 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser,float ev)
 		  float weight3;
 
 		  TTree *t = (TTree*)obj;
-		  TBranch *newBranch2 = t->Branch("fakeTauEffiUp",&weight2,"fakeTauEffiUp/F");
-		  TBranch *newBranch3 = t->Branch("fakeTauEffiDown",&weight3,"fakeTauEffiDown/F");
+		  TBranch *newBranch2 = t->Branch("fakeTauEffiUp2",&weight2,"fakeTauEffiUp2/F");
+		  TBranch *newBranch3 = t->Branch("fakeTauEffiDown2",&weight3,"fakeTauEffiDown2/F");
 
 		  float tauPt=0;
 		  t->SetBranchAddress("pt_2",&tauPt); //genPy
@@ -74,6 +74,18 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser,float ev)
 
               weight2 = 0.8 *tauPt/100.0;
               weight3 = 1.2 *tauPt/100.0;
+              
+              float w = 1.22493-0.00444605*tauPt+0.0000104656*tauPt*tauPt;
+              weight2 = w;
+              weight3 = 1/w;
+              /*
+              Minimizer is Linear
+                  Chi2                      =      6.45499
+                  NDf                       =           17
+                  p0                        =      1.22493   +/-   0.183521
+                  p1                        =  -0.00444605   +/-   0.00513471
+                  p2                        =  1.04856e-05   +/-   2.83123e-05
+                  */
               newBranch2->Fill();
               newBranch3->Fill();
           }

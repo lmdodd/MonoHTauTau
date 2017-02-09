@@ -37,13 +37,13 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   process.analysisSequence = cms.Sequence()
 
-  #BadMuonFilter(process)
+  BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
-  recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
-  #recorrectJets(process, True) #adds patJetsReapplyJEC
+  #recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
+  recorrectJets(process, True) #adds patJetsReapplyJEC
   
   reRunMET(process,True)
 
@@ -98,13 +98,13 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
 
   process.analysisSequence = cms.Sequence()
 
-  #BadMuonFilter(process)
+  BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
 
-  recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
-  #recorrectJets(process, True) #adds patJetsReapplyJEC
+  #recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
+  recorrectJets(process, True) #adds patJetsReapplyJEC
   
   reRunMET(process,True)
 
@@ -167,8 +167,8 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
 
   #reapplyPUJetID(process) 
-  recorrectJetsSQL(process, False) #adds patJetsReapplyJEC
-  #recorrectJets(process, False) #adds patJetsReapplyJEC
+  #recorrectJetsSQL(process, False) #adds patJetsReapplyJEC
+  recorrectJets(process, False) #adds patJetsReapplyJEC
   reRunMET(process,False)
 
 
@@ -437,8 +437,14 @@ def triLeptons(process):
   							cut = cms.string('pt>10&&abs(eta)<2.4&&abs(userFloat("dZ"))<0.2&&abs(userFloat("dXY"))<0.045&&userInt("mediumID")>0&&userFloat("dBRelIso")<0.3'),
   							filter = cms.bool(False)
   						)
+  process.TightTaus = cms.EDFilter("PATTauSelector",
+  							src = cms.InputTag("patOverloadedTaus"),
+  							cut = cms.string('pt>18&&abs(eta)<2.3&&tauID("decayModeFinding")>0.5&&tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")>0.5&&abs(userFloat("taudZ"))'),
+  							filter = cms.bool(False)
+  						)
 
-  process.analysisSequence = cms.Sequence(process.analysisSequence*process.TightMuons*process.TightElectrons)
+
+  process.analysisSequence = cms.Sequence(process.analysisSequence*process.TightMuons*process.TightElectrons*process.TightTaus)
   						
    
   						

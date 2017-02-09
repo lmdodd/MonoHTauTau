@@ -169,6 +169,7 @@ class EffCSVFiller : public NtupleFillerBase {
 typedef EffCSVFiller<PATMuTauPair> PATMuTauPairEffCSVFiller;
 typedef EffCSVFiller<PATElecTauPair> PATEleTauPairEffCSVFiller;
 typedef EffCSVFiller<PATDiTauPair> PATDiTauPairEffCSVFiller;
+typedef EffCSVFiller<PATMuTrackPair> PATMuTrackPairEffCSVFiller;
 
 
 

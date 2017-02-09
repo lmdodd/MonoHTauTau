@@ -4,3 +4,4 @@
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATMuTauPairEffCSVFiller, "PATMuTauPairEffCSVFiller");
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATEleTauPairEffCSVFiller, "PATEleTauPairEffCSVFiller");
 DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATDiTauPairEffCSVFiller, "PATDiTauPairEffCSVFiller");
+DEFINE_EDM_PLUGIN(NtupleFillerFactory, PATMuTrackPairEffCSVFiller, "PATMuTrackPairEffCSVFiller");

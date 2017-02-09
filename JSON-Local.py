@@ -5,7 +5,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condD
 #process.load('CondCore.CondDB.CondDB_cfi')
 
 
-process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v6'
+process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v7'
 
 
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))

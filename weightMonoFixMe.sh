@@ -4,9 +4,9 @@
 #cp /nfs_scratch/$USER/monohiggs_unweighted/* /nfs_scratch/$USER/monohiggs_weighted/.
 cd /nfs_scratch/$USER/monohiggs_2/
 
-weight=0;
-weightBaryonic=0;
-weightAh=0;
+weight=1;
+weightBaryonic=1;
+weightAh=1;
 
 
 

@@ -25,11 +25,22 @@ class LHEProductFiller : public NtupleFillerBase {
 		value2 = 0;
 		value3 = 0;
 		value4 = 0;
+		value5 = 0;
+        Svalue = new float[9];
 		t->Branch((tag_+"_njet").c_str(),&value1,(tag_+"_njet/I").c_str());
 		t->Branch((tag_+"_mll").c_str(),&value2,(tag_+"_mll/I").c_str());
 		t->Branch((tag_+"_ht").c_str(),&value3,(tag_+"_ht/F").c_str());
 		t->Branch((tag_+"_pdfweight").c_str(),&value4,(tag_+"_pdfweight/F").c_str());
-		//t->Branch((tag_+"_nlheweight").c_str(),&value5,(tag_+"_nlheweight/I").c_str());
+		t->Branch((tag_+"_nlheweight").c_str(),&value5,(tag_+"_nlheweight/I").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR1_muF1").c_str(),&Svalue[0],(tag_+"_genWeight_QCDscale_muR1_muF1/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR1_muF2").c_str(),&Svalue[1],(tag_+"_genWeight_QCDscale_muR1_muF2/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR1_muF0p5").c_str(),&Svalue[2],(tag_+"_genWeight_QCDscale_muR1_muF0p5/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR2_muF1").c_str(),&Svalue[3],(tag_+"_genWeight_QCDscale_muR2_muF1/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR2_muF2").c_str(),&Svalue[4],(tag_+"_genWeight_QCDscale_muR2_muF2/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR2_muF0p5").c_str(),&Svalue[5],(tag_+"_genWeight_QCDscale_muR2_muF0p5/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR0p5_muF1").c_str(),&Svalue[6],(tag_+"_genWeight_QCDscale_muR0p5_muF1/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR0p5_muF2").c_str(),&Svalue[7],(tag_+"_genWeight_QCDscale_muR0p5_muF2/F").c_str());
+		t->Branch((tag_+"_genWeight_QCDscale_muR0p5_muF0p5").c_str(),&Svalue[8],(tag_+"_genWeight_QCDscale_muR0p5_muF0p5/F").c_str());
 	}
 
 
@@ -63,8 +74,6 @@ class LHEProductFiller : public NtupleFillerBase {
             std::vector<float>    pdfSystWeight_;
             std::vector<float>    lheNormalizedWeights_;
             std::vector<std::string>   lheWeightIDs_;
-
-
 
 
 
@@ -119,9 +128,18 @@ class LHEProductFiller : public NtupleFillerBase {
             if (NL==2) value2 = l.M();
             value3 = HT;
             value4 = pdfWeight_;
+            value5 = nlheWeights_;
             //std::cout<<"HT :"<<HT<<std::endl;
 
-
+           Svalue[0]=genWeight_QCDscale_muR1_muF1_ ;
+           Svalue[1]=genWeight_QCDscale_muR1_muF2_ ;
+           Svalue[2]=genWeight_QCDscale_muR1_muF0p5_ ;
+           Svalue[3]=genWeight_QCDscale_muR2_muF1_ ;
+           Svalue[4]=genWeight_QCDscale_muR2_muF2_ ;
+           Svalue[5]=genWeight_QCDscale_muR2_muF0p5_ ;
+           Svalue[6]=genWeight_QCDscale_muR0p5_muF1_ ;
+           Svalue[7]=genWeight_QCDscale_muR0p5_muF2_ ;
+           Svalue[8]=genWeight_QCDscale_muR0p5_muF0p5_ ;
 
         }
 
@@ -133,7 +151,9 @@ class LHEProductFiller : public NtupleFillerBase {
         int value2;
         float value3;
         float value4;
+        int value5;
 
+        float* Svalue;
 
 };
 
