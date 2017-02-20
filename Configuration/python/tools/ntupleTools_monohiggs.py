@@ -318,7 +318,7 @@ def makeDiTauEventWeightTmp(sourceDiTaus):
 
 
 
-def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorted', srcU='TightMuons', srcE='TightElectrons',srcT='TightTaus'):
+def addMuTauEventTree(process,name,src='muTausSorted', srcLL='diMuonsOSSorted', srcU='TightMuons', srcE='TightElectrons',srcT='TightTaus'):
    process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
    eventTree = cms.EDAnalyzer('EventTreeMaker',
                               genEvent = cms.InputTag('generator'),
@@ -694,6 +694,7 @@ def addMuTauEventTree(process,name,src = 'muTausSorted', srcLL = 'diMuonsOSSorte
 
 
 #Tree for e+tau + MET final state
+
 def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSorted', srcU='TightMuons', srcE='TightElectrons',srcT='TightTaus'):
    process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
    eventTree = cms.EDAnalyzer('EventTreeMaker',
@@ -1093,7 +1094,7 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
    setattr(process, name+'Path', p)
 
 
-def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE='TightElectrons'):
+def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='TightElectrons'):
    process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
    eventTree = cms.EDAnalyzer('EventTreeMaker',
                               genEvent = cms.InputTag('generator'),
@@ -1269,7 +1270,7 @@ def addDiTauEventTree(process,name,src = 'diTausSorted', srcU='TightMuons', srcE
                               diTauGenBosonPy = makeDiTauPair(src,"genpY",'p4GenBoson().py()'),
                               diTauGenBosonVisPx = makeDiTauPair(src,"vispX",'p4GenBosonVis().px()'),
                               diTauGenBosonVisPy = makeDiTauPair(src,"vispY",'p4GenBosonVis().py()'),
-                              diTauGenBosonPt2 = makeEleTauPair(src,"PtReweight",'genBosonPt()'),
+                              diTauGenBosonPt2 = makeDiTauPair(src,"PtReweight",'genBosonPt()'),
 
                               diTauGenIsPrompt1 = makeDiTauPair(src,"isPrompt1",'isPrompt1()'),
                               diTauGenIsPromptFS1 = makeDiTauPair(src,"isPromptFS1",'isPromptFS1()'),

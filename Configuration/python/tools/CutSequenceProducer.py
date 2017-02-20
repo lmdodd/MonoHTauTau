@@ -561,7 +561,8 @@ class CutSequenceProducer(cms._ParameterTypeBase):
                 originalObjects = cms.VInputTag(cms.InputTag('slimmedMuons'),
                     cms.InputTag('slimmedElectrons'),
                     cms.InputTag('slimmedTaus'),
-                    cms.InputTag("smearedJets"+mpost)#FIXME
+                    #cms.InputTag("smearedJets"+mpost)#FIXME
+                    cms.InputTag('cleanPatJets')#FIXME
                     ),
                 smearedObjects = cms.VInputTag(cms.InputTag("smearedMuonsID"+mpost),
                     cms.InputTag("smearedElectronsID"+mpost),

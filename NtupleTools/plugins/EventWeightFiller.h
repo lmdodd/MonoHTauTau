@@ -40,12 +40,12 @@ class EventWeightFiller : public NtupleFillerBase {
         std::string fMuonIsolation =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_IdIso_IsoLt0p15_2016BtoH_eff.root";
         std::string fMuonTrigger =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_IsoMu24_OR_TkIsoMu24_2016BtoH_eff.root";
         std::string fEleIsolation =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_IdIso_IsoLt0p1_eff.root";
-        std::string fEleTrigger =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_Ele25_eta2p1_WPTight_eff.root";
+        std::string fEleTrigger =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_Ele25WPTight_eff.root";
 
         std::string fMuonIsolationAI =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_antiisolated_0p15to0p25_IdIso_eff.root";
         std::string fMuonTriggerAI =   "/src/HTT-utilities/LepEffInterface/data/Muon/Run2016BtoH/Muon_antiisolated_0p15to0p25_IsoMu24ORTkIsoMu24_eff_rb.root";
         std::string fEleIsolationAI =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_antiisolated_0p10to0p20_IdIso_eff.root";
-        std::string fEleTriggerAI =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_antiisolated_0p10to0p20_Ele25WPTight_eff_rb.root";
+        std::string fEleTriggerAI =   "/src/HTT-utilities/LepEffInterface/data/Electron/Run2016BtoH/Electron_Ele25WPTight_antiisolated_Iso0p1to0p3_eff_rb.root";
         std::string fileIso;
         std::string fileTrig;
         std::string fileIsoAI;

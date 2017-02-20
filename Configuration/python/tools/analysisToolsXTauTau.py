@@ -29,7 +29,7 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   process.analysisSequence = cms.Sequence()
 
-  BadMuonFilter(process)
+  #BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons")  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
@@ -78,7 +78,7 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
 
   process.analysisSequence = cms.Sequence()
 
-  BadMuonFilter(process)
+  #BadMuonFilter(process)
   MiniAODMETfilter(process)
   MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
   MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
@@ -239,10 +239,15 @@ def MiniAODMETfilter(process):
     process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
     process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
     process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+    process.BadPFMuonFilter.taggingMode =  cms.bool(True)
+
+
 
     process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
     process.BadChargedCandidateFilter.muons = cms.InputTag("slimmedMuons")
     process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+    process.BadPFMuonFilter.taggingMode =  cms.bool(True)
+
 
     process.BadMuon = cms.Sequence(process.BadPFMuonFilter*process.BadChargedCandidateFilter)
     process.analysisSequence*=process.BadMuon
@@ -430,22 +435,22 @@ def applyDefaultSelectionsPT(process):#FIXME THISWILL HVAE TO CHANGE-- not curee
   #ONLY FOR SYSTEMATICS . PLEASE CHANGE THEM in YOUR CFG FILE IF REALLY NEEDED
   process.selectedPatTaus = cms.EDFilter("PATTauSelector",
                                            src = cms.InputTag("patOverloadedTaus"),
-                                           cut = cms.string('pt>15&&tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")>0.5&&tauID("decayModeFinding")&&tauID("againstElectronVLooseMVA6")&&tauID("againstMuonLoose3")'),
+                                           cut = cms.string('tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")>0.5&&tauID("decayModeFinding")&&tauID("againstElectronVLooseMVA6")&&tauID("againstMuonLoose3")'),
                                            filter = cms.bool(False)
   										)  
   process.selectedPatElectrons = cms.EDFilter("PATElectronSelector",
                                            src = cms.InputTag("miniAODElectronVID"),
-                                           cut = cms.string('pt>10&&userFloat("eleMVAIDnonTrig90")>0&&userFloat("dBRelIso03")<0.3'),
+                                           cut = cms.string('userFloat("eleMVAIDnonTrig90")>0&&userFloat("dBRelIso03")<0.3'),
                                            filter = cms.bool(False)
   										)
   process.selectedPatMuons = cms.EDFilter("PATMuonSelector",
                                            src = cms.InputTag("miniAODMuonID"),
-                                           cut = cms.string('pt>10&&isLooseMuon()&&userFloat("dBRelIso")<0.3'),
+                                           cut = cms.string('isLooseMuon()&&userFloat("dBRelIso")<0.3'),
                                            filter = cms.bool(False)
   										) 
   process.cleanPatJets = cms.EDProducer("PATJetCleaner",
                                            src = cms.InputTag("filteredJets"),#"patMVAEmbeddedJets"
-                                           preselection = cms.string('abs(eta)<4.7&&pt>10&&userFloat("idLoose")'),
+                                           preselection = cms.string('abs(eta)<4.7&&userFloat("idLoose")'),
                                            checkOverlaps = cms.PSet(),
                                            finalCut = cms.string('')
   										)								 									  

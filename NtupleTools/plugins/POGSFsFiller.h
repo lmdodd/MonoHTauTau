@@ -40,7 +40,7 @@ class POGSFsFiller : public NtupleFillerBase {
 
         std::string base = std::getenv("CMSSW_BASE");
         std::string fPath =   "/src/MonoHTauTau/Configuration/data/";
-        std::vector<std::string> fFile =  {"BCDEF_trigger.root","GH_trigger.root","BCDEF_MUON_IDISO.root","GH_MUON_IDISO.root"};
+        std::vector<std::string> fFile =  {"BCDEF_Trigger.root","GH_Trigger.root","BCDEF_MUON_IDISO.root","GH_MUON_IDISO.root"};
 
         if (!Mu_)
             fFile =  {"EleSoup.root","passingMVA80wp80X.root","passingMVA90wp80X.root","RecoEGEffi.root"};

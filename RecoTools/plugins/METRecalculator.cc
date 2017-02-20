@@ -79,11 +79,11 @@ METRecalculator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
         for(unsigned int k=0;k<originalColls[i].size();++k) {
             bool pass=true;
             //for each objectloop in all previous collections and cross clean
-            for(int j=0;j<(int)(i-1);++j) {
-                for(unsigned int l=0;l<originalColls[j].size();++l) 
-                    if(ROOT::Math::VectorUtil::DeltaR(originalColls[i].at(k),originalColls[j].at(l))<0.2)
-                        pass=false;
-            }
+            //for(int j=0;j<(int)(i-1);++j) {
+            //    for(unsigned int l=0;l<originalColls[j].size();++l) 
+            //        if(ROOT::Math::VectorUtil::DeltaR(originalColls[i].at(k),originalColls[j].at(l))<0.2)
+            //            pass=false;
+            //}
             if(pass)
                 originalVector+=originalColls[i].at(k);
         }
@@ -97,10 +97,10 @@ METRecalculator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
         for(unsigned int k=0;k<smearedColls[i].size();++k) {
             bool pass=true;
             //for each objectloop in all previous collections and cross clean
-            for(int j=0;j<(int)(i-1);++j)
-                for(unsigned int l=0;l<smearedColls[j].size();++l) 
-                    if(ROOT::Math::VectorUtil::DeltaR(smearedColls[i].at(k),smearedColls[j].at(l))<0.2)
-                        pass=false;
+            //for(int j=0;j<(int)(i-1);++j)
+            //    for(unsigned int l=0;l<smearedColls[j].size();++l) 
+            //        if(ROOT::Math::VectorUtil::DeltaR(smearedColls[i].at(k),smearedColls[j].at(l))<0.2)
+            //            pass=false;
             if(pass)
                 smearedVector+=smearedColls[i].at(k);
         }
@@ -118,7 +118,6 @@ METRecalculator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
             pat::MET  met = srcH->at(i);
             math::XYZTLorentzVector unclustered =-met.p4()-originalVector;
             unclustered*=unclusteredScale_;
-
             math::XYZTLorentzVector newMET = -(unclustered+smearedVector);
             met.setP4(math::XYZTLorentzVector(newMET.px(),newMET.py(),0.0,sqrt(newMET.px()*newMET.px()+newMET.py()*newMET.py())));
             out->push_back(met);
