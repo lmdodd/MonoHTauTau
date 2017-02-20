@@ -15,16 +15,8 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
  
   process.load("Configuration.StandardSequences.Services_cff")
-  #process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-  #process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
   process.load("DQMServices.Core.DQM_cfg")
   process.load("DQMServices.Components.DQMEnvironment_cfi")
-  #process.load('Configuration.StandardSequences.Services_cff')
-  #process.load('Configuration.EventContent.EventContent_cff')
-  #process.load('SimGeneral.MixingModule.mixNoPU_cfi')
-  #process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
-  #process.load('Configuration.StandardSequences.MagneticField_38T_cff')
-  #process.load('Configuration.StandardSequences.EndOfProcess_cff')
   #Make the TriggerPaths Global variable to be accesed by the ntuples
   global TriggerPaths
   TriggerPaths= triggerPaths
@@ -54,15 +46,12 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   
   #Build good vertex collection
   #goodVertexFilter(process)  
-  #tauOverloading(process,'slimmedTaus','triggeredPatMuons','offlineSlimmedPrimaryVertices')
 
   tauEffi(process,'slimmedTaus',True)
   tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
   
   triLeptons(process)
-  #jetOverloading(process,"slimmedJets",True)
   jetOverloading(process,"patJetsReapplyJEC",True)
-  #jetOverloading(process,"patJetsReapplyJEC") #"slimmedJets")
   jetFilter(process,"patOverloadedJets")
 
 
@@ -75,17 +64,8 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
   process.load("MonoHTauTau.Configuration.startUpSequence_cff")
  
   process.load("Configuration.StandardSequences.Services_cff")
-  #process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-  #process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
   process.load("DQMServices.Core.DQM_cfg")
   process.load("DQMServices.Components.DQMEnvironment_cfi")
-  #process.load('Configuration.StandardSequences.Services_cff')
-  #process.load('Configuration.EventContent.EventContent_cff')
-  #process.load('SimGeneral.MixingModule.mixNoPU_cfi')
-  #process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
-  #process.load('Configuration.StandardSequences.MagneticField_38T_cff')
-  #process.load('Configuration.StandardSequences.EndOfProcess_cff')
-  #Make the TriggerPaths Global variable to be accesed by the ntuples
   global TriggerPaths
   TriggerPaths= triggerPaths
   global TriggerProcess
@@ -114,15 +94,12 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
   
   #Build good vertex collection
   #goodVertexFilter(process)  
-  #tauOverloading(process,'slimmedTaus','triggeredPatMuons','offlineSlimmedPrimaryVertices')
 
   tauEffi(process,'slimmedTaus',True)
   tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
   
   triLeptons(process)
-  #jetOverloading(process,"slimmedJets",True)
   jetOverloading(process,"patJetsReapplyJEC",True)
-  #jetOverloading(process,"patJetsReapplyJEC") #"slimmedJets")
   jetFilter(process,"patOverloadedJets")
 
 
@@ -434,7 +411,7 @@ def triLeptons(process):
   						
   process.TightMuons = cms.EDFilter("PATMuonSelector",
   							src = cms.InputTag("miniAODMuonID"),
-  							cut = cms.string('pt>10&&abs(eta)<2.4&&abs(userFloat("dZ"))<0.2&&abs(userFloat("dXY"))<0.045&&userInt("mediumID")>0&&userFloat("dBRelIso")<0.3'),
+                            cut = cms.string('pt>10&&abs(eta)<2.4&&abs(userFloat("dZ"))<0.2&&abs(userFloat("dXY"))<0.045&&isLooseMuon()&&userFloat("dBRelIso")<0.3'),
   							filter = cms.bool(False)
   						)
   process.TightTaus = cms.EDFilter("PATTauSelector",
@@ -453,7 +430,7 @@ def applyDefaultSelectionsPT(process):#FIXME THISWILL HVAE TO CHANGE-- not curee
   #ONLY FOR SYSTEMATICS . PLEASE CHANGE THEM in YOUR CFG FILE IF REALLY NEEDED
   process.selectedPatTaus = cms.EDFilter("PATTauSelector",
                                            src = cms.InputTag("patOverloadedTaus"),
-                                           cut = cms.string('pt>15&&tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits")<3&&tauID("decayModeFindingNewDMs")&&tauID("againstElectronVLooseMVA6")&&tauID("againstMuonLoose3")'),
+                                           cut = cms.string('pt>15&&tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")>0.5&&tauID("decayModeFinding")&&tauID("againstElectronVLooseMVA6")&&tauID("againstMuonLoose3")'),
                                            filter = cms.bool(False)
   										)  
   process.selectedPatElectrons = cms.EDFilter("PATElectronSelector",
@@ -463,7 +440,7 @@ def applyDefaultSelectionsPT(process):#FIXME THISWILL HVAE TO CHANGE-- not curee
   										)
   process.selectedPatMuons = cms.EDFilter("PATMuonSelector",
                                            src = cms.InputTag("miniAODMuonID"),
-                                           cut = cms.string('pt>10&&userInt("mediumID")>0&&userFloat("dBRelIso")<0.3'),
+                                           cut = cms.string('pt>10&&isLooseMuon()&&userFloat("dBRelIso")<0.3'),
                                            filter = cms.bool(False)
   										) 
   process.cleanPatJets = cms.EDProducer("PATJetCleaner",

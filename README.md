@@ -7,8 +7,8 @@ H->tautau (+ many other) Final States! : )
 #Set Up instructions:
 
 ```
-cmsrel CMSSW_8_0_25 #for 2016 analysis
-cd CMSSW_8_0_25/src/
+cmsrel CMSSW_8_0_26_patch1 #for 2016 analysis
+cd CMSSW_8_0_26_patch1/src/
 cmsenv
 git cms-init 
 git clone --recursive -b master https://github.com/lmdodd/MonoHTauTau.git   
