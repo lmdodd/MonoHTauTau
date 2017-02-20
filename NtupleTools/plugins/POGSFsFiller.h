@@ -40,10 +40,8 @@ class POGSFsFiller : public NtupleFillerBase {
 
         std::string base = std::getenv("CMSSW_BASE");
         std::string fPath =   "/src/MonoHTauTau/Configuration/data/";
-        std::vector<std::string> fFile =  {"EfficienciesAndSF_Period3.root","EfficienciesAndSF_Period4.root","MuonIDIso_BCDEF.root","MuonIDIso_GH.root"};
+        std::vector<std::string> fFile =  {"BCDEF_trigger.root","GH_trigger.root","BCDEF_MUON_IDISO.root","GH_MUON_IDISO.root"};
 
-        //std::vector<std::string> fFile =  {"EfficienciesAndSF_Period3.root","EfficienciesAndSF_Period4.root","Muon_Id_BCDEF_SF.root","Muon_Iso_BCDEF_SF.root","Muon_Id_GH_SF.root","Muon_Iso_GH_SF.root"};
-        //std::vector<std::string> fFile =  {"SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root","MuonID_Z_RunBCD_prompt80X_7p65.root","MuonIso_Z_RunBCD_prompt80X_7p65.root","tracking_eta.root"};
         if (!Mu_)
             fFile =  {"EleSoup.root","passingMVA80wp80X.root","passingMVA90wp80X.root","RecoEGEffi.root"};
 
@@ -101,28 +99,28 @@ class POGSFsFiller : public NtupleFillerBase {
 
                     TriggerErr = h2_trigger2->GetBinError( h2_trigger2->GetXaxis()->FindBin(std::abs(eta)), h2_trigger2->GetYaxis()->FindBin(std::min(pt,499.)) );
 
-                    float id1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,119.)) );
-                    float id2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    float id1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    float id2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
                     ID1 = (id1*20.5+id2*16.3)/36.8;
 
-                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,119.)) );
-                    float iso1 = h2_iso1->GetBinContent( h2_iso1->GetXaxis()->FindBin(std::abs(eta)), h2_iso1->GetYaxis()->FindBin(std::min(pt,119.)) );
-                    float iso2 = h2_iso2->GetBinContent( h2_iso2->GetXaxis()->FindBin(std::abs(eta)), h2_iso2->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    float iso1 = h2_iso1->GetBinContent( h2_iso1->GetXaxis()->FindBin(std::abs(eta)), h2_iso1->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    float iso2 = h2_iso2->GetBinContent( h2_iso2->GetXaxis()->FindBin(std::abs(eta)), h2_iso2->GetYaxis()->FindBin(std::min(pt,499.)) );
                     ID2 = (iso1*20.5+iso2*16.3)/36.8; 
 
-                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
                     TRK = 1.0;
                     TRKErr = 1.0;
                 }
                 else{ 
                     Trigger = h2_trigger->GetBinContent( h2_trigger->GetXaxis()->FindBin(std::abs(eta)), h2_trigger->GetYaxis()->FindBin(std::min(pt,199.)) );
                     TriggerErr = h2_trigger->GetBinError( h2_trigger->GetXaxis()->FindBin(std::abs(eta)), h2_trigger->GetYaxis()->FindBin(std::min(pt,199.)) );
-                    ID1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(eta), h2_id1->GetYaxis()->FindBin(std::min(pt,199.) ));
-                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(eta), h2_id1->GetYaxis()->FindBin(std::min(pt,199.)) );
-                    ID2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(eta), h2_id2->GetYaxis()->FindBin(std::min(pt,199.)) );
-                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(eta), h2_id2->GetYaxis()->FindBin(std::min(pt,199.)) );
-                    TRK = h2_trk->GetBinContent( h2_trk->GetXaxis()->FindBin(eta), h2_trk->GetYaxis()->FindBin(std::min(pt,199.)) );
-                    TRKErr = h2_trk->GetBinError( h2_trk->GetXaxis()->FindBin(eta), h2_trk->GetYaxis()->FindBin(std::min(pt,199.)) );
+                    ID1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(eta), h2_id1->GetYaxis()->FindBin(std::min(pt,499.) ));
+                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(eta), h2_id1->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    ID2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(eta), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(eta), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    TRK = h2_trk->GetBinContent( h2_trk->GetXaxis()->FindBin(eta), 50.);
+                    TRKErr = h2_trk->GetBinError( h2_trk->GetXaxis()->FindBin(eta), 50. );
                 }
             }
 
