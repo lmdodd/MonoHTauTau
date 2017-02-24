@@ -335,12 +335,15 @@ def addMuTauEventTree(process,name,src='muTausSorted', srcLL='diMuonsOSSorted', 
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(
-                                                      "Flag_HBHENoiseFilter",
-                                                      "Flag_HBHENoiseIsoFilter", 
-                                                      "Flag_globalTightHalo2016Filter",
-                                                      "Flag_goodVertices",
-                                                      "Flag_eeBadScFilter",
-                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      "Flag_badMuons",
+                                      "Flag_duplicateMuons",
+                                      "Flag_noBadMuons",
+                                      "Flag_HBHENoiseFilter",
+                                      "Flag_HBHENoiseIsoFilter", 
+                                      "Flag_globalTightHalo2016Filter",
+                                      "Flag_goodVertices",
+                                      "Flag_eeBadScFilter",
+                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
                                       )
                               ),
 
@@ -713,12 +716,15 @@ def addEleTauEventTree(process,name,src='eleTausSorted',srcLL='diElectronsOSSort
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(
-                                                      "Flag_HBHENoiseFilter",
-                                                      "Flag_HBHENoiseIsoFilter", 
-                                                      "Flag_globalTightHalo2016Filter",
-                                                      "Flag_goodVertices",
-                                                      "Flag_eeBadScFilter",
-                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      "Flag_badMuons",
+                                      "Flag_duplicateMuons",
+                                      "Flag_noBadMuons",
+                                      "Flag_HBHENoiseFilter",
+                                      "Flag_HBHENoiseIsoFilter", 
+                                      "Flag_globalTightHalo2016Filter",
+                                      "Flag_goodVertices",
+                                      "Flag_eeBadScFilter",
+                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
                                       )
                               ),
 
@@ -1111,12 +1117,15 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                                   BadChargedCandidateFilter = cms.InputTag("BadChargedCandidateFilter"),
                                   BadPFMuonFilter           = cms.InputTag("BadPFMuonFilter"),
                                   paths      = cms.vstring(
-                                                      "Flag_HBHENoiseFilter",
-                                                      "Flag_HBHENoiseIsoFilter", 
-                                                      "Flag_globalTightHalo2016Filter",
-                                                      "Flag_goodVertices",
-                                                      "Flag_eeBadScFilter",
-                                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
+                                      "Flag_badMuons",
+                                      "Flag_duplicateMuons",
+                                      "Flag_noBadMuons",
+                                      "Flag_HBHENoiseFilter",
+                                      "Flag_HBHENoiseIsoFilter", 
+                                      "Flag_globalTightHalo2016Filter",
+                                      "Flag_goodVertices",
+                                      "Flag_eeBadScFilter",
+                                      "Flag_EcalDeadCellTriggerPrimitiveFilter"
                                       )
                               ),
 
@@ -1170,6 +1179,13 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
 
                               diTauJetsPt20nbtagNoSF = makeDiTauJetCountPair(src,"nbtagNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
 
+                              #'hltDoublePFTau35TrackPt1MediumIsolationDz02Reg',
+                              #'hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg',v
+                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumIsolationDz02Reg_1",'leg1.userFloat("hltDoublePFTau35TrackPt1MediumIsolationDz02Reg")'),
+                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumIsolationDz02Reg")'),
+                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_1",'leg1.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
+                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
+ 
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyMediumIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byMediumIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),

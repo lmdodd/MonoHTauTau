@@ -14,6 +14,8 @@ pushd $CMSSW_BASE/src
 
 git cms-merge-topic ikrav:egm_id_80X_v2
 git cms-merge-topic cms-met:METRecipe_8020 -u
+git cms-merge-topic cms-met:METRecipe_80X_part2 -u
+
 #git cms-merge-topic -u cms-met:fromCMSSW_8_0_20_postICHEPfilter
 #git cms-merge-topic gpetruc:badMuonFilters_80X_v2
 

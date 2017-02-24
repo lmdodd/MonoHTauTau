@@ -520,11 +520,15 @@ def tauTriggerMatchMiniAOD(process,triggerProcess,HLT,srcTau):
                                             src = cms.InputTag(srcTau),
                                             trigEvent = cms.InputTag(HLT),
                                             filtersAND = cms.vstring(
+                                                'hltDoublePFTau35TrackPt1MediumIsolationDz02Reg',
+                                                'hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg',
                                                 'hltOverlapFilterIsoMu19LooseIsoPFTau20',
                                                 'hltOverlapFilterIsoEle22WP75GsfLooseIsoPFTau20',
                                                 'hltOverlapFilterIsoEle22WPLooseGsfLooseIsoPFTau20'
                                             ),
                                             filters = cms.vstring(
+                                                'hltDoublePFTau35TrackPt1MediumIsolationDz02Reg',
+                                                'hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg',
                                                 'hltPFTau20TrackLooseIsoAgainstMuon',
                                                 'hltPFTau20TrackLooseIso',
                                                 'hltPFTau20TrackLooseIso'
@@ -533,7 +537,7 @@ def tauTriggerMatchMiniAOD(process,triggerProcess,HLT,srcTau):
                                             bits = cms.InputTag(HLT,"",triggerProcess),
                                             prescales = cms.InputTag("patTrigger"),
                                             objects = cms.InputTag("selectedPatTrigger"),
-                                            ptCut = cms.int32(10) #too low to affect anything
+                                            ptCut = cms.int32(0) #too low to affect anything
    )
                                             
    #process.analysisSequence=cms.Sequence(process.analysisSequence*process.preTriggeredPatTaus*process.triggeredPatTaus)
