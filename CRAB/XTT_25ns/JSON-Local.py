@@ -4,7 +4,7 @@ process = cms.Process("ANALYSIS")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 
-process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v4'
+process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v7'
 #process.GlobalTag.globaltag = '80X_dataRun2_Prompt_v9'
 
 
@@ -15,9 +15,8 @@ process.options.allowUnscheduled = cms.untracked.bool(True)
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        #'/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/AC8D5F25-0798-E611-B606-0242AC130002.root'
-        #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/08FD47D1-F198-E611-8E98-008CFA165F18.root'
-        '/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/1899C137-8E98-E611-B830-008CFA56D770.root'
+        #'/store/data/Run2016B/SingleMuon/MINIAOD/23Sep2016-v3/60000/1899C137-8E98-E611-B830-008CFA56D770.root'
+        '/store/data/Run2016B/SingleMuon/MINIAOD/03Feb2017_ver2-v2/100000/005BC53A-4DEC-E611-994F-0025905C43EA.root'
 		),
         #firstEvent = cms.untracked.uint32(820360892),
 		inputCommands=cms.untracked.vstring(
@@ -84,26 +83,26 @@ process.load("MonoHTauTau.Configuration.monohiggs_cff")
 
 
 process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
-#process.eventSelectionET = cms.Path(process.selectionSequenceET)
-#process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
+process.eventSelectionET = cms.Path(process.selectionSequenceET)
+process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
 
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
-addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
+#addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
 
-#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
-#addEleTauEventTree(process,'eleTauEventTree')
+from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
+addEleTauEventTree(process,'eleTauEventTree')
 #addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
-#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-#addDiTauEventTree(process,'diTauEventTree')
+from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
+addDiTauEventTree(process,'diTauEventTree')
 #addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
-addEventSummary(process,False,'MT','eventSelectionMT')
-#addEventSummary(process,True,'ET','eventSelectionET')
-#addEventSummary(process,True,'TT','eventSelectionTT')
+addEventSummary(process,True,'MT','eventSelectionMT')
+addEventSummary(process,True,'ET','eventSelectionET')
+addEventSummary(process,True,'TT','eventSelectionTT')
 
 
 process.TFileService.fileName=cms.string("output.root")

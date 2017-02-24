@@ -9,7 +9,6 @@ process.GlobalTag.globaltag = '80X_dataRun2_2016SeptRepro_v7'
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 process.options.allowUnscheduled = cms.untracked.bool(True)
 
-
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
