@@ -43,12 +43,12 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
-  #tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus") #ESTaus
+  tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus") #ESTaus
   
   #Build good vertex collection
   #goodVertexFilter(process)  
 
-  tauEffi(process,'slimmedTaus',True)
+  tauEffi(process,'triggeredPatTaus',True)
   tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
   
   triLeptons(process)
@@ -105,12 +105,9 @@ def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_
   #no trigger here!!!  
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID")#NEW
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID")#NEW
-  #tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"ESTausID") #slimmedTaus")
-  #tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus")
-  
-  #Build good vertex collection
-  #goodVertexFilter(process)  
-  tauEffi(process,'slimmedTaus',False)
+
+  tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus")
+  tauEffi(process,'triggeredPatTaus',False)
   tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
   
   triLeptons(process)
