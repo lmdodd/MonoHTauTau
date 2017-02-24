@@ -37,7 +37,8 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
   #recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
   recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  reRunMET(process,True)
+  #reRunMET(process,True)
+  reRunMETreminiaod(process,True)
 
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
@@ -86,7 +87,8 @@ def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['H
   #recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
   recorrectJets(process, True) #adds patJetsReapplyJEC
   
-  reRunMET(process,True)
+  #reRunMET(process,True)
+  reRunMETreminiaod(process,True)
 
   electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
   muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
@@ -324,6 +326,54 @@ def reRunMET(process, runOnData):
             isData=runOnData
             )
     process.analysisSequence *= process.fullPatMetSequence
+
+def reRunMETreminiaod(process, runOnData):
+    from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
+
+    runMetCorAndUncFromMiniAOD(process,
+                isData=runOnData
+                )
+    # Now you are creating the e/g corrected MET on top of the bad muon corrected MET (on re-miniaod)
+    from PhysicsTools.PatUtils.tools.corMETFromMuonAndEG import corMETFromMuonAndEG
+    corMETFromMuonAndEG(process,
+                    pfCandCollection="", #not needed                                                                                                                                \
+                                                                                                                                                                                     
+                    electronCollection="slimmedElectronsBeforeGSFix",
+                    photonCollection="slimmedPhotonsBeforeGSFix",
+                    corElectronCollection="slimmedElectrons",
+                    corPhotonCollection="slimmedPhotons",
+                    allMETEGCorrected=True,
+                    muCorrection=False,
+                    eGCorrection=True,
+                    runOnMiniAOD=True,
+                    postfix="MuEGClean"
+                    )
+    process.slimmedMETsMuEGClean = process.slimmedMETs.clone()
+    process.slimmedMETsMuEGClean.src = cms.InputTag("patPFMetT1MuEGClean")
+    process.slimmedMETsMuEGClean.rawVariation =  cms.InputTag("patPFMetRawMuEGClean")
+    process.slimmedMETsMuEGClean.t1Uncertainties = cms.InputTag("patPFMetT1%sMuEGClean")
+    del process.slimmedMETsMuEGClean.caloMET
+
+    process.egcorrMET = cms.Sequence(
+        process.cleanedPhotonsMuEGClean+process.cleanedCorPhotonsMuEGClean+
+        process.matchedPhotonsMuEGClean + process.matchedElectronsMuEGClean +
+        process.corMETPhotonMuEGClean+process.corMETElectronMuEGClean+
+        process.patPFMetT1MuEGClean+process.patPFMetRawMuEGClean+
+        process.patPFMetT1SmearMuEGClean+process.patPFMetT1TxyMuEGClean+
+        process.patPFMetTxyMuEGClean+process.patPFMetT1JetEnUpMuEGClean+
+        process.patPFMetT1JetResUpMuEGClean+process.patPFMetT1SmearJetResUpMuEGClean+
+        process.patPFMetT1ElectronEnUpMuEGClean+process.patPFMetT1PhotonEnUpMuEGClean+
+        process.patPFMetT1MuonEnUpMuEGClean+process.patPFMetT1TauEnUpMuEGClean+
+        process.patPFMetT1UnclusteredEnUpMuEGClean+process.patPFMetT1JetEnDownMuEGClean+
+        process.patPFMetT1JetResDownMuEGClean+process.patPFMetT1SmearJetResDownMuEGClean+
+        process.patPFMetT1ElectronEnDownMuEGClean+process.patPFMetT1PhotonEnDownMuEGClean+
+        process.patPFMetT1MuonEnDownMuEGClean+process.patPFMetT1TauEnDownMuEGClean+
+        process.patPFMetT1UnclusteredEnDownMuEGClean+process.slimmedMETsMuEGClean)
+
+    process.analysisSequence *= process.fullPatMetSequence
+
+    process.analysisSequence = cms.Sequence(process.analysisSequence*process.egcorrMET*process.fullPatMetSequence)
+
 
 
 def reapplyPUJetID(process, srcJets = cms.InputTag("slimmedJets")):
@@ -666,8 +716,7 @@ def cloneAndReplaceInputTag(process,sequence,oldValue,newValue,postfix):
 
 
 
-def createSystematics(process,sequence,postfix,muScale,eScale,tauScale,jetScale,unclusteredScale,electronresb = 0.0, electronrese = 0.0):
-
+def createSystematics(process,sequence,postfix,muScale,eScale,tauScale,jetScale,unclusteredScale,electronresb = 0.0, electronrese = 0.0, oneProngScale = 1.0,oneProngPi0Scale = 1.0, threeProngScale = 1.0):
   #First Clone the sequence
   p = cloneProcessingSnippet(process, sequence, postfix)
   modules = listModules(p)
@@ -683,6 +732,9 @@ def createSystematics(process,sequence,postfix,muScale,eScale,tauScale,jetScale,
           mod.energyScale = cms.double(muScale)
       if mod.label().find('smearedTaus') !=-1 :
           mod.energyScale = cms.double(tauScale)
+          mod.oneProngEnergyScale = cms.double(oneProngScale)
+          mod.oneProngPi0EnergyScale = cms.double(oneProngPi0Scale)
+          mod.threeProngEnergyScale = cms.double(threeProngScale)
       if mod.label().find('smearedElectrons') !=-1 :
           mod.energyScale = cms.double(eScale)
           mod.deltaPtB = cms.double(electronresb)

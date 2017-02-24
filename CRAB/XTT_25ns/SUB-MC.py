@@ -59,14 +59,25 @@ process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
 process.eventSelectionET = cms.Path(process.selectionSequenceET)
 process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
 #Systematic Shifts 1sigma
-process.eventSelectionMTTauUp    = createSystematics(process,process.selectionSequenceMT,'TauUp',1.0,1.0,1.03,0,1.0)
-process.eventSelectionMTTauDown  = createSystematics(process,process.selectionSequenceMT,'TauDown',1.0,1.0,0.97,0,1.0)
 
-process.eventSelectionETTauUp    = createSystematics(process,process.selectionSequenceET,'TauUp',1.00,1.0,1.03,0,1.0)
-process.eventSelectionETTauDown  = createSystematics(process,process.selectionSequenceET,'TauDown',1.0,1.0,0.97,0,1.0)
+rocess.eventSelectionMTTauNom    = createSystematics(process,process.selectionSequenceMT,'TauNom', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+process.eventSelectionMTTauUp    = createSystematics(process,process.selectionSequenceMT, 'TauUp',  1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.988, 1.016, 1.01)
+process.eventSelectionMTTauDown  = createSystematics(process,process.selectionSequenceMT,'TauDown', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.976, 1.004, 0.998)
+#process.eventSelectionMTJetUp    = createSystematics(process,process.selectionSequenceMT,'JetUp',   1.00, 1.00, 1.00, 1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+#process.eventSelectionMTJetDown    = createSystematics(process,process.selectionSequenceMT,'JetDown',   1.00, 1.00, 1.00, -1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
 
-process.eventSelectionTTTauUp    = createSystematics(process,process.selectionSequenceTT,'TauUp',1.00,1.0,1.03,0,1.0)
-process.eventSelectionTTTauDown  = createSystematics(process,process.selectionSequenceTT,'TauDown',1.0,1.0,0.97,0,1.0)
+process.eventSelectionETTauNom    = createSystematics(process,process.selectionSequenceET,'TauNom', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+process.eventSelectionETTauUp    = createSystematics(process,process.selectionSequenceET, 'TauUp',  1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.988, 1.016, 1.01)
+process.eventSelectionETTauDown  = createSystematics(process,process.selectionSequenceET,'TauDown', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.976, 1.004, 0.998)
+#process.eventSelectionETJetUp    = createSystematics(process,process.selectionSequenceET,'JetUp',   1.00, 1.00, 1.00, 1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+#process.eventSelectionETJetDown    = createSystematics(process,process.selectionSequenceET,'JetDown',   1.00, 1.00, 1.00, -1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+
+process.eventSelectionTTTauNom    = createSystematics(process,process.selectionSequenceTT,'TauNom', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+process.eventSelectionTTTauUp    = createSystematics(process,process.selectionSequenceTT, 'TauUp',  1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.988, 1.016, 1.01)
+process.eventSelectionTTTauDown  = createSystematics(process,process.selectionSequenceTT,'TauDown', 1.00, 1.00, 1.00, 0, 1.00, 0.00, 0.00, 0.976, 1.004, 0.998)
+#process.eventSelectionTTJetUp    = createSystematics(process,process.selectionSequenceTT,'JetUp',   1.00, 1.00, 1.00, 1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+#process.eventSelectionTTJetDown    = createSystematics(process,process.selectionSequenceTT,'JetDown',   1.00, 1.00, 1.00, -1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
+
 
 
 
@@ -98,16 +109,16 @@ createGeneratedParticles(process,
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
 addMuTauEventTree(process,'muTauEventTree')
-addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
+#addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
 addEleTauEventTree(process,'eleTauEventTree')
-addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
+#addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
 addDiTauEventTree(process,'diTauEventTree')
-addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
+#addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 
 addEventSummary(process,True,'MT','eventSelectionMT')
@@ -116,20 +127,17 @@ addEventSummary(process,True,'TT','eventSelectionTT')
 
 
 #Final trees afor shapes after shifts
+addMuTauEventTree(process,'muTauEventTreeTauNom','muTausSortedTauNom','diMuonsOSTauNom')
 addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSTauUp')
 addMuTauEventTree(process,'muTauEventTreeTauDown','muTausSortedTauDown','diMuonsOSTauDown')
-addMuTauEventTree(process,'muTauEventTreeFinalTauUp','muTausOSTauUp','diMuonsOSTauUp')
-addMuTauEventTree(process,'muTauEventTreeFinalTauDown','muTausOSTauDown','diMuonsOSTauDown')
 
+addEleTauEventTree(process,'eleTauEventTreeTauNom','eleTausSortedTauNom','diElectronsOSTauNom')
 addEleTauEventTree(process,'eleTauEventTreeTauUp','eleTausSortedTauUp','diElectronsOSTauUp')
 addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diElectronsOSTauDown')
-addEleTauEventTree(process,'eleTauEventTreeFinalTauUp','eleTausOSTauUp','diElectronsOSTauUp')
-addEleTauEventTree(process,'eleTauEventTreeFinalTauDown','eleTausOSTauDown','diElectronsOSTauDown')
 
+addDiTauEventTree(process,'diTauEventTreeTauNom','diTausSortedTauNom')
 addDiTauEventTree(process,'diTauEventTreeTauUp','diTausSortedTauUp')
 addDiTauEventTree(process,'diTauEventTreeTauDown','diTausSortedTauDown')
-addDiTauEventTree(process,'diTauEventTreeFinalTauUp','diTausOSTauUp')
-addDiTauEventTree(process,'diTauEventTreeFinalTauDown','diTausOSTauDown')
 
 
 process.source = cms.Source("PoolSource",
