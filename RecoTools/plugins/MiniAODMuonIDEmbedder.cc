@@ -37,7 +37,6 @@ class MiniAODMuonIDEmbedder : public edm::EDProducer {
         edm::EDGetTokenT<pat::MuonCollection> muonsCollection_;
         edm::EDGetTokenT<reco::VertexCollection> vtxToken_;
         reco::Vertex pv_;
-        bool HIP;
 };
 
 bool MiniAODMuonIDEmbedder::isICHEPmedium(const reco::Muon & recoMu)
@@ -84,7 +83,6 @@ bool MiniAODMuonIDEmbedder::is2016GHmedium(const reco::Muon & recoMu)
 MiniAODMuonIDEmbedder::MiniAODMuonIDEmbedder(const edm::ParameterSet& pset) {
     muonsCollection_ = consumes<pat::MuonCollection>(pset.getParameter<edm::InputTag>("src"));
     vtxToken_            = consumes<reco::VertexCollection>(pset.getParameter<edm::InputTag>("vertices"));
-    HIP   = pset .getParameter<bool>("isHip");
 
     produces<pat::MuonCollection>();
 }
@@ -141,9 +139,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
         int muId = 0; 
         //std::cout<<"     muID initialized to: "<<muId<<std::endl;
         //std::cout<<"     muon.globalTrack() isNonnull: "<<muon.globalTrack().isNonnull()<<std::endl;
-        muId =MiniAODMuonIDEmbedder::is2016GHmedium(muon); 
-        if (HIP)
-            muId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
+        muId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
 
         int muTightId = 0; 
         muTightId = muon.isTightMuon(pv_);

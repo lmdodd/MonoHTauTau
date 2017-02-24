@@ -61,55 +61,6 @@ def defaultReconstruction(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu
 
   process.runAnalysisSequence = cms.Path(process.analysisSequence)
 
-def defaultReconstructionBCDEF(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_v'],HLT = 'TriggerResults',triggerFilter='RECO'):
-  process.load("MonoHTauTau.Configuration.startUpSequence_cff")
- 
-  process.load("Configuration.StandardSequences.Services_cff")
-  process.load("DQMServices.Core.DQM_cfg")
-  process.load("DQMServices.Components.DQMEnvironment_cfi")
-  global TriggerPaths
-  TriggerPaths= triggerPaths
-  global TriggerProcess
-  TriggerProcess= triggerProcess
-  global TriggerRes
-  TriggerRes=HLT 
-  global TriggerFilter
-  TriggerFilter=triggerFilter
-
-
-  process.analysisSequence = cms.Sequence()
-
-  #BadMuonFilter(process)
-  MiniAODMETfilter(process)
-  MiniAODMuonIDEmbedder(process,"slimmedMuons",True)  
-  MiniAODEleVIDEmbedder(process,"slimmedElectrons")  
-
-  #recorrectJetsSQL(process, True) #adds patJetsReapplyJEC
-  recorrectJets(process, True) #adds patJetsReapplyJEC
-  
-  #reRunMET(process,True)
-  reRunMETreminiaod(process,True)
-
-  electronTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODElectronVID") 
-  muonTriggerMatchMiniAOD(process,triggerProcess,HLT,"miniAODMuonID") 
-  #tauTriggerMatchMiniAOD(process,triggerProcess,HLT,"slimmedTaus") #ESTaus
-  
-  #Build good vertex collection
-  #goodVertexFilter(process)  
-
-  tauEffi(process,'slimmedTaus',True)
-  tauOverloading(process,'tauTriggerEfficiencies','triggeredPatMuons','offlineSlimmedPrimaryVertices')
-  
-  triLeptons(process)
-  jetOverloading(process,"patJetsReapplyJEC",True)
-  jetFilter(process,"patOverloadedJets")
-
-
-  #Default selections for systematics
-  applyDefaultSelectionsPT(process)
-
-  process.runAnalysisSequence = cms.Path(process.analysisSequence)
-
 
 
 def defaultReconstructionMC(process,triggerProcess = 'HLT',triggerPaths = ['HLT_Mu9','HLT_Mu11_PFTau15_v1'],HLT = 'TriggerResults', triggerFilter='PAT'):
@@ -213,8 +164,7 @@ def MiniAODMuonIDEmbedder(process,muons, isHIP=False):
   process.miniAODMuonID = cms.EDProducer(
       "MiniAODMuonIDEmbedder",
       src=cms.InputTag(muons),
-      vertices=cms.InputTag("offlineSlimmedPrimaryVertices"),
-      isHip = cms.bool(isHIP) 
+      vertices=cms.InputTag("offlineSlimmedPrimaryVertices")
       )
 
   process.embedMuonIDs = cms.Sequence(process.miniAODMuonID)

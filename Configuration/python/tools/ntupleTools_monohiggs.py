@@ -1182,9 +1182,9 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                               #'hltDoublePFTau35TrackPt1MediumIsolationDz02Reg',
                               #'hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg',v
                               diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumIsolationDz02Reg_1",'leg1.userFloat("hltDoublePFTau35TrackPt1MediumIsolationDz02Reg")'),
-                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumIsolationDz02Reg")'),
-                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_1",'leg1.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
-                              diTauTriggerMatch = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
+                              diTauTriggerMatch1 = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumIsolationDz02Reg")'),
+                              diTauTriggerMatch2 = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_1",'leg1.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
+                              diTauTriggerMatch3 = makeDiTauPair(src,"hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg_2",'leg2.userFloat("hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg")'),
  
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
