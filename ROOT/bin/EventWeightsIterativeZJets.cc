@@ -5,6 +5,7 @@
 #include "TTree.h"
 #include "TH1F.h"
 #include "TFileMerger.h"
+#include <iostream>
 
 
 std::vector<float> data;
@@ -25,7 +26,7 @@ int main (int argc, char* argv[])
    parser.parseArguments (argc, argv);
    
 
-   
+   std::cout<<"ZJets_ext"<<std::endl;   
 
  
    //TFile *w = new TFile("ZJets.root","UPDATE");
@@ -35,12 +36,15 @@ int main (int argc, char* argv[])
    float evW = evC->GetBinContent(1);
    
    w->Close();
+
+   std::cout<<"Z1Jets"<<std::endl;   
   
    TFile *w1 = new TFile("Z1Jets.root","UPDATE");
    TH1F* evC1  = (TH1F*)w1->Get(parser.stringValue("histoName").c_str());
    float evW1 = evC1->GetBinContent(1);
    w1->Close();   
 
+   std::cout<<"Z2Jets"<<std::endl;   
    TFile *w2 = new TFile("Z2Jets.root","UPDATE");
 
    TH1F* evC2  = (TH1F*)w2->Get(parser.stringValue("histoName").c_str());
@@ -48,6 +52,7 @@ int main (int argc, char* argv[])
    
    w2->Close();
 
+   std::cout<<"Z3Jets"<<std::endl;   
    TFile *w3 = new TFile("Z3Jets.root","UPDATE");
 
    TH1F* evC3  = (TH1F*)w3->Get(parser.stringValue("histoName").c_str());
@@ -55,6 +60,7 @@ int main (int argc, char* argv[])
    
    w3->Close();
 
+   std::cout<<"Z4Jets"<<std::endl;   
    TFile *w4 = new TFile("Z4Jets.root","UPDATE");
 
    TH1F* evC4  = (TH1F*)w4->Get(parser.stringValue("histoName").c_str());
@@ -76,8 +82,8 @@ int main (int argc, char* argv[])
    //printf("Found  %f Z >150GeV Jet Events\n",evW5);
   
    // kfactor moved to ntuple
-   //double LOtoNNLO=5765.4/4954.0;
-   double LOtoNNLO=1.0;
+   double LOtoNNLO=5765.4/4954.0;
+   //double LOtoNNLO=1.0;
 
    double DYLo=evW/(LOtoNNLO*4954.0);
    double DYLo1=evW1/(LOtoNNLO*1012.5);

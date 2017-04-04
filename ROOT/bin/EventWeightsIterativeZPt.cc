@@ -26,7 +26,7 @@ int main (int argc, char* argv[])
    
    
  
-   TFile *fZpt    = new TFile("zpt_weights_2016.root","UPDATE");
+   TFile *fZpt    = new TFile("zpt_weights_2016_BtoH.root","UPDATE");
    TH2D* hZpt = 0;
    if(fZpt!=0 && fZpt->IsOpen()) {
      hZpt = (TH2D*)fZpt->Get("zptmass_histo");;
@@ -38,7 +38,8 @@ int main (int argc, char* argv[])
    }
 
  
-   TFile *f0 = new TFile("ZJETS.root","UPDATE");   
+   TFile *f0 = new TFile(parser.stringValue("outputFile").c_str(),"UPDATE");   
+   //TFile *f0 = new TFile("ZJETS.root","UPDATE");   
    readdir(f0,parser,hZpt);
    f0->Close();
 
@@ -76,12 +77,12 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser, TH2D* hist)
 			TBranch *newBranch2 = t->Branch("highTauEffi",&weight2,"highTauEffi/F");
 			TBranch *newBranch3 = t->Branch("EleTauFake",&weight3,"EleTauFake/F");
 			TBranch *newBranch4 = t->Branch("MuTauFake",&weight4,"MuTauFake/F");
-			int mLL=0;
+			float mLL=0;
 			float genPx=0;
 			float genPy=0;
 			float genTauPt=0;
 			float TauEta=0;
-			t->SetBranchAddress("LHEProduct_mll",&mLL); //InvMass
+			t->SetBranchAddress("genMass",&mLL); //InvMass
 			t->SetBranchAddress("genpX",&genPx); //genPx
 			t->SetBranchAddress("genpY",&genPy); //genPy
 			t->SetBranchAddress("genPt2",&genTauPt); //genPy

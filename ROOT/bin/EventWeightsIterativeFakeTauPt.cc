@@ -72,8 +72,8 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser,float ev)
               if (tauPt>200)
                   tauPt=200.;
 
-              weight2 = 0.8 *tauPt/100.0;
-              weight3 = 1.2 *tauPt/100.0;
+              //weight2 = 0.8 *tauPt/100.0;
+              //weight3 = 1.2 *tauPt/100.0;
               
               float w = 1.22493-0.00444605*tauPt+0.0000104656*tauPt*tauPt;
               weight2 = w;

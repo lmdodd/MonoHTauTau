@@ -38,6 +38,6 @@ cat templates/ele.py >> SUB-JSON-ELE.py
 cat templates/SUB-JSON.py > SUB-JSON-TAU.py
 cat templates/tau.py >> SUB-JSON-TAU.py
 
-bash submitDATA.sh 
+#bash submitDATA.sh 
 #bash submitDATA.sh --skip-existing-output
 

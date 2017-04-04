@@ -71,8 +71,8 @@ int main (int argc, char* argv[])
    w5->Close();
 
    std::cout<<"here 7"<<std::endl;
-     TFile *w6 = new TFile(parser.stringValue("rootinf").c_str(),"UPDATE");
-    TH1F* evC6  = (TH1F*)w6->Get(parser.stringValue("histoName").c_str());
+   TFile *w6 = new TFile(parser.stringValue("rootinf").c_str(),"UPDATE");
+   TH1F* evC6  = (TH1F*)w6->Get(parser.stringValue("histoName").c_str());
    float evW6 = evC6->GetBinContent(1);
    w6->Close();
 

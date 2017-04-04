@@ -314,6 +314,12 @@ def makeDiTauEventWeightTmp(sourceDiTaus):
          src         = cms.InputTag(sourceDiTaus)
    )
    return PSet
+def makeDiTauGenMatch(sourceDiTaus):
+   PSet = cms.PSet(
+         pluginType  = cms.string("PATDiTauPairGenMCMatching"),
+         src         = cms.InputTag(sourceDiTaus)
+   )
+   return PSet
 
 
 
@@ -1162,7 +1168,7 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
 
                               diTauEffCSV = makeDiTauEffCSV(src),#FILLED
                               diTauCSVShape = makeDiTauCSVShape(src),#FILLED
-                              #diTauGenMCMatch = makeDiTauGenMatch(src),#FILLED
+                              diTauGenMCMatch = makeDiTauGenMatch(src),#FILLED
 
 
                               diTauEventWeightTmp = makeDiTauEventWeightTmp(src),#FILLED
@@ -1258,14 +1264,19 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                               diTauVBFJets20 = makeDiTauPair(src,"njetigap20","vbfNJetsGap20"),
                               diTauVBFJets30 = makeDiTauPair(src,"njetingap","vbfNJetsGap30"),
 
-                              diTauDecayFound = makeDiTauPair(src,"decayModeFinding_2",'leg2.tauID("decayModeFinding")'),
-                              diTauDecayFoundNew = makeDiTauPair(src,"decayModeFindingNewDMs_2",'leg2.tauID("decayModeFindingNewDMs")'),
+                              diTauDecayMode1 = makeDiTauPair(src,"tauDecayMode_1",'leg1.decayMode()'),
+                              diTauDecayMode2 = makeDiTauPair(src,"tauDecayMode_2",'leg2.decayMode()'),
+                              diTauDecayFound1 = makeDiTauPair(src,"decayModeFinding_1",'leg1.tauID("decayModeFinding")'),
+                              diTauDecayFound2 = makeDiTauPair(src,"decayModeFinding_2",'leg2.tauID("decayModeFinding")'),
+                              diTauDecayFoundNew1 = makeDiTauPair(src,"decayModeFindingNewDMs_1",'leg1.tauID("decayModeFindingNewDMs")'),
+                              diTauDecayFoundNew2 = makeDiTauPair(src,"decayModeFindingNewDMs_2",'leg2.tauID("decayModeFindingNewDMs")'),
                               diTauProngs = makeDiTauPair(src,"tauProngs",'leg2.signalChargedHadrCands.size()'),#see Decay Modes
                               diTauPzeta = makeDiTauPair(src,"pZeta",'pZeta-1.5*pZetaVis'),
                               diTauPZ = makeDiTauPair(src,"pZ",'pZeta'),
                               diTauPZV = makeDiTauPair(src,"pzetavis",'pZetaVis'),
                               diTauTauZIP = makeDiTauPair(src,"tauZIP",'leg2.userFloat("zIP")'),
-                              diTauHadMass = makeDiTauPair(src,"m_2",'leg2.mass()'),
+                              diTauHadMass1 = makeDiTauPair(src,"m_1",'leg1.mass()'),
+                              diTauHadMass2 = makeDiTauPair(src,"m_2",'leg2.mass()'),
 
                               diTauMuDZ = makeDiTauPair(src,"dZ_1","leg1.userFloat('taudZ')"),
                               diTauTauDZ = makeDiTauPair(src,"dZ_2","leg2.userFloat('taudZ')"),

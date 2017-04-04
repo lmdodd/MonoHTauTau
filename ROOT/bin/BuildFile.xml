@@ -6,32 +6,18 @@
 <use   name="roofit"/>
 <use   name="roostats"/>
 <use   name="HTT-utilities/RecoilCorrections"/>
-
 <!--<use   name="roottmva"/>0-->
-
-<bin   name="GetErrors" file="GetErrors.cc">
-</bin>
-<bin   name="MVATrainer" file="MVATrainer.cc">
-</bin>
-<bin   name="MakeSelTableETau" file="MakeSelTableETau.cc">
-</bin>
-<bin   name="MakeSelTableMuTau" file="MakeSelTableMuTau.cc">
-</bin>
-<bin   name="PrintSelectionTable" file="PrintSelectionTable.cc">
-</bin>
-<bin   name="PrintSelectionTableFromTree" file="PrintSelectionTableFromTree.cc">
-</bin>
 <bin   name="EventWeightsIterativePU" file="EventWeightsIterativePUWeighting.cc">
 </bin>
 <bin   name="EventWeightsIterativeFixMe" file="EventWeightsIterativeFixMe.cc">
+</bin>
+<bin   name="EventWeightsForEfficiencyHighTauEffi" file="EventWeightsForEfficiencyHighTauEffi.cc">
 </bin>
 <bin   name="EventWeightsIterativeGen" file="EventWeightsIterativeGen.cc">
 </bin>
 <bin   name="EventWeightsIterativeFakeTauPt" file="EventWeightsIterativeFakeTauPt.cc">
 </bin>
 <bin   name="EventWeightsIterativeGenPU" file="EventWeightsIterativeGenPU.cc">
-</bin>
-<bin   name="EventWeightsIterative" file="EventWeightsIterative.cc">
 </bin>
 <bin   name="EventWeightsIterativeTT" file="EventWeightsIterativeTT.cc">
 </bin>
@@ -45,28 +31,14 @@
 </bin>
 <bin   name="EventWeightsIterativeZPt" file="EventWeightsIterativeZPt.cc">
 </bin>
-
 <bin   name="EventWeightsKFactorsHRes" file="EventWeightsKFactorsHRes.cc">
 </bin>
-
 <bin   name="EventWeightsFromHisto" file="EventWeightsFromHisto.cc">
 </bin>
-
-<bin   name="EventWeightsForEfficiency" file="EventWeightsForEfficiency.cc">
+<bin   name="EventWeightsForEfficiencyTracking" file="EventWeightsForEfficiencyTracking.cc">
 </bin>
-<bin   name="EventWeightsForEfficiencyTagAndProbe" file="EventWeightsForEfficiencyTagAndProbe.cc">
+<bin   name="EventWeightsForEfficiencyIsolation" file="EventWeightsForEfficiencyIsolation.cc">
 </bin>
-
-<bin   name="EventWeightsForEfficiencyFastTnP_Ele" file="EventWeightsForEfficiencyFastTnP_Ele.cc">
-</bin>
-
-
-<bin   name="EventWeightsForEfficiencyFastTnP" file="EventWeightsForEfficiencyFastTnP.cc">
-</bin>
-
-<bin   name="EventWeightsForEfficiencyFastWJets" file="EventWeightsForEfficiencyFastWJets.cc">
-</bin>
-
 <bin   name="OptimizeCuts" file="OptimizeCuts.cc">
   <use   name="MonoHTauTau/ROOT"/>
 </bin>

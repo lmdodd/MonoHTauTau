@@ -132,12 +132,6 @@ from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventT
 addDiTauEventTree(process,'diTauEventTree')
 #addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
-
-addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
-addEventSummary(process,True,'TT','eventSelectionTT')
-
-
 #Final trees afor shapes after shifts
 addMuTauEventTree(process,'muTauEventTreeTauNom','muTausSortedTauNom','diMuonsOSTauNom')
 addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSTauUp')
@@ -150,4 +144,10 @@ addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diEl
 addDiTauEventTree(process,'diTauEventTreeTauNom','diTausSortedTauNom')
 addDiTauEventTree(process,'diTauEventTreeTauUp','diTausSortedTauUp')
 addDiTauEventTree(process,'diTauEventTreeTauDown','diTausSortedTauDown')
+
+
+addEventSummary(process,True,'MT','eventSelectionMT')
+addEventSummary(process,True,'ET','eventSelectionET')
+addEventSummary(process,True,'TT','eventSelectionTT')
+
 
