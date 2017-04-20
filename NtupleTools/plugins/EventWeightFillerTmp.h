@@ -29,8 +29,8 @@ class EventWeightFillerTmp : public NtupleFillerBase {
             src_(iC.consumes<std::vector<T> >(iConfig.getParameter<edm::InputTag>("src"))) 
     {
         value = new float[2];
-        t->Branch("ZPt_reweight",&value[0],"ZPt_reweight1/F");
-        t->Branch("WPt_reweight",&value[1],"WPt_reweight1/F");
+        t->Branch("ZPt_reweight",&value[0],"ZPt_reweight/F");
+        t->Branch("WPt_reweight",&value[1],"WPt_reweight/F");
         std::string base = std::getenv("CMSSW_BASE");
         std::string fKFactor ="/src/MonoHTauTau/Configuration/data/kfactor.root";
         std::string file=base+fKFactor;

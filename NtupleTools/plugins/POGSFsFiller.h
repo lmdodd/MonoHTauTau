@@ -99,16 +99,16 @@ class POGSFsFiller : public NtupleFillerBase {
 
                     TriggerErr = h2_trigger2->GetBinError( h2_trigger2->GetXaxis()->FindBin(std::abs(eta)), h2_trigger2->GetYaxis()->FindBin(std::min(pt,499.)) );
 
-                    float id1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,499.)) );
-                    float id2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    float id1 = h2_id1->GetBinContent( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    float id2 = h2_id2->GetBinContent( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,119.)) );
                     ID1 = (id1*20.5+id2*16.3)/36.8;
 
-                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,499.)) );
-                    float iso1 = h2_iso1->GetBinContent( h2_iso1->GetXaxis()->FindBin(std::abs(eta)), h2_iso1->GetYaxis()->FindBin(std::min(pt,499.)) );
-                    float iso2 = h2_iso2->GetBinContent( h2_iso2->GetXaxis()->FindBin(std::abs(eta)), h2_iso2->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    ID1Err = h2_id1->GetBinError( h2_id1->GetXaxis()->FindBin(std::abs(eta)), h2_id1->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    float iso1 = h2_iso1->GetBinContent( h2_iso1->GetXaxis()->FindBin(std::abs(eta)), h2_iso1->GetYaxis()->FindBin(std::min(pt,119.)) );
+                    float iso2 = h2_iso2->GetBinContent( h2_iso2->GetXaxis()->FindBin(std::abs(eta)), h2_iso2->GetYaxis()->FindBin(std::min(pt,119.)) );
                     ID2 = (iso1*20.5+iso2*16.3)/36.8; 
 
-                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,499.)) );
+                    ID2Err = h2_id2->GetBinError( h2_id2->GetXaxis()->FindBin(std::abs(eta)), h2_id2->GetYaxis()->FindBin(std::min(pt,119.)) );
                     TRK = 1.0;
                     TRKErr = 1.0;
                 }
