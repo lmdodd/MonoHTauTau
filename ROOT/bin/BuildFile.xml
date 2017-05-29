@@ -31,6 +31,8 @@
 </bin>
 <bin   name="EventWeightsIterativeZPt" file="EventWeightsIterativeZPt.cc">
 </bin>
+<bin   name="EventWeightsIterativeK" file="EventWeightsIterativeK.cc">
+</bin>
 <bin   name="EventWeightsKFactorsHRes" file="EventWeightsKFactorsHRes.cc">
 </bin>
 <bin   name="EventWeightsFromHisto" file="EventWeightsFromHisto.cc">

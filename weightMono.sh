@@ -4,28 +4,30 @@
 #cd /nfs_scratch/$USER/monohiggs_weighted1
 
 #cd /nfs_scratch/$USER/monohiggs_Z
-cd /nfs_scratch/$USER/monohiggs_new
+cd /nfs_scratch/$USER/monohiggs_Apr23
 
 
-weight=2;
-weightTT=2;
-weightH=2;
-weightW=2;
-weightEWK=2;
-weightTriBoson=2;
-weightBaryonic=2;
-weightZ=2;
-weightZN=2;
-weightAh=2;
+weight=0;
+weightTT=0;
+weightH=0;
+weightW=0;
+weightEWK=0;
+weightTriBoson=0;
+weightBaryonic=0;
+weightZ=0;
+weightZN=0;
+weightAh=0;
 
 weightZinv=3;
 
 
-hadd DiBoson.root WWTo*root WZTo*root ZZTo*.root St_*.root t*tW.root VVTo*root WWW.root ZZZ.root WWZ.root WZZ.root
-hadd Znunu.root ZJetsNuNu*root 
-hadd EWK.root EWK*root 
-hadd EWKZ.root EWK*root 
-hadd EWKW.root EWK*2jet.root 
+hadd WJETS.root WJets*root 
+#hadd DiBoson.root WWTo*root WZTo*root ZZTo*.root St_*.root t*tW.root VVTo*root WWW.root ZZZ.root WWZ.root WZZ.root
+#hadd Znunu.root ZJetsNuNu*root 
+
+#hadd EWK.root EWK*root 
+#hadd EWKZ.root EWKZ*root 
+#hadd EWKW.root EWK*2jet.root 
 #hadd WJETSHT.root WJetsHT*root 
 #hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root 
 
@@ -69,6 +71,7 @@ then
     #hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root 
 
     EventWeightsIterativeZPt  outputFile='ZJETS.root'  weight=1    histoName='MT/results' 
+    EventWeightsIterativeZPt  outputFile='EWKZ.root'  weight=1    histoName='MT/results' 
     #EventWeightsForEfficiencyIsolation  outputFile='ZJETS.root' 
     #EventWeightsForEfficiencyTracking  outputFile='ZJETS.root' 
     #hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root ZJets_150.root

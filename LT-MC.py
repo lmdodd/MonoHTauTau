@@ -12,17 +12,20 @@ process.options.allowUnscheduled = cms.untracked.bool(True)
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 500
+process.MessageLogger.cerr.FwkReport.reportEvery = 1
 
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
-            'file:pickevents.root'
+            #'/store/mc/RunIISummer16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-1200_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/128B8DDC-E1C9-E611-A09D-0CC47A78A4B0.root'
             #'/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/60000/8EE3D66F-E1C3-E611-B3D5-6CC2173BBD70.root'
+            'file:pickevents_btag.root'
             ),
         inputCommands=cms.untracked.vstring(
             'keep *',
-            )
+
+            ),
+        #firstEvent = cms.untracked.uint32(47492)
         )
 
 process.maxEvents = cms.untracked.PSet(
@@ -123,8 +126,8 @@ createGeneratedParticles(process,
         )
 
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
-addMuTauEventTree(process,'muTauEventTree')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
+#addMuTauEventTree(process,'muTauEventTree')
 #addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
 
@@ -132,26 +135,26 @@ from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEvent
 addEleTauEventTree(process,'eleTauEventTree')
 #addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-addDiTauEventTree(process,'diTauEventTree')
+#from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
+#addDiTauEventTree(process,'diTauEventTree')
 #addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 #Final trees afor shapes after shifts
-addMuTauEventTree(process,'muTauEventTreeTauNom','muTausSortedTauNom','diMuonsOSTauNom')
-addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSTauUp')
-addMuTauEventTree(process,'muTauEventTreeTauDown','muTausSortedTauDown','diMuonsOSTauDown')
+#addMuTauEventTree(process,'muTauEventTreeTauNom','muTausSortedTauNom','diMuonsOSTauNom')
+#addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSTauUp')
+#addMuTauEventTree(process,'muTauEventTreeTauDown','muTausSortedTauDown','diMuonsOSTauDown')
 
 addEleTauEventTree(process,'eleTauEventTreeTauNom','eleTausSortedTauNom','diElectronsOSTauNom')
-addEleTauEventTree(process,'eleTauEventTreeTauUp','eleTausSortedTauUp','diElectronsOSTauUp')
-addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diElectronsOSTauDown')
+#addEleTauEventTree(process,'eleTauEventTreeTauUp','eleTausSortedTauUp','diElectronsOSTauUp')
+#addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diElectronsOSTauDown')
 
-addDiTauEventTree(process,'diTauEventTreeTauNom','diTausSortedTauNom')
-addDiTauEventTree(process,'diTauEventTreeTauUp','diTausSortedTauUp')
-addDiTauEventTree(process,'diTauEventTreeTauDown','diTausSortedTauDown')
+#addDiTauEventTree(process,'diTauEventTreeTauNom','diTausSortedTauNom')
+#addDiTauEventTree(process,'diTauEventTreeTauUp','diTausSortedTauUp')
+#addDiTauEventTree(process,'diTauEventTreeTauDown','diTausSortedTauDown')
 
 
-addEventSummary(process,True,'MT','eventSelectionMT')
+#addEventSummary(process,True,'MT','eventSelectionMT')
 addEventSummary(process,True,'ET','eventSelectionET')
-addEventSummary(process,True,'TT','eventSelectionTT')
+#addEventSummary(process,True,'TT','eventSelectionTT')
 
 
