@@ -12,21 +12,9 @@ process.options.allowUnscheduled = cms.untracked.bool(True)
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 1
+process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
 
-process.source = cms.Source("PoolSource",
-        fileNames = cms.untracked.vstring(
-            #'/store/mc/RunIISummer16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-1200_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/128B8DDC-E1C9-E611-A09D-0CC47A78A4B0.root'
-            '/store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/60000/8EE3D66F-E1C3-E611-B3D5-6CC2173BBD70.root'
-            #'file:pickevents_btag.root'
-            ),
-        #firstEvent = cms.untracked.uint32(47492)
-        )
-
-process.maxEvents = cms.untracked.PSet(
-        input = cms.untracked.int32(-1)
-        )
 
 #added in etau and mutau triggers
 from MonoHTauTau.Configuration.tools.analysisToolsXTauTau import *
@@ -72,7 +60,6 @@ process.eventSelectionET = cms.Path(process.selectionSequenceET)
 process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
 #Systematic Shifts 1sigma
 
-
 #def createSystematics(process,sequence,postfix,muScale,eScale,tauScale,jetScale,unclusteredScale,electronresb = 0.0, electronrese = 0.0, oneProngScale = 1.0,oneProngPi0Scale = 1.0, threeProngScale = 1.0):
 process.eventSelectionMTTauNom    = createSystematics(process,process.selectionSequenceMT,'TauNom', 1.00, 1.00, 1.00, 0, 1.00)
 process.eventSelectionMTTauUp    = createSystematics(process,process.selectionSequenceMT, 'TauUp',  1.00, 1.00, 1.012, 0, 1.00)
@@ -91,8 +78,6 @@ process.eventSelectionTTTauUp    = createSystematics(process,process.selectionSe
 process.eventSelectionTTTauDown  = createSystematics(process,process.selectionSequenceTT,'TauDown', 1.00, 1.00, 0.988, 0, 1.00)
 #process.eventSelectionTTJetUp    = createSystematics(process,process.selectionSequenceTT,'JetUp',   1.00, 1.00, 1.00, 1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
 #process.eventSelectionTTJetDown    = createSystematics(process,process.selectionSequenceTT,'JetDown',   1.00, 1.00, 1.00, -1, 1.00, 0.00, 0.00, 0.982, 1.010, 1.004)
-
-
 
 
 
@@ -123,34 +108,51 @@ createGeneratedParticles(process,
 
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addMuTauEventTree
-addMuTauEventTree(process,'muTauEventTree')
+#addMuTauEventTree(process,'muTauEventTree')
 #addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addEleTauEventTree
-addEleTauEventTree(process,'eleTauEventTree')
+#addEleTauEventTree(process,'eleTauEventTree')
 #addEleTauEventTree(process,'eleTauEventTreeFinal','eleTausOS','diElectronsOSSorted')
 
 from MonoHTauTau.Configuration.tools.ntupleTools_monohiggs import addDiTauEventTree
-addDiTauEventTree(process,'diTauEventTree')
+#addDiTauEventTree(process,'diTauEventTree')
 #addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS')
 
 #Final trees afor shapes after shifts
-addMuTauEventTree(process,'muTauEventTreeTauNom','muTausSortedTauNom','diMuonsOSTauNom')
-addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSTauUp')
-addMuTauEventTree(process,'muTauEventTreeTauDown','muTausSortedTauDown','diMuonsOSTauDown')
+addMuTauEventTree(process,'muTauEventTree','muTausSortedTauNom','diMuonsOSSortedTauNom')
+addMuTauEventTree(process,'muTauEventTreeTauUp','muTausSortedTauUp','diMuonsOSSortedTauUp')
+addMuTauEventTree(process,'muTauEventTreeTauDown','muTausSortedTauDown','diMuonsOSSortedTauDown')
 
-addEleTauEventTree(process,'eleTauEventTreeTauNom','eleTausSortedTauNom','diElectronsOSTauNom')
-addEleTauEventTree(process,'eleTauEventTreeTauUp','eleTausSortedTauUp','diElectronsOSTauUp')
-addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diElectronsOSTauDown')
+addEleTauEventTree(process,'eleTauEventTree','eleTausSortedTauNom','diElectronsOSSortedTauNom')
+addEleTauEventTree(process,'eleTauEventTreeTauUp','eleTausSortedTauUp','diElectronsOSSortedTauUp')
+addEleTauEventTree(process,'eleTauEventTreeTauDown','eleTausSortedTauDown','diElectronsOSSortedTauDown')
 
-addDiTauEventTree(process,'diTauEventTreeTauNom','diTausSortedTauNom')
+addDiTauEventTree(process,'diTauEventTree','diTausSortedTauNom')
 addDiTauEventTree(process,'diTauEventTreeTauUp','diTausSortedTauUp')
 addDiTauEventTree(process,'diTauEventTreeTauDown','diTausSortedTauDown')
 
+addEventSummary(process,True,'MT','eventSelectionMTTauNom')
+addEventSummary(process,True,'ET','eventSelectionETTauNom')
+addEventSummary(process,True,'TT','eventSelectionTTTauNom')
 
-addEventSummary(process,True,'MT','eventSelectionMT')
-addEventSummary(process,True,'ET','eventSelectionET')
-addEventSummary(process,True,'TT','eventSelectionTT')
 
+process.source = cms.Source("PoolSource",
+        fileNames = cms.untracked.vstring(
+            $inputFileNames
+            ),
+        inputCommands=cms.untracked.vstring(
+            'keep *',
+            )
+        )
+
+process.maxEvents = cms.untracked.PSet(
+        input = cms.untracked.int32(-1)
+        )
+
+process.TFileService = cms.Service(
+        "TFileService",
+        fileName = cms.string("$outputFileName")
+        )
 

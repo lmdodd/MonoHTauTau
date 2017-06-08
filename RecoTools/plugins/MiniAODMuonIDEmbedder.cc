@@ -36,6 +36,7 @@ class MiniAODMuonIDEmbedder : public edm::EDProducer {
     private:
         edm::EDGetTokenT<pat::MuonCollection> muonsCollection_;
         edm::EDGetTokenT<reco::VertexCollection> vtxToken_;
+
         reco::Vertex pv_;
 };
 
@@ -82,6 +83,7 @@ bool MiniAODMuonIDEmbedder::is2016GHmedium(const reco::Muon & recoMu)
 // class member functions
 MiniAODMuonIDEmbedder::MiniAODMuonIDEmbedder(const edm::ParameterSet& pset) {
     muonsCollection_ = consumes<pat::MuonCollection>(pset.getParameter<edm::InputTag>("src"));
+
     vtxToken_            = consumes<reco::VertexCollection>(pset.getParameter<edm::InputTag>("vertices"));
 
     produces<pat::MuonCollection>();
@@ -137,10 +139,11 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
         //std::cout<<"     Muon Isolation03: "<<muIso03<<std::endl;
 
         int muId = 0; 
+        int muHIPId = 0; 
         //std::cout<<"     muID initialized to: "<<muId<<std::endl;
         //std::cout<<"     muon.globalTrack() isNonnull: "<<muon.globalTrack().isNonnull()<<std::endl;
-        muId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
-
+        muHIPId =MiniAODMuonIDEmbedder::is2016BCDEFmedium(muon); 
+        muId =MiniAODMuonIDEmbedder::is2016GHmedium(muon); 
         int muTightId = 0; 
         muTightId = muon.isTightMuon(pv_);
         //std::cout<<"     muIDsetto: "<<muTightId<<std::endl;
@@ -149,6 +152,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
         muon.addUserFloat("iso",muIso);
         muon.addUserFloat("dBRelIso03",muIso03);
         muon.addUserInt("mediumID",muId);
+        muon.addUserInt("mediumGHID",muHIPId);
         muon.addUserInt("tightID",muTightId);
 
         output->push_back(muon);
