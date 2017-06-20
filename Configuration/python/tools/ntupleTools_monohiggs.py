@@ -608,11 +608,9 @@ def addMuTauEventTree(process,name,src='muTausSorted', srcLL='diMuonsOSSorted', 
 
 
                               #Jets
-                              muTauJetsPt20nbtag = makeMuTauJetCountPair(src,"nbtag",'userFloat("isbtagged")&&pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
                               muTauJetsPt20nbtagLoose = makeMuTauJetCountPair(src,"nbtagLooseNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.5426'),
                               muTauJetsPt20nbtagNoSF = makeMuTauJetCountPair(src,"nbtagNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
-                              muTauJetsPt30nbtagNoSf = makeMuTauJetCountPair(src,"nbtag30",'userFloat("isbtagged")&&pt()>30&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
-                              muTauJetsPt30nbtag = makeMuTauJetCountPair(src,"nbtag30",'pt()>30&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
+                              muTauJetsPt30nbtag = makeMuTauJetCountPair(src,"nbtag30NoSF",'pt()>30&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
 
                               muTauJetsPt30njets = makeMuTauJetCountPair(src,"njets",'pt()>30&&abs(eta)<4.7&&userFloat("idLoose")'),
                               muTauJetsPt30njetsnopu = makeMuTauJetCountPair(src,"njetspuID",'pt()>30&&abs(eta)<4.7&&userFloat("idLoose")&&!userFloat("puIDLoose")'),
@@ -1185,6 +1183,7 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                               diTaunIsoNeutral = makeDiTauPair(src,"nIsoNeutral",'leg2.userFloat("nIsoNeutral")'),
 
                               diTauJetsPt20nbtagNoSF = makeDiTauJetCountPair(src,"nbtagNoSF",'pt()>20&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
+                              diTauJetsPt30nbtagNoSF = makeDiTauJetCountPair(src,"nbtag30NoSF",'pt()>30&&abs(eta)<2.4&&userFloat("idLoose")&&bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>.8484'),
 
                               #'hltDoublePFTau35TrackPt1MediumIsolationDz02Reg',
                               #'hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg',v
