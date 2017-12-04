@@ -224,7 +224,7 @@ void readdir(TDirectory *dir, optutl::CommandLineParser parser,RooWorkspace *w, 
                     w->var("t_dm")->setVal(tauDM1);
 
                     float tau1 = w->function("t_binned_genuine_TightIso_tt_ratio")->getVal();
-                    float tau3 = w->function("t_genuine_TightIso_tt_data")->getVal();
+                    //float tau3 = w->function("t_genuine_TightIso_tt_data")->getVal();
                     float tau5 = w->function("t_genuine_TightIso_tt_ratio")->getVal();
 
                     w->var("t_pt")->setVal(tauPt);
@@ -232,7 +232,7 @@ void readdir(TDirectory *dir, optutl::CommandLineParser parser,RooWorkspace *w, 
                     w->var("t_dm")->setVal(tauDM);
 
                     float tau2 = w->function("t_binned_genuine_TightIso_tt_ratio")->getVal();
-                    float tau4 = w->function("t_genuine_TightIso_tt_data")->getVal();
+                    //float tau4 = w->function("t_genuine_TightIso_tt_data")->getVal();
                     float tau6 = w->function("t_genuine_TightIso_tt_ratio")->getVal();
 
                     //weight_redo1 = tau3*tau4; //idisoi=Eff Eff is now scale factor uncertinty 
@@ -252,6 +252,7 @@ void readdir(TDirectory *dir, optutl::CommandLineParser parser,RooWorkspace *w, 
                     if(gen_match1==5){
                         weight_tauid*=0.94;
                     }
+
                     else if(gen_match1==6){
                         if (pt1>200)pt1=200.;
 
@@ -289,29 +290,7 @@ void readdir(TDirectory *dir, optutl::CommandLineParser parser,RooWorkspace *w, 
                         else if (std::abs(eta2)<1.7)  weight_tauid*=1.154;
                         else if (std::abs(eta2)<2.3)  weight_tauid*=2.281;
                     }
-                    if (gen_match==1||gen_match==3){
-                        if (std::abs(eta2)<1.460)  weight_tauid*=1.213;
-                        else if (std::abs(eta2)>1.558)  weight_tauid*=1.375;
-                    }
-                    else if (gen_match==2||gen_match==4){
-                        if (std::abs(eta2)<0.4)  weight_tauid*=1.012;
-                        else if (std::abs(eta2)<0.8)  weight_tauid*=1.007;
-                        else if (std::abs(eta2)<1.2)  weight_tauid*=0.870;
-                        else if (std::abs(eta2)<1.7)  weight_tauid*=1.154;
-                        else if (std::abs(eta2)<2.3)  weight_tauid*=2.281;
-                    }
 
-                    if (gen_match1==1||gen_match1==3){
-                        if (std::abs(eta1)<1.460)  weight_tauid*=1.213;
-                        else if (std::abs(eta1)>1.558)  weight_tauid*=1.375;
-                    }
-                    else if (gen_match1==2||gen_match1==4){
-                        if (std::abs(eta1)<0.4)  weight_tauid*=1.012;
-                        else if (std::abs(eta1)<0.8)  weight_tauid*=1.007;
-                        else if (std::abs(eta1)<1.2)  weight_tauid*=0.870;
-                        else if (std::abs(eta1)<1.7)  weight_tauid*=1.154;
-                        else if (std::abs(eta1)<2.3)  weight_tauid*=2.281;
-                    }
                     if (gen_match1==1||gen_match1==3){
                         if (std::abs(eta1)<1.460)  weight_tauid*=1.213;
                         else if (std::abs(eta1)>1.558)  weight_tauid*=1.375;

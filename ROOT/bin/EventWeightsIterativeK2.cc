@@ -6,10 +6,12 @@
 #include "TH1F.h"
 #include "TMath.h"
 #include "TFileMerger.h"
+#include <iostream>
 
 
+using namespace std;
 
-void readdir(TDirectory *dir,optutl::CommandLineParser parser,TH1F* hist); 
+void readdir(TDirectory *dir,optutl::CommandLineParser parser,TH1F* hist, bool isOne); 
 
 
 
@@ -17,19 +19,20 @@ int main (int argc, char* argv[])
 {
     optutl::CommandLineParser parser ("Sets Event Weights in the ntuple");
     parser.addOption("histoName",optutl::CommandLineParser::kString,"Counter Histogram Name","EventSummary");
-    parser.addOption("weight",optutl::CommandLineParser::kDouble,"Weight to apply",1.0);
-    parser.addOption("branch",optutl::CommandLineParser::kString,"Branch","EWKonlyREDO");
+    parser.addOption("isOne",optutl::CommandLineParser::kDouble,"If true, embed 1",0.0);
+    parser.addOption("branch",optutl::CommandLineParser::kString,"Branch","WWNLOewk");
 
 
     parser.parseArguments (argc, argv);
+    std::cout << "EXTRA COMMANDS:"
+        << "\n --- isOne: " << parser.doubleValue("isOne")
+        << std::endl;
+    bool isOne = parser.doubleValue("isOne");
 
-
-
-    TFile *fWpt    = new TFile("kfactor.root","UPDATE");
+    TFile *fWpt    = new TFile("WWsigma.root","UPDATE");
     TH1F* hWpt = 0;
     if(fWpt!=0 && fWpt->IsOpen()) {
-        hWpt = (TH1F*)fWpt->Get("EWKcorr/W");;
-        hWpt->Divide((TH1F*)fWpt->Get("WJets_012j_NLO/nominal"));
+        hWpt = (TH1F*)fWpt->Get("NLOEW");
         printf("ENABLING W WEIGHTING USING HISTOGRAM\n");
     }
     else{
@@ -39,7 +42,7 @@ int main (int argc, char* argv[])
 
 
     TFile *f0 = new TFile(parser.stringValue("outputFile").c_str(),"UPDATE");   
-    readdir(f0,parser,hWpt);
+    readdir(f0,parser,hWpt, isOne);
     f0->Close();
 
     if(fWpt!=0 && fWpt->IsOpen())
@@ -49,19 +52,26 @@ int main (int argc, char* argv[])
 } 
 
 
-void readdir(TDirectory *dir,optutl::CommandLineParser parser, TH1F* hist) 
+void readdir(TDirectory *dir,optutl::CommandLineParser parser, TH1F* hist, bool isOne) 
 {
     TDirectory *dirsav = gDirectory;
     TIter next(dir->GetListOfKeys());
     TKey *key;
     while ((key = (TKey*)next())) {
         printf("Found key=%s \n",key->GetName());
+        TString keyname = key->GetName();
+
+        if (keyname=="CircJetID_puv2"||keyname=="sumweights"){
+            printf("Skipping key %s . Not weighting. \n",key->GetName());
+            continue;
+        }
+
         TObject *obj = key->ReadObj();
 
         if (obj->IsA()->InheritsFrom(TDirectory::Class())) {
             dir->cd(key->GetName());
             TDirectory *subdir = gDirectory;
-            readdir(subdir,parser,hist);
+            readdir(subdir,parser,hist,isOne);
             dirsav->cd();
         }
         else if(obj->IsA()->InheritsFrom(TTree::Class())) {
@@ -70,26 +80,26 @@ void readdir(TDirectory *dir,optutl::CommandLineParser parser, TH1F* hist)
 
 
             TBranch *newBranch = t->Branch(parser.stringValue("branch").c_str(),&weight,(parser.stringValue("branch")+"/F").c_str());
-            float genPt=0;
-            t->SetBranchAddress("PtReweight",&genPt); //InvMass
-
-            //float genPx=0;
-            //float genPy=0;
-            //t->SetBranchAddress("genpX",&genPx); //genPx
-            //t->SetBranchAddress("genpY",&genPy); //genPy
-
-
+            float pfmet=0;
             printf("Found tree -> weighting\n");
+
+            t->SetBranchAddress("met",&pfmet); //InvMass
+
             for(Int_t i=0;i<t->GetEntries();++i){
                 t->GetEntry(i);
-                //float genpT = TMath::Sqrt(genPx*genPx+genPy*genPy);
-                //I think the above is more correct
-                //printf("Found genPt -> %f,\n",genPt);
-                //
-                weight =  1.0;
-                if (genPt < 150) genPt=151;
-                //weight = hist->GetBinContent(hist->GetXaxis()->FindBin(genPt));
 
+                weight =  1.0;
+
+                if (!isOne){
+                    if (pfmet>1999) pfmet=1999.;
+
+
+                    if (pfmet>20){
+
+                        int bin = hist->GetXaxis()->FindBin(pfmet);
+                        weight = hist->GetBinContent(bin);
+                    }
+                }
                 newBranch->Fill();
             }
             t->Write("",TObject::kOverwrite);

@@ -78,7 +78,7 @@ int main (int argc, char* argv[])
   
    //moved to ntuple
    //double LOtoNNLO=61526.7/50270;
-   double LOtoNNLO=1.0;
+   double LOtoNNLO=1.0; 
 
    double WLo=evW/(LOtoNNLO*50270.0);
    double WLo1=evW1/(LOtoNNLO*1345);
