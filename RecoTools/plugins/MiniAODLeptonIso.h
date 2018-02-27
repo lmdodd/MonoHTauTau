@@ -86,15 +86,18 @@ class MiniAODLeptonIso : public edm::EDProducer
                     if (pf.pt()==compositePtrCandidate.leg2()->pt()){ continue;}
                     if (pf.charge() == 0) {
                         if (pf.pt() > 0.5) neutral += pf.pt();
-                    } else if (pf.fromPV() >= 2) {
+                    } 
+                    else if (pf.fromPV() >= 2) {
                         charged += pf.pt();
-                    } else {
+                    } 
+                    else {
                         if (pf.pt() > 0.5) pileup += pf.pt();
                     }
                 }
             }
             // do deltaBeta
             double iso = charged + std::max(0.0, neutral-0.5*pileup);
+            //double iso = charged; //+ std::max(0.0, neutral-0.5*pileup);
             //std::cout<<"Raw Combined Isolation: "<<iso<<" with relativeIsolation "<<iso/compositePtrCandidate.leg1()->pt()<<" with charged "<<charged<<" and neutral "<<neutral<<" and pileup "<<pileup<<std::endl;
 
             compositePtrCandidate.setLIso(iso);

@@ -32,8 +32,8 @@ defaultReconstructionMC(process,'HLT',
         #EventSelection
 process.load("MonoHTauTau.Configuration.boostedHiggs_cff")
 
-process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
-process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
+#process.eventSelectionTT = cms.Path(process.selectionSequenceTT)
+#process.eventSelectionMT = cms.Path(process.selectionSequenceMT)
 process.eventSelectionMTK = cms.Path(process.selectionSequenceMTK)
 
 
@@ -70,25 +70,22 @@ createGeneratedParticles(process,
 
 
 #boosted taus 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addDiTauEventTree
-addDiTauEventTree(process,'diTauEventTree')
-addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS','diNonBoostTausOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addDiTauEventTree
+#addDiTauEventTree(process,'diTauEventTree')
+#addDiTauEventTree(process,'diTauEventTreeFinal','diTausOS','diNonBoostTausOSSorted')
 
-from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
-addMuTauEventTree(process,'muTauEventTree')
-addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
+#from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTauEventTree
+#addMuTauEventTree(process,'muTauEventTree')
+#addMuTauEventTree(process,'muTauEventTreeFinal','muTausOS','diMuonsOSSorted')
 
 #track trees
 from MonoHTauTau.Configuration.tools.ntupleToolsBoostedHiggs import addMuTrackEventTree
 addMuTrackEventTree(process,'muTrackEventTree')
 addMuTrackEventTree(process,'muTrackEventTreeFinal','muTracksOS','diMuonsTrkOSSorted')
 
-
-addEventSummary(process,True,'TT','eventSelectionTT')
-addEventSummary(process,True,'MT','eventSelectionMT')
-#addEventSummary(process,True,'ET','eventSelectionET')
+#addEventSummary(process,True,'TT','eventSelectionTT')
+#addEventSummary(process,True,'MT','eventSelectionMT')
 addEventSummary(process,True,'MTK','eventSelectionMTK')
-#addEventSummary(process,True,'ETK','eventSelectionETK')
 
 
 #Final trees afor shapes after shifts
@@ -115,8 +112,3 @@ process.maxEvents = cms.untracked.PSet(
         input = cms.untracked.int32(-1)
         )
 
-#process.TFileService.fileName=cms.string("$outputFileName")
-#process.TFileService = cms.Service(
-#        "TFileService",
-#        fileName = cms.string("higgs.oot")
-#        )

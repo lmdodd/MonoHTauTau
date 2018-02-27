@@ -60,8 +60,8 @@ class POGSFsFiller : public NtupleFillerBase {
         else { std::cout<<"WARNING::POGSFsFiller No efficiency file found!!!"<<std::endl;}
 
         if(Mu_){
-            h2_trigger = (TH2D*)f_file1->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/abseta_pt_ratio");
-            h2_trigger2    = (TH2D*)f_file2->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins/abseta_pt_ratio");
+            h2_trigger = (TH2D*)f_file1->Get("Mu50_OR_TkMu50_PtEtaBins/abseta_pt_ratio");
+            h2_trigger2    = (TH2D*)f_file2->Get("Mu50_OR_TkMu50_PtEtaBins/abseta_pt_ratio");
             h2_id1    = (TH2D*)f_file3->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
             h2_iso1    = (TH2D*)f_file3->Get("TightISO_TightID_pt_eta/abseta_pt_ratio");
             h2_id2    = (TH2D*)f_file4->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/abseta_pt_ratio");
