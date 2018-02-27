@@ -3,12 +3,12 @@ import os
 import re
 
 
-name = 'March25_submission_v1'
+name = 'Jun12_submission_v3'
 projectName = 'MONOHTT_PLAYPEN'
 
 dataset = [
-'/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/MINIAODSIM',
-'/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM'
+'/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-300_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',
+'/ZprimeToA0hToA0chichihtautau_2HDM_MZp-600_MA0-400_13TeV-madgraph/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM'
 ]
 
 
@@ -26,7 +26,7 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
 config.Data.publication = False
 config.Site.storageSite = 'T2_US_Wisconsin'
-config.JobType.psetName = 'SUB-MC.py'
+config.JobType.psetName = 'SUB-MC-noTES.py'
 config.JobType.maxMemoryMB = 4500
 #config.JobType.inputFiles = ["%s/src/MonoHTauTau/Configuration/data" % os.environ["CMSSW_BASE"]]
 config.Data.inputDBS = 'global'
@@ -46,7 +46,7 @@ for sample in dataset:
       
 
   config.Data.inputDataset = sample 
-  config.Data.unitsPerJob = 1
+  config.Data.unitsPerJob = 15
   config.Data.totalUnits = -1
   config.Data.outLFNDirBase = '/store/user/%s/crab_%s/%s/%s' % (getUsernameFromSiteDB(), projectName, name,primaryDS)
   submit(config)

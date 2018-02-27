@@ -4,32 +4,30 @@
 #cd /nfs_scratch/$USER/monohiggs_weighted1
 
 #cd /nfs_scratch/$USER/monohiggs_Z
-cd /nfs_scratch/$USER/monohiggs_Apr23
+cd /nfs_scratch/$USER/monohiggs_wjets
 
 
-weight=0;
-weightTT=0;
-weightH=0;
-weightW=0;
-weightEWK=0;
-weightTriBoson=0;
-weightBaryonic=0;
-weightZ=0;
-weightZN=0;
+weight=2;
+weightTT=2;
+weightH=2;
+weightW=1;
+weightEWK=2;
+weightTriBoson=2;
+weightBaryonic=2;
+weightZN=2;
 weightAh=0;
+
+weightZ=2;
+weightZPt=2;
 
 weightZinv=3;
 
 
-hadd WJETS.root WJets*root 
-#hadd DiBoson.root WWTo*root WZTo*root ZZTo*.root St_*.root t*tW.root VVTo*root WWW.root ZZZ.root WWZ.root WZZ.root
+#hadd WJETS.root WJets*root 
+#rm WZTo3L1Nu_amc.root 
+#rm WWTo1L1Nu2Q.root 
 #hadd Znunu.root ZJetsNuNu*root 
-
-#hadd EWK.root EWK*root 
-#hadd EWKZ.root EWKZ*root 
-#hadd EWKW.root EWK*2jet.root 
-#hadd WJETSHT.root WJetsHT*root 
-#hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root 
+#hadd smH125.root ggH125.root vbfH125.root ZH125.root WpH125.root WmH125.root ttH.root ggHWW.root vbfHWW.root 
 
 if [ $weightH -eq 1 ]
 then
@@ -43,8 +41,13 @@ then
     echo 'weight HWW'
     EventWeightsIterativeGen outputFile='ggHWW.root'     weight=1.09644    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     EventWeightsIterativeGen outputFile='vbfHWW.root'     weight=0.085359    histoName='MT/results' sumHistoName='sumweights/genWeights' 
-    hadd smH125.root ggH125.root vbfH125.root ZH125.root ggHWW.root vbfHWW.root 
-    #hadd smH125.root ggH125.root ZH125.root  
+
+    echo 'weight WH'
+    EventWeightsIterativeGen outputFile='WpH125.root'     weight=0.052    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+    EventWeightsIterativeGen outputFile='WmH125.root'     weight=0.0334    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+
+    EventWeightsIterativeGen outputFile='ttH.root'     weight=0.2151    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+
 fi
 
 if [ $weightZN -eq 1 ]
@@ -61,22 +64,23 @@ then
     #hadd WJETSHT.root WJets*root 
     EventWeightsIterativeWJets  weight=1    histoName='MT/results' 
 
-    #hadd WJETS.root WJets*root 
+    hadd WJETS.root WJets*root 
 fi
 
 
 if [ $weightZ -eq 1 ]
 then
-    #EventWeightsIterativeZJets    weight=1    histoName='MT/results'  
-    #hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root 
+    EventWeightsIterativeZJets    weight=1    histoName='MT/results'  
+    hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root 
+fi
 
+if [ $weightZPt -eq 1 ]
+then
+    #make sure Zpt root file is around!!!
     EventWeightsIterativeZPt  outputFile='ZJETS.root'  weight=1    histoName='MT/results' 
     EventWeightsIterativeZPt  outputFile='EWKZ.root'  weight=1    histoName='MT/results' 
     #EventWeightsForEfficiencyIsolation  outputFile='ZJETS.root' 
     #EventWeightsForEfficiencyTracking  outputFile='ZJETS.root' 
-    #hadd ZJETS.root ZJets_ext.root Z1Jets.root Z2Jets.root Z3Jets.root Z4Jets.root ZJets_150.root
-    #make sure Zpt root file is around!!!
-    #currently unused
 fi
 
 
@@ -91,28 +95,38 @@ fi
 if [ $weight -eq 1 ]
 then
 
+    EventWeightsIterativeGen outputFile='TTZ.root'      weight=0.2529  histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='TTW.root'      weight=0.2043  histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='Wg_LNuG.root'  weight=511.0  histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='Wg_LNuEE.root'  weight=2.793  histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='Wg_LNuMuMu.root'  weight=3.526  histoName='MT/results' sumHistoName='sumweights/genWeights'
+
     echo 'Weight ZZ'
     EventWeightsIterativeGen outputFile='ZZTo2L2Q.root'      weight=3.22  histoName='MT/results' sumHistoName='sumweights/genWeights'
-    echo 'Weight ZZ'
     EventWeightsIterativeGen outputFile='ZZTo2Q2Nu.root'      weight=4.03  histoName='MT/results' sumHistoName='sumweights/genWeights'
-    echo 'Weight ZZ'
     EventWeightsIterativeGen outputFile='ZZTo4L.root'      weight=1.212  histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='ZZTo2L2Nu.root'     weight=0.564   histoName='MT/results' sumHistoName='sumweights/genWeights'
 
 
-    echo 'Weight WZ 1L1NuQQ'
+    echo 'Weight WZ'
     EventWeightsIterativeGen outputFile='WZTo1L1Nu2Q.root'      weight=10.71   histoName='MT/results' sumHistoName='sumweights/genWeights'
-    #echo 'Weight WZ 2L2Q'
     EventWeightsIterativeGen outputFile='WZTo2L2Q.root'      weight=5.595   histoName='MT/results' sumHistoName='sumweights/genWeights'
-    echo 'Weight WZ 1L3Nu'
     EventWeightsIterativeGen outputFile='WZTo1L3Nu.root'      weight=3.05   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    #EventWeightsIterativeGen outputFile='WZTo3L1Nu_amc.root'      weight=5.26   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WZTo3L1Nu_pow.root'      weight=4.43   histoName='MT/results' sumHistoName='sumweights/genWeights'
 
-    echo 'Weight WW to L1Nu QQ'
+    echo 'Weight WW'
     EventWeightsIterativeGen outputFile='WWTo1L1Nu2Q.root'     weight=43.53     histoName='MT/results' sumHistoName='sumweights/genWeights'
-    #EventWeightsIterativeGen outputFile='WWTo2L2Q.root'     weight=10.48    histoName='MT/results' sumHistoName='sumweights/genWeights'
-    #EventWeightsIterativeGen outputFile='WWTo2L2Nu.root'     weight=10.48    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WWTo1L1NuQQ.root'     weight=43.53     histoName='MT/results' sumHistoName='sumweights/genWeights'
 
-    echo 'Weight VV to 2L2Nu'
-    EventWeightsIterativeGen outputFile='VVTo2L2Nu.root'     weight=11.95    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WWTo2L2Q.root'     weight=10.48    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WWTo2L2Nu.root'     weight=12.178   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='GluGluWWTo2L2Nu.root'     weight=0.59   histoName='MT/results' sumHistoName='sumweights/genWeights' #gg->WW (3.974 × 0.1086 × 0.1086 × (9 × 1.4)
+    #CHANGE ME
+    EventWeightsIterativeGen outputFile='WW_EWK.root'     weight=0.345   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WW_DPS.root'     weight=1.62   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WW_SS_EWK.root'     weight=0.026   histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='WW_SS_QCD.root'     weight=0.026   histoName='MT/results' sumHistoName='sumweights/genWeights'
 
     echo 'Weight t_tW'
     EventWeightsIterativeGen outputFile='t_tW.root'       weight=38.09    histoName='MT/results' sumHistoName='sumweights/genWeights'
@@ -148,7 +162,10 @@ then
     EventWeightsIterativeGen outputFile='ZpBaryonic_Zp10_MChi500.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
     EventWeightsIterativeGen outputFile='ZpBaryonic_Zp500_MChi500.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
     EventWeightsIterativeGen outputFile='ZpBaryonic_Zp500_MChi150.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
-    #EventWeightsIterativeGen outputFile='ZpBaryonic_Zp500_MChi1.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='ZpBaryonic_Zp200_MChi150.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='ZpBaryonic_Zp200_MChi50.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='ZpBaryonic_Zp50_MChi1.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
+    EventWeightsIterativeGen outputFile='ZpBaryonic_Zp50_MChi10.root'     weight=1    histoName='MT/results' sumHistoName='sumweights/genWeights'
 fi
 
 if [ $weightZinv -eq 1 ]
@@ -259,6 +276,11 @@ then
     EventWeightsIterativeGen outputFile='EWKZ2JetNuNu.root'  weight=10.01    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     EventWeightsIterativeGen outputFile='EWKminus2jet.root'  weight=20.25    histoName='MT/results' sumHistoName='sumweights/genWeights' 
     EventWeightsIterativeGen outputFile='EWKplus2jet.root'  weight=25.62    histoName='MT/results' sumHistoName='sumweights/genWeights' 
+
+    hadd EWK.root EWK*root 
+    hadd EWKZ.root EWKZ*root 
+    hadd EWKW.root EWK*2jet.root 
+
 fi
 
 if [ $weightTriBoson -eq 1 ]

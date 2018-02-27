@@ -69,30 +69,7 @@ class METFillerUncert : public NtupleFillerBase {
 					foundMET=true;
 				}
 				else{
-					for (size_t i = 0; i < metHandle->size(); ++i) {
-						const pat::MET& met = (*metHandle)[i];
-						//for ( auto name : met.userCandNames() ) std::cout << name << std::endl;	
-						double l1pdg = handle->at(0).leg1()->pdgId();
-						double l1eta = (round(handle->at(0).leg1()->eta()*1000))/1000.0;
-						double l1phi = (round(handle->at(0).leg1()->phi()*1000))/1000.0;
-						double l2pdg = handle->at(0).leg2()->pdgId();
-						double l2eta = (round(handle->at(0).leg2()->eta()*1000))/1000.0;
-						double l2phi = (round(handle->at(0).leg2()->phi()*1000))/1000.0;
-						double m1pdg = met.userCand("lepton0")->pdgId();
-						double m1eta = (round(met.userCand("lepton0")->eta()*1000))/1000.0;
-						double m1phi = (round(met.userCand("lepton0")->phi()*1000))/1000.0;
-						double m2pdg = met.userCand("lepton1")->pdgId();
-						double m2eta = (round(met.userCand("lepton1")->eta()*1000))/1000.0;
-						double m2phi = (round(met.userCand("lepton1")->phi()*1000))/1000.0;
-
-						if ( l1pdg==m1pdg && l2pdg==m2pdg && l1phi == m1phi && l2phi == m2phi && l1eta==m1eta && l2eta==m2eta)
-						{ 
-							//std::cout<<"FOUND MET MATCH"<<std::endl;
-							pfMET = &(metHandle->at(i)); 
-							foundMET=true;
-							break;
-						}
-					}//end met loop
+					std::cout<<"===============MET NOT FOUND, size>1============="<<std::endl;
 				}//end else
 
 				if(!foundMET) {	
@@ -101,6 +78,10 @@ class METFillerUncert : public NtupleFillerBase {
 				}
 
 
+                float met_dx = handle->at(0).met()->px() - pfMET->px();
+                float met_dy = handle->at(0).met()->py() - pfMET->py();
+                //std::cout<<"MET dx: "<<met_dx<<std::endl;
+                //std::cout<<"MET dy: "<<met_dy<<std::endl;
 
 				double et_leg1 = handle->at(0).leg1()->et();
 				double et_leg2 = handle->at(0).leg2()->et();
@@ -113,52 +94,29 @@ class METFillerUncert : public NtupleFillerBase {
 				double metPx = 0;
 				double metPy = 0;
 				if(foundMET&&uncert_=="EnUp"){
-					metPt = pfMET->shiftedPt(pat::MET::UnclusteredEnUp);
-					metPhi = pfMET->shiftedPhi(pat::MET::UnclusteredEnUp);
-					metPx = pfMET->shiftedPx(pat::MET::UnclusteredEnUp);
-					metPy = pfMET->shiftedPy(pat::MET::UnclusteredEnUp);
+					metPx = pfMET->shiftedPx(pat::MET::UnclusteredEnUp)+met_dx;
+					metPy = pfMET->shiftedPy(pat::MET::UnclusteredEnUp)+met_dy;
 				}
                 else if(foundMET&&uncert_=="EnDown"){
-					metPt = pfMET->shiftedPt(pat::MET::UnclusteredEnDown);
-					metPhi = pfMET->shiftedPhi(pat::MET::UnclusteredEnDown);
-					metPx = pfMET->shiftedPx(pat::MET::UnclusteredEnDown);
-					metPy = pfMET->shiftedPy(pat::MET::UnclusteredEnDown);
+					metPx = pfMET->shiftedPx(pat::MET::UnclusteredEnDown)+met_dx;
+					metPy = pfMET->shiftedPy(pat::MET::UnclusteredEnDown)+met_dy;
 				}
                 else if(foundMET&&uncert_=="JetUp"){
-					metPt = pfMET->shiftedPt(pat::MET::JetEnUp);
-					metPhi = pfMET->shiftedPhi(pat::MET::JetEnUp);
-					metPx = pfMET->shiftedPx(pat::MET::JetEnUp);
-					metPy = pfMET->shiftedPy(pat::MET::JetEnUp);
+					metPx = pfMET->shiftedPx(pat::MET::JetEnUp)+met_dx;
+					metPy = pfMET->shiftedPy(pat::MET::JetEnUp)+met_dy;
 				}
                 else if(foundMET&&uncert_=="JetDown"){
-					metPt = pfMET->shiftedPt(pat::MET::JetEnDown);
-					metPhi = pfMET->shiftedPhi(pat::MET::JetEnDown);
-					metPx = pfMET->shiftedPx(pat::MET::JetEnDown);
-					metPy = pfMET->shiftedPy(pat::MET::JetEnDown);
+					metPx = pfMET->shiftedPx(pat::MET::JetEnDown)+met_dx;
+					metPy = pfMET->shiftedPy(pat::MET::JetEnDown)+met_dy;
 				}
- 
                 else {
-					metPt = pfMET->pt();
-					metPhi = pfMET->phi();
-					metPx = pfMET->px();
-					metPy = pfMET->py();
+					metPx = pfMET->px()+met_dx;
+					metPy = pfMET->py()+met_dy;
 				}
 
-				/*
-				   if (doGen_) {
-				   double et_leg1 = handle->at(0).p4Leg1gen()->et();
-				   double et_leg2 = handle->at(0).p4VisLeg2gen()->et();
-				   double px_leg1 = handle->at(0).p4Leg1gen()->px();
-				   double px_leg2 = handle->at(0).p4VisLeg2gen()->px();
-				   double py_leg1 = handle->at(0).p4Leg1gen()->py();
-				   double py_leg2 = handle->at(0).p4VisLeg2gen()->py();
-				   double metPt = pfMET->genMET()->pt();
-				   double metPx = pfMET->genMET()->px();
-				   double metPy = pfMET->genMET()->py();
+                metPt = TMath::Sqrt(metPx*metPx+metPy*metPy);
+                metPhi=  TMath::ATan2( metPy, metPx );
 
-				   }
-
-*/
 				double px = px_leg1 + px_leg2 + metPx;
 				double px1 = px_leg1 + metPx;
 				double px2 = px_leg2 + metPx;

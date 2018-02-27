@@ -444,9 +444,8 @@ def addMuTauEventTree(process,name,src='muTausSorted', srcLL='diMuonsOSSorted', 
                               muTauPhi1LL = makeLTauGeneric("PATMuPairFiller",srcLL,"LLphi_1","leg1.phi"),#FILLED
                               muTauPhi2LL = makeLTauGeneric("PATMuPairFiller",srcLL,"LLphi_2","leg2.phi"),#FILLED
 
-                              #muTauMETCal = makeMuTauPair(src,"metCal","calibratedMET.pt()"),#NOLONGLERUSED
-                              #muTauMETPhi = makeMuTauPair(src,"metphi","metPhi"),#NOLONGERUSED
                               muTauMET1 = makeMuTauMET(src,"slimmedMETs","pf"),#FILLED
+                              #muTauMET1 = makeMuTauMET(src,"slimmedMETs","pf"),#FILLED
                               muTauMETJetUncertUp = makeMuTauMETUncert(src,"slimmedMETs","pf","JetUp"),#FILLED
                               muTauMETJetUncertDown = makeMuTauMETUncert(src,"slimmedMETs","pf","JetDown"),#FILLED
                               muTauMETUncertUp = makeMuTauMETUncert(src,"slimmedMETs","pf","EnUp"),#FILLED
@@ -1194,6 +1193,8 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
  
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyTightIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTaubyLooseIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byLooseIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")'),
+                              diTaubyLooseIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byLooseIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byLooseIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyMediumIsolationMVArun2v1DBdR03oldDMwLT_1 = makeDiTauPair(src,"byMediumIsolationMVArun2v1DBdR03oldDMwLT_1",'leg1.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),
                               diTaubyMediumIsolationMVArun2v1DBdR03oldDMwLT_2 = makeDiTauPair(src,"byMediumIsolationMVArun2v1DBdR03oldDMwLT_2",'leg2.tauID("byMediumIsolationMVArun2v1DBdR03oldDMwLT")'),
                             
@@ -1202,6 +1203,8 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                               diTaubyTightIsolationMVArun2v1DBoldDMwLT_2 = makeDiTauPair(src,"byTightIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byTightIsolationMVArun2v1DBoldDMwLT")'),
                               diTaubyMediumIsolationMVArun2v1DBoldDMwLT_1 = makeDiTauPair(src,"byMediumIsolationMVArun2v1DBoldDMwLT_1",'leg1.tauID("byMediumIsolationMVArun2v1DBoldDMwLT")'),
                               diTaubyMediumIsolationMVArun2v1DBoldDMwLT_2 = makeDiTauPair(src,"byMediumIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byMediumIsolationMVArun2v1DBoldDMwLT")'),
+                              diTaubyLooseIsolationMVArun2v1DBoldDMwLT_1 = makeDiTauPair(src,"byLooseIsolationMVArun2v1DBoldDMwLT_1",'leg1.tauID("byLooseIsolationMVArun2v1DBoldDMwLT")'),
+                              diTaubyLooseIsolationMVArun2v1DBoldDMwLT_2 = makeDiTauPair(src,"byLooseIsolationMVArun2v1DBoldDMwLT_2",'leg2.tauID("byLooseIsolationMVArun2v1DBoldDMwLT")'),
                               diTauagainstElectronVLooseMVA6_1 = makeDiTauPair(src,"againstElectronVLooseMVA6_1",'leg1.tauID("againstElectronVLooseMVA6")'),
                               diTauagainstElectronVLooseMVA6_2 = makeDiTauPair(src,"againstElectronVLooseMVA6_2",'leg2.tauID("againstElectronVLooseMVA6")'),
                               diTauagainstElectronMediumMVA6_1 = makeDiTauPair(src,"againstElectronMediumMVA6_1",'leg1.tauID("againstElectronMediumMVA6")'),
@@ -1242,6 +1245,7 @@ def addDiTauEventTree(process,name,src='diTausSorted', srcU='TightMuons', srcE='
                               diTauMET3 = makeDiTauMET(src,"MVAMET:MVAMET","mva"),#FILLED
  
                               diTauMET = makeDiTauPair(src,"met","met.pt()"),#FILLED
+                              #diTauGenMET = makeDiTauPair(src,"genMET","met.genMET()"),
                               diTauMETPhi = makeDiTauPair(src,"metphi","met.phi()"),#FILLED
 
                               diTauMT = makeDiTauPair(src,"mt12","mt12MET"),#FILLED

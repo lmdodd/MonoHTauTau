@@ -3,7 +3,7 @@ import os
 import re
 
 
-name = 'April20_submission_v1_DATA'
+name = 'Jun14_submission_v1_DATA'
 projectName = 'MONOHTT_PLAYPEN'
 
 dataset = [
@@ -42,7 +42,7 @@ def submit(config):
 
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
-config.General.workArea = 'crab_workArea_'+projectName+'_'+name
+config.General.workArea = '/cms/laura/crab_workArea_'+projectName+'_'+name
 config.General.transferOutputs = True
 config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
@@ -70,7 +70,7 @@ for sample in dataset:
 
 
   config.Data.inputDataset = sample 
-  config.Data.unitsPerJob = 10
+  config.Data.unitsPerJob = 200
   config.Data.totalUnits = -1
   config.Data.outLFNDirBase = '/store/user/%s/crab_%s/%s/%s' % (getUsernameFromSiteDB(), projectName, name,primaryDS)
   submit(config)

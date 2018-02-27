@@ -76,10 +76,10 @@ class EffCSVFiller : public NtupleFillerBase {
                     if(handle->at(0).jets().at(i)->pt()<30 || fabs(handle->at(0).jets().at(i)->eta())>2.4 ) continue;
                     double pt = handle->at(0).jets().at(i)->pt();
                     double eta = handle->at(0).jets().at(i)->eta();
-                    double csv = handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484;
+                    double csv = handle->at(0).jets().at(i)->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
                     int jetflavor = abs(handle->at(0).jets().at(i)->partonFlavour());
 
-                    if (csv>0.8484){
+                    if (csv>0.5426){
                         BTagEntry::JetFlavor jf= BTagEntry::FLAV_B;
                         if (jetflavor==4) jf = BTagEntry::FLAV_C;
                         else if (jetflavor!=5) jf = BTagEntry::FLAV_UDSG; 
@@ -106,7 +106,7 @@ class EffCSVFiller : public NtupleFillerBase {
                             SFdownLF.push_back(reader.eval_auto_bounds("down",jf, eta, pt ));
                         }
                         float tmp= reader.eval_auto_bounds("central",jf, eta, pt );
-                        std::cout<<"SF: "<<tmp<<std::endl;
+                        //std::cout<<"SF: "<<tmp<<std::endl;
 
                     }//end pass btag
                 }//end for jets

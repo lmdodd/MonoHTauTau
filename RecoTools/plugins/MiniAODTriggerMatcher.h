@@ -105,14 +105,14 @@ class MiniAODTriggerMatcher : public edm::EDProducer {
                         //std::cout << "\n === TRIGGER OBJECT FiltersAND: "<< filtersAND_[i]<< std::endl;
 
                         for(unsigned int j=0;j<trigObjects.size();++j){ 
-                            if(deltaR(trigObjects.at(j),pat)<0.5&&doAND==false) {
+                            if(deltaR(trigObjects.at(j),pat)<0.3&&doAND==false) {
                                 //std::cout << "\n === TRIGGER OBJECT DeltaR Calculation === " << std::endl;
                                 match=true;
                                 break;
                             }//end match if no AND requirements. 
-                            else if(deltaR(trigObjects.at(j),pat)<0.5&&doAND==true ) {
+                            else if(deltaR(trigObjects.at(j),pat)<0.3&&doAND==true ) {
                                 for(unsigned int r=0;r<trigObjectsAND.size();++r){
-                                    if(deltaR(trigObjectsAND.at(r),pat)<0.5){
+                                    if(deltaR(trigObjectsAND.at(r),pat)<0.3){
                                         match=true;
                                         goto endTriggerObjects;
                                     }//end if the AND passes

@@ -17,14 +17,15 @@ process.maxEvents = cms.untracked.PSet(
 
 # Make the framework shut up.
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 100
+process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
             #'file:pickevents.root'
-            '/store/mc/RunIISummer16MiniAODv2/DY1JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/02810E61-F5C5-E611-A78A-002590FD5A78.root'
-),
+            '/store/mc/RunIISummer16MiniAODv2/ZprimeToA0hToA0chichihtautau_2HDM_MZp-1200_MA0-300_13TeV-madgraph-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/128B8DDC-E1C9-E611-A09D-0CC47A78A4B0.root'
+            ),
+        firstEvent = cms.untracked.uint32(5),
         inputCommands=cms.untracked.vstring(
             'keep *',
             'keep *_l1extraParticles_*_*',
@@ -69,33 +70,32 @@ defaultReconstructionMC(process,'HLT',
             'HLT_ECALHT800'
             ])
 
-createGeneratedParticles(process,
-        'genDaughters',
-        [
-            "keep++ pdgId = {Z0}",
-            "keep pdgId = {tau+}",
-            "keep pdgId = {tau-}",
-            "keep pdgId = {mu+}",
-            "keep pdgId = {mu-}",
-            "keep pdgId = 6",
-            "keep pdgId = -6",
-            "keep pdgId = 11",
-            "keep pdgId = -11",
-            "keep pdgId = 25",
-            "keep pdgId = 35",
-            "keep pdgId = 37",
-            "keep pdgId = 36"
-            ]
-        )
+createGeneratedParticles(process, 'genDaughters',
+                [
+                    "keep++ pdgId = {Z0}",
+                    "keep pdgId = {tau+}",
+                    "keep pdgId = {tau-}",
+                    "keep pdgId = {mu+}",
+                    "keep pdgId = {mu-}",
+                    "keep pdgId = 6",
+                    "keep pdgId = -6",
+                    "keep pdgId = 11",
+                    "keep pdgId = -11",
+                    "keep pdgId = 25",
+                    "keep pdgId = 35",
+                    "keep pdgId = 37",
+                    "keep pdgId = 36"
+                    ]
+                )
 
 
 createGeneratedParticles(process,
-        'genTauCands',
-        [
-            "keep pdgId = {tau+} & mother.pdgId()= {Z0}",
-            "keep pdgId = {tau-} & mother.pdgId() = {Z0}"
-            ]
-        )
+                'genTauCands',
+                [
+                    "keep pdgId = {tau+} & mother.pdgId()= {Z0}",
+                    "keep pdgId = {tau-} & mother.pdgId() = {Z0}"
+                    ]
+                )
 
 #EventSelection
 process.load("MonoHTauTau.Configuration.monohiggs_cff")

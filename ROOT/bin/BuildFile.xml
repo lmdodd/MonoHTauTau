@@ -7,6 +7,8 @@
 <use   name="roostats"/>
 <use   name="HTT-utilities/RecoilCorrections"/>
 <!--<use   name="roottmva"/>0-->
+<bin   name="FakeFactor" file="FakeFactor.cc">
+</bin>
 <bin   name="EventWeightsIterativeFixMe" file="EventWeightsIterativeFixMe.cc">
 </bin>
 <bin   name="EventWeightsForEfficiencyHighTauEffi" file="EventWeightsForEfficiencyHighTauEffi.cc">
