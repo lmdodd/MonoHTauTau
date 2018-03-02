@@ -1,43 +1,27 @@
 import os
 import re
 
-name = '20160830_v1'
-projectName = 'MONOHTT_PLAYPEN'
+name = '20180302_v1'
+projectName = 'HTT_PLAYPEN'
 
 
 dataset = [
-'/SingleMuon/Run2016H-03Feb2017_ver3-v1/MINIAOD',
-'/SingleMuon/Run2016H-03Feb2017_ver2-v1/MINIAOD',
-'/SingleMuon/Run2016G-03Feb2017-v1/MINIAOD',
-'/SingleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',
-'/SingleMuon/Run2016C-03Feb2017-v1/MINIAOD',
-'/SingleMuon/Run2016D-03Feb2017-v1/MINIAOD',
-'/SingleMuon/Run2016E-03Feb2017-v1/MINIAOD',
-'/SingleMuon/Run2016F-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016B-03Feb2017_ver2-v2/MINIAOD',
-'/SingleElectron/Run2016C-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016D-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016E-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016F-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016G-03Feb2017-v1/MINIAOD',
-'/SingleElectron/Run2016H-03Feb2017_ver2-v1/MINIAOD',
-'/SingleElectron/Run2016H-03Feb2017_ver3-v1/MINIAOD',
-'/Tau/Run2016B-03Feb2017_ver2-v2/MINIAOD',
-'/Tau/Run2016C-03Feb2017-v1/MINIAOD',
-'/Tau/Run2016D-03Feb2017-v1/MINIAOD',
-'/Tau/Run2016E-03Feb2017-v1/MINIAOD',
-'/Tau/Run2016F-03Feb2017-v1/MINIAOD',
-'/Tau/Run2016G-03Feb2017-v1/MINIAOD',
-'/Tau/Run2016H-03Feb2017_ver2-v1/MINIAOD',
-'/Tau/Run2016H-03Feb2017_ver3-v1/MINIAOD'
+        '/SingleMuon/Run2016H-03Feb2017_ver3-v1/MINIAOD',
+        '/SingleMuon/Run2016H-03Feb2017_ver2-v1/MINIAOD',
+        '/SingleMuon/Run2016G-03Feb2017-v1/MINIAOD',
+        '/SingleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',
+        '/SingleMuon/Run2016C-03Feb2017-v1/MINIAOD',
+        '/SingleMuon/Run2016D-03Feb2017-v1/MINIAOD',
+        '/SingleMuon/Run2016E-03Feb2017-v1/MINIAOD',
+        '/SingleMuon/Run2016F-03Feb2017-v1/MINIAOD'
 ]
 
 
 def submit(sample, requestName, filesPerJob,fileToUse):
-    res = 'farmoutAnalysisJobs $1 --vsize-limit=8000 --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_NEW/'+fileToUse
+    res = 'farmoutAnalysisJobs $1 --vsize-limit=8000 --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_CONDOR/'+fileToUse
     os.system(res)
 
-psetName = 'SUB-JSON-Rereco.py'
+psetName = 'SUB-JSON-Boost.py'
 #config.JobType.inputFiles = ["%s/src/MonoHTauTau/Configuration/data" % os.environ["CMSSW_BASE"]]
 for sample in dataset:
   (_, primaryDS, conditions, dataTier) = sample.split('/')
@@ -55,7 +39,8 @@ for sample in dataset:
   if (conditions=='Run2016H-03Feb2017_ver2-v1' or conditions=='Run2016H-03Feb2017_ver3-v1'):
       psetName = 'SUB-JSON-Promptreco.py'
   else: 
-      psetName = 'SUB-JSON-Rereco.py'
+      psetName = 'SUB-JSON-Boost.py'
+
 
   inputDataset = sample 
   filesPerJob = '1'

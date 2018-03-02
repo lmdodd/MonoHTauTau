@@ -19,7 +19,7 @@ MTKanalysisConfigurator.addSelector('diMuonsTrkOS','PATMuPairSelector','leg1.isP
 MTKanalysisConfigurator.addSorter('diMuonsTrkOSSorted','PATMuPairSorter')
 
 #Make DiTaus   
-MTKanalysisConfigurator.addDiCandidateModule('muTracks','PATMuTrackPairProducer','smearedMuonsMTK','smearedTracksMTK','smearedMETMTK','smearedTausMTK','smearedJetsMTK',1,9999,text='AtLeastOneMuTrack',leadingObjectsOnly = False,dR = 0.3,recoMode ="",genParticles='prunedGenParticles',drmax=True)
+MTKanalysisConfigurator.addDiCandidateModule('muTracks','PATMuTrackPairProducer','smearedMuonsMTK','smearedTracksMTK','smearedMETMTK','smearedTausMTK','smearedJetsMTK',1,9999,text='AtLeastOneMuTrack',leadingObjectsOnly = False,dR = 0.5,recoMode ="",genParticles='prunedGenParticles',drmax=True)
 MTKanalysisConfigurator.addSelector('muTracksMuonPtEta','PATMuTrackPairSelector','leg1.pt()>50&&abs(leg1.eta())<2.4','MTKMuonPtEta',1)
 MTKanalysisConfigurator.addSelector('muTracksTrackPtEta','PATMuTrackPairSelector','leg2.pt()>50&&abs(leg2.eta())<2.4','MTKTrackPtEta',1)
 MTKanalysisConfigurator.addSelector('muTracksMuonMediumID','PATMuTrackPairSelector','leg1.userInt("tightID")>0','MTKMuonTightID',1)

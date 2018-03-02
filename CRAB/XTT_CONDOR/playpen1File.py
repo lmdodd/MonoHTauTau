@@ -3,17 +3,16 @@ import subprocess
 import re
 
 
-name = '20180227_v1'
+name = '20180302_v1'
 projectName = 'HTT_PLAYPEN'
 
 dataset = [
-        '/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',
-        '/ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8_mWCutfix/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM'
+     '/QCD_Pt-120to170_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM'
 ]
 
 
 def submit(sample, requestName, filesPerJob):
-    res = 'farmoutAnalysisJobs $1 --vsize-limit=8000 --skip-existing-output --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_CONDOR/SUB-MC.py'
+    res = 'farmoutAnalysisJobs $1 --vsize-limit=4000 --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_CONDOR/SUB-MC.py'
     os.system(res)
     #os.system(res)
 

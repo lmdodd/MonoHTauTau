@@ -3,7 +3,7 @@ import subprocess
 import re
 
 
-name = '20180227_v1'
+name = '20180228_v1'
 projectName = 'HTT_PLAYPEN'
 
 dataset = [
@@ -176,7 +176,7 @@ dataset = [
 
 
 def submit(sample, requestName, filesPerJob):
-    res = 'farmoutAnalysisJobs $1 --vsize-limit=8000 --skip-existing-output --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_CONDOR/SUB-MC.py'
+    res = 'farmoutAnalysisJobs $1 --vsize-limit=8000 --assume-input-files-exist --input-files-per-job='+filesPerJob+' --input-dbs-path='+sample+' '+requestName+' $CMSSW_BASE $CMSSW_BASE/src/MonoHTauTau/CRAB/XTT_CONDOR/SUB-MC.py'
     os.system(res)
     #os.system(res)
 
